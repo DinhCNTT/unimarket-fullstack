@@ -1,6 +1,6 @@
 # 🏪 UniMarket - Full-Stack E-Commerce Platform
 
-> **SocialMarket - Nền tảng mạng xã hội kết hợp marketplace với video ngắn, cho phép người dùng mua bán, chia sẻ và kết nối cộng đồng
+> **UniMarket - Nền tảng mạng xã hội kết hợp marketplace với video ngắn, cho phép người dùng mua bán, chia sẻ và kết nối cộng đồng
 
 ![Tech Stack](https://img.shields.io/badge/React-18.x-blue?logo=react)
 ![.NET](https://img.shields.io/badge/.NET-9.0-purple?logo=dotnet)
