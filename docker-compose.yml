@@ -1,0 +1,93 @@
+version: "3.8"
+
+services:
+  # =========================================
+  # 1. SQL SERVER & SEEDER
+  # =========================================
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: unimarket_sql
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: StrongPassword123!
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./database/unimarket.bak:/tmp/unimarket.bak
+    networks:
+      - unimarket-network
+
+  sql-seeder:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: unimarket_sql_seeder
+    depends_on:
+      - sqlserver
+    volumes:
+      - ./database/install.sh:/tmp/install.sh
+      - ./database/restore.sql:/tmp/restore.sql
+    command: /bin/bash /tmp/install.sh
+    networks:
+      - unimarket-network
+
+  # =========================================
+  # 2. MONGODB & SEEDER (MỚI THÊM)
+  # =========================================
+  mongodb:
+    image: mongo:latest
+    container_name: unimarket_mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - unimarket-network
+
+  mongo-seeder:
+    image: mongo:latest
+    container_name: unimarket_mongo_seeder
+    depends_on:
+      - mongodb
+    volumes:
+      # 👇 Gắn folder dữ liệu vừa backup vào
+      - ./database/mongo-dump:/mongo-dump
+      # 👇 Gắn script chạy vào
+      - ./database/install-mongo.sh:/install-mongo.sh
+    command: /bin/bash /install-mongo.sh
+    networks:
+      - unimarket-network
+
+  # =========================================
+  # 3. BACKEND & FRONTEND (GIỮ NGUYÊN)
+  # =========================================
+  backend:
+    container_name: unimarket_backend
+    build:
+      context: ./UniMarket-Backend/UniMarket
+      dockerfile: Dockerfile
+    ports:
+      - "5133:8080"
+    environment:
+      ConnectionStrings__DefaultConnection: Server=sqlserver,1433;Database=UniMarket5;User Id=sa;Password=StrongPassword123!;TrustServerCertificate=True;
+      ConnectionStrings__MongoDbConnection: mongodb://mongodb:27017
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      - sqlserver
+      - mongodb
+    networks:
+      - unimarket-network
+
+  frontend:
+    container_name: unimarket_frontend
+    build:
+      context: ./unimarket
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:5133
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - unimarket-network
+
+networks:
+  unimarket-network:
+    driver: bridge

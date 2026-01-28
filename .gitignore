@@ -1,0 +1,97 @@
+# ==========================================
+# NODE / FRONTEND
+# ==========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# ==========================================
+# .NET / BACKEND
+# ==========================================
+bin/
+obj/
+publish/
+*.suo
+*.user
+*.userosstate
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.nupkg
+*.snupkg
+packages/
+
+# ==========================================
+# DATABASE
+# ==========================================
+# Giữ lại database backup files để người khác có thể restore
+# database/*.bak
+# database/*.sql
+# database/mongo-dump/
+
+# ==========================================
+# DOCKER
+# ==========================================
+docker-data/
+*.log
+
+# ==========================================
+# IDE & EDITORS
+# ==========================================
+.vscode/
+.idea/
+.vs/
+*.swp
+*.swo
+*~
+
+# ==========================================
+# OS
+# ==========================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# ENVIRONMENT VARIABLES (QUAN TRỌNG!)
+# ==========================================
+.env
+.env.local
+.env.*.local
+appsettings.Development.json
+appsettings.Production.json
+
+# Giữ lại file appsettings.json mẫu
+!appsettings.json
+
+# ==========================================
+# GIT
+# ==========================================
+*.orig
+*.rej
+*.patch
+
+# ==========================================
+# TESTING & COVERAGE
+# ==========================================
+coverage/
+*.coverage
+.nyc_output/
+
+# ==========================================
+# MISC
+# ==========================================
+*.log
+.cache/
+temp/
+tmp/
