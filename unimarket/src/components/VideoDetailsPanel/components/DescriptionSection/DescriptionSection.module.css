@@ -1,0 +1,20 @@
+.container {
+  border-top: 1px solid var(--theme-border-color);
+  padding-top: 24px;
+}
+.title {
+  font-size: 16px; font-weight: 700; color: var(--theme-text-primary);
+  margin-bottom: 12px; letter-spacing: -0.01em;
+}
+.text {
+  font-size: 15px; color: var(--theme-text-secondary);
+  line-height: 1.65; font-weight: 400; white-space: pre-line; word-break: break-word;
+}
+.collapsed {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.toggleBtn {
+  background: none; border: none; font-size: 14px; margin-top: 8px;
+  font-weight: 600; color: var(--color-primary-dark); cursor: pointer; padding: 0;
+}
+.toggleBtn:hover { text-decoration: underline; }

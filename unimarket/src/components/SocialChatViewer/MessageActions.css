@@ -1,0 +1,101 @@
+/* ========================================= */
+/* --- MENU HÀNH ĐỘNG (HOVER) --- */
+/* ========================================= */
+.message-actions-hover {
+  display: flex;
+  align-items: center;
+  background-color: var(--theme-bg-secondary); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+  border-radius: 20px;
+  padding: 2px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease-in-out, visibility 0.15s ease-in-out;
+  z-index: 10;
+  border: 1px solid var(--theme-border-color);
+}
+
+/* Kích hoạt khi hover vào wrapper của Text hoặc Video */
+.text-message-wrapper:hover .message-actions-hover,
+.video-message-wrapper:hover .message-actions-hover {
+  opacity: 1;
+  visibility: visible;
+}
+
+.message-actions-hover.sent {
+  right: 100%;
+  margin-right: 8px;
+}
+
+.message-actions-hover.received {
+  left: 100%;
+  margin-left: 8px;
+}
+
+.action-icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  color: var(--theme-text-secondary); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.action-icon-btn:hover {
+  background-color: var(--theme-bg-hover);
+  color: var(--theme-text-primary); 
+}
+
+.action-menu-container {
+  position: relative;
+}
+
+.action-menu-dropdown {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  background-color: var(--theme-bg-primary);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 11;
+  overflow: hidden;
+  width: 150px;
+  margin-bottom: 6px;
+  border: 1px solid var(--theme-border-color);
+}
+
+.action-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--theme-text-primary);
+  transition: background-color 0.15s ease;
+}
+
+.action-menu-item:hover {
+  background-color: var(--theme-bg-hover);
+}
+
+.action-menu-item span {
+  flex-grow: 1;
+}
+
+.action-menu-item svg {
+  opacity: 0.8;
+  color: var(--theme-icon-color);
+}

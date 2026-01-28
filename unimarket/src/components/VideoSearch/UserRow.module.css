@@ -1,0 +1,176 @@
+/* --- CẤU TRÚC CHUNG --- */
+.userRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0; 
+  background-color: transparent;
+  border-bottom: none;   
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  width: 100%; 
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.userRow:hover {
+  /* Thay đổi: Dùng biến hover để thích ứng cả sáng/tối */
+  background-color: var(--theme-bg-hover); 
+  border-radius: 8px; 
+}
+
+/* --- PHẦN BÊN TRÁI (Avatar + Info) --- */
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 14px; 
+  flex: 1; 
+  min-width: 0;
+}
+
+.avatarWrapper {
+  position: relative;
+}
+
+.avatar {
+  width: 56px; 
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Thay đổi: Border màu động theo theme */
+  border: 1px solid var(--theme-border-color); 
+  flex-shrink: 0;
+}
+
+/* Thông tin text */
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  gap: 4px; 
+  overflow: hidden; 
+}
+
+/* Tên người dùng */
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.name {
+  font-weight: 700; 
+  font-size: 18px; 
+  line-height: 24px; 
+  /* Thay đổi: Màu chữ chính (Đen <-> Trắng) */
+  color: var(--theme-text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkIcon {
+  /* Giữ nguyên màu xanh thương hiệu (thường hiển thị tốt trên cả 2 nền) */
+  color: #20d5ec; 
+  font-size: 15px; 
+  flex-shrink: 0;
+  margin-top: 2px; 
+}
+
+.subInfo {
+  font-size: 14px; 
+  /* Thay đổi: Màu chữ phụ (Xám đậm <-> Xám nhạt) */
+  color: var(--theme-text-secondary); 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+}
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+  margin-top: 2px;
+  font-size: 13px; 
+  /* Thay đổi: Màu chữ phụ */
+  color: var(--theme-text-secondary); 
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statItem strong {
+  /* Thay đổi: Số liệu quan trọng dùng màu chính */
+  color: var(--theme-text-primary); 
+  font-weight: 600;
+}
+
+.dot {
+  font-size: 10px; 
+  /* Thay đổi: Dùng màu border cho dấu chấm để không bị chìm ở nền tối */
+  color: var(--theme-border-color);
+}
+
+/* --- PHẦN BÊN PHẢI (Nút Follow) --- */
+.actionSection {
+  padding-left: 15px;
+}
+
+/* --- CSS NÚT FOLLOW MỚI --- */
+.followBtn {
+  min-width: 105px; 
+  height: 38px;     
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 15px; 
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.2px;
+}
+
+/* TRẠNG THÁI CHƯA FOLLOW: MÀU VÀNG CAM "XỊN" */
+/* Giữ nguyên màu cam vì nó là màu Brand, nổi trên cả nền đen và trắng */
+.followBtn.notFollowed {
+  background-color: #FF9000; 
+  color: #ffffff; 
+  box-shadow: 0 2px 6px rgba(255, 144, 0, 0.25); 
+}
+
+.followBtn.notFollowed:hover {
+  background-color: #e68200; 
+  box-shadow: 0 4px 8px rgba(255, 144, 0, 0.35);
+  transform: translateY(-1px); 
+}
+
+/* TRẠNG THÁI ĐÃ FOLLOW */
+/* Logic: Nền xám nhạt/viền xám -> Nền xám đen/viền tối */
+.followBtn.followed {
+  /* Thay đổi: Dùng màu nền phụ (thường là xám nhạt) hoặc màu hover */
+  background-color: var(--theme-bg-hover); /* Sáng: #f1f1f1 | Tối: #1a1a1a */
+  
+  /* Thay đổi: Viền theo theme */
+  border: 1px solid var(--theme-border-color);
+  
+  /* Thay đổi: Chữ chuyển sang màu chính (Trắng ở Dark mode) */
+  color: var(--theme-text-primary);
+  
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.followBtn.followed:hover {
+  /* Thay đổi: Làm tối/sáng hơn 1 chút. 
+     Mẹo: dùng filter brightness để không phải tạo thêm biến màu */
+  filter: brightness(0.95); 
+  border-color: var(--theme-border-color);
+}

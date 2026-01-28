@@ -1,0 +1,117 @@
+/* Container bao quanh toàn bộ màn hình */
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  display: flex; /* Flexbox để chia 2 cột */
+  overflow: hidden;
+}
+
+/* --- CỘT TRÁI: VIDEO --- */
+.videoSide {
+  flex: 1; /* Tự động chiếm hết không gian còn lại */
+  position: relative;
+  background-color: #000; /* Nền đen hoặc mờ tuỳ ý */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* Nếu muốn ảnh nền mờ phía sau video player chính, xem phần VideoPlayer css */
+}
+
+/* Nút back nằm đè lên góc trái của vùng video */
+.backBtn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(84, 84, 84, 0.5);
+  backdrop-filter: blur(4px);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 100; /* Phải cao hơn video */
+  color: white;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.backBtn:hover {
+  background-color: rgba(84, 84, 84, 0.8);
+}
+
+/* --- CỘT PHẢI: SIDEBAR (INFO + COMMENT) --- */
+.sidebarSide {
+  width: 500px; /* Chiều rộng cố định giống TikTok Web */
+  min-width: 350px; /* Không bé hơn mức này */
+  height: 100%;
+  background-color: #fff; /* TikTok Web nền trắng, hoặc dùng #1c1c1e nếu muốn Dark Mode */
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 50;
+  /* Nếu dùng Dark Mode hoàn toàn: */
+  background-color: #121212; 
+  border-left: 1px solid #333;
+}
+
+.loading {
+  color: #fff;
+  text-align: center;
+  margin-top: 20%;
+  width: 100%;
+}
+
+/* Wrapper cho nút Next/Prev (Góc phải cột Video) */
+.navButtons {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 20;
+}
+
+.navBtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+
+.navBtn:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.navBtn:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Style cho phần header info bên phải cho gọn */
+.infoHeader {
+    padding: 20px 20px 0px 20px; 
+    border-bottom: none;
+    background-color: transparent;
+}
+
+.actionWrapper {
+    margin-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 0; 
+}

@@ -1,0 +1,90 @@
+/* src/components/TinDangDCBNhaTro.module.css */
+.container {
+  padding: 20px;
+  background-color: #ffffff;
+  margin: 5px auto;
+  width: 100%;      
+  max-width: 95%; 
+  box-sizing: border-box;
+  border-radius: 10px;
+  position: relative;
+}
+
+/* Reset Link chung cho container (để tránh gạch chân thừa) */
+.container a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Grid Lưới chứa các thẻ tin */
+.postList {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+/* List hiển thị hàng ngang cho bất động sản nhà trọ - GRID 5 COLUMNS */
+.postListBatDongSan {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  width: 100%;
+}
+
+/* --- ĐÂY LÀ PHẦN ĐÃ CHỈNH SỬA --- */
+.navContainer {
+/* --- KÍCH HOẠT DÍNH --- */
+  position: -webkit-sticky;
+  position: sticky;
+  
+  /* QUAN TRỌNG: Tăng lên 85px (hoặc 90px) để chắc chắn nó nằm dưới đáy của TopNavbar */
+  top: 70px; 
+  
+  /* Lớp thứ tự: 1000 là đủ để nổi trên tin đăng, nhưng vẫn nằm dưới Navbar (2100) */
+  z-index: 1000;
+  
+  /* Màu nền: Bắt buộc màu trắng đục để che nội dung trượt bên dưới */
+  background-color: #ffffff;
+  
+  /* --- CĂN CHỈNH --- */
+  margin-bottom: 24px;
+  padding: 15px 0; /* Tăng padding chút nhìn cho thoáng */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+  /* Mẹo: Thêm border bottom nhẹ để bạn dễ nhìn thấy nó đang nằm đâu */
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Nút Xem thêm */
+.viewMoreBtn {
+  display: block;
+  width: 180px;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: transparent;
+  color: #333;
+  border: 2px solid #333;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.viewMoreBtn:hover {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+
+/* Responsive cho Layout */
+@media screen and (max-width: 768px) {
+  .postListBatDongSan { padding: 0; }
+}
+
+@media screen and (max-width: 480px) {
+  .postListBatDongSan { padding: 0; }
+}

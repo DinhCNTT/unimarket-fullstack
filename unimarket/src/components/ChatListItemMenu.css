@@ -1,0 +1,130 @@
+/* File: src/components/ChatListItemMenu.css */
+
+.chatlist-item-menu {
+  position: relative;
+}
+
+.menu-toggle-btn {
+  /* 1. Giữ transparent để nhận màu nền của cha */
+  background: transparent;
+  
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* ✅ ĐỔI MÀU: Màu icon 3 chấm/chuông */
+  color: var(--theme-icon-color); 
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, background-color 0.2s ease, visibility 0.2s ease;
+  
+  /* Giữ nguyên vị trí tương đối để icon chồng nhau */
+  position: relative; 
+}
+
+/* 2. Logic hiển thị nút khi hover hoặc active */
+.chatlist-item-wrapper:hover .menu-toggle-btn,
+.chatlist-item-wrapper.active-chat .menu-toggle-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Hover vào nút 3 chấm */
+.menu-toggle-btn:hover {
+  /* ✅ ĐỔI MÀU: Nền khi hover vào nút */
+  background-color: var(--theme-bg-hover); 
+} 
+
+/* ================================================== */
+/* ✨ CSS CHO TÍNH NĂNG MUTE */
+/* ================================================== */
+
+/* Ẩn/hiện icon chuông và 3 chấm */
+.chatlist-item-menu .menu-toggle-btn .mute-icon {
+  display: none; /* Ẩn icon chuông mặc định */
+}
+.chatlist-item-menu .menu-toggle-btn .more-icon {
+  display: block; /* Hiện 3 chấm mặc định */
+}
+
+/* * KHI CHAT BỊ MUTE VÀ KHÔNG HOVER */
+.chatlist-item-wrapper.muted .chatlist-item-menu .menu-toggle-btn .mute-icon {
+  display: block;
+  /* ✅ ĐỔI MÀU: Màu icon chuông khi mute */
+  color: var(--theme-text-secondary); 
+}
+.chatlist-item-wrapper.muted .chatlist-item-menu .menu-toggle-btn .more-icon {
+  display: none;
+}
+
+/* * KHI CHAT BỊ MUTE VÀ ĐANG HOVER */
+.chatlist-item-wrapper.muted:hover .chatlist-item-menu .menu-toggle-btn .mute-icon {
+  display: none;
+}
+.chatlist-item-wrapper.muted:hover .chatlist-item-menu .menu-toggle-btn .more-icon {
+  display: block;
+}
+
+
+/* ================================================== */
+/* === PHẦN MENU DROPDOWN (POPUP) === */
+/* ================================================== */
+.menu-dropdown {
+  position: absolute;
+  top: 40px; 
+  right: 15px; 
+  
+  /* ✅ ĐỔI MÀU: Nền menu dropdown */
+  background-color: var(--theme-bg-primary); 
+  
+  /* ✅ ĐỔI MÀU: Viền menu */
+  border: 1px solid var(--theme-border-color); 
+  
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow đậm hơn chút cho nổi */
+  z-index: 100;
+  width: auto; 
+  min-width: 160px;
+  padding: 4px; 
+  overflow: hidden;
+  background-clip: padding-box; 
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 12px; 
+  border-radius: 6px; 
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  
+  /* ✅ ĐỔI MÀU: Màu chữ item */
+  color: var(--theme-text-primary); 
+  
+  transition: background-color 0.2s ease;
+  white-space: nowrap; 
+}
+
+.menu-item:hover {
+  /* ✅ ĐỔI MÀU: Nền hover item */
+  background-color: var(--theme-bg-hover); 
+}
+
+/* Mục xóa (màu đỏ) */
+.menu-item.delete {
+  color: #ff4444; /* Đỏ sáng hơn để dễ nhìn trên nền tối */
+}
+
+.menu-item.delete:hover {
+  /* ✅ ĐỔI MÀU: Nền hover đỏ nhạt (dùng rgba để xuyên thấu màu nền tối) */
+  background-color: rgba(255, 68, 68, 0.1); 
+}

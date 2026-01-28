@@ -1,0 +1,110 @@
+.category-container {
+  width: 95%;           
+  max-width: 1300px;    
+  margin: 150px auto 20px auto; 
+  text-align: center;
+  position: relative;
+  padding: 20px;
+  background-color: #FFF; 
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateX(4px); /* đẩy qua trái 7px */
+}
+
+
+.category-title {  
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: left;
+    padding-left: 0;
+    margin-left: 0; /* Loại bỏ margin-left để tiêu đề không bị đẩy sang phải */
+    margin-top: 80px;
+    color: #333;
+    transition: color 0.3s ease; /* Chỉ áp dụng chuyển đổi màu */
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: -70px; /* Đẩy tiêu đề lên trên (bớt mạnh để toàn bộ phần khám phá xuống dưới) */
+    left: 0; /* Đẩy tiêu đề về phía trái */
+}
+
+.category-grid {  
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 5px; /* Tăng khoảng cách giữa các ảnh */
+    margin-top: -60px; /* Đẩy lên ít để phần khám phá nằm thấp hơn */
+}
+
+.category-item {
+    width: calc(100% / 6 - 12px); /* Chia thành 6 ảnh mỗi hàng, trừ gap */
+    height: 160px;
+    text-align: center;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+
+
+.category-image {
+    width: 100px; /* Kích thước ảnh */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm chuyển đổi cho hiệu ứng */
+}
+
+.category-image:hover {
+    transform: scale(1.1); /* Phóng to ảnh lên */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Tăng bóng đổ để ảnh có cảm giác nổi */
+}
+
+
+/* Tên danh mục */
+.category-name {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ====== Mũi tên cuộn ====== */
+.scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 20px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.scroll-button:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.scroll-left {
+    left: -15px;
+}
+
+.scroll-right {
+    right: -15px;
+}

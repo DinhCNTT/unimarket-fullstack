@@ -1,0 +1,141 @@
+/* src/components/VideoSideActions.css */
+
+.vdv-side-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Tăng khoảng cách giữa các nút cho thoáng hơn */
+  margin-left: 16px;
+  z-index: 5;
+  margin-top: 0;
+}
+
+/* Logic vị trí dựa trên tỷ lệ video (nằm ở component cha) - GIỮ NGUYÊN */
+.video-item.vdv-portrait .vdv-side-info {
+  margin-top: 235px;
+  margin-left: 20px;
+}
+.video-item.vdv-landscape .vdv-side-info {
+  margin-top: 58px;
+}
+.video-item.vdv-square .vdv-side-info {
+  margin-top: 240px;
+}
+
+/* Avatar & Follow */
+.vdv-user-avatar-container {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px; /* Thêm khoảng cách nhỏ sau avatar */
+}
+
+.vdv-user-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  /* Thêm shadow nhẹ để avatar nổi khối trên nền trắng */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vdv-follow-button {
+  position: absolute;
+  bottom: -8px; /* Đẩy xuống dưới avatar một chút */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FE2C55; /* Màu đỏ social nổi bật */
+  color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid #fff;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+.vdv-follow-button:hover {
+  transform: translateX(-50%) scale(1.15);
+}
+
+/* Bọc từng action (Nút + Label) */
+.vdv-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Nút bấm chung (Style Mới - Fix cho nền trắng) */
+.vdv-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  /*     * THAY ĐỔI Ở ĐÂY 
+   * Sử dụng biến CSS thay vì màu cứng
+   */
+  background-color: var(--theme-bg-hover);
+  color: var(--theme-text-primary);
+  /*     * HẾT THAY ĐỔI 
+   */
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+
+/* Hiệu ứng hover chung cho các nút */
+.vdv-action-item:hover .vdv-icon-button {
+  background-color: #e3e3e4; /* Làm nền đậm hơn khi hover */
+  transform: scale(1.1);
+}
+
+/* Label (Style Mới - Fix cho nền trắng) */
+
+.vdv-icon-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  text-align: center;
+  letter-spacing: 0.3px;
+  margin-top: 5px; 
+  line-height: 1.2;
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+/* Hiệu ứng nút Like (Giữ nguyên) */
+.vdv-like-button {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hiệu ứng hover đặc biệt cho nút Like */
+.vdv-action-item:hover .vdv-like-button {
+  transform: scale(1.1) rotate(-5deg); /* Thêm xoay nhẹ */
+}
+
+.vdv-like-button.liked {
+  animation: heartBeat 0.6s ease, pulseGlow 1s ease-out;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.4); }
+  40% { transform: scale(0.95); }
+  60% { transform: scale(1.3); }
+  80% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 rgba(255, 77, 109, 0.7); }
+  70% { box-shadow: 0 0 20px rgba(255, 77, 109, 0); }
+  100% { box-shadow: 0 0 0 rgba(255, 77, 109, 0); }
+}

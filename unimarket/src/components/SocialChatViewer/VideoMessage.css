@@ -1,0 +1,98 @@
+/* ========================================= */
+/* --- TIN NHẮN VIDEO --- */
+/* ========================================= */
+.video-message-wrapper {
+  display: flex;
+  gap: 6px;
+  max-width: 85%;
+  position: relative; 
+}
+
+.video-message-wrapper.sent {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.video-message-wrapper.received {
+  justify-content: flex-start;
+  margin-right: auto;
+}
+
+.video-message-card {
+  width: 180px;
+  height: 320px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-decoration: none;
+  color: white; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--theme-border-color);
+}
+
+.video-message-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.video-message-card::before {
+  content: '';
+  position: absolute; 
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+  z-index: 1;
+}
+
+.video-play-icon {
+  position: absolute; 
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.video-message-card:hover .video-play-icon {
+  transform: translate(-50%, -50%) scale(1.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.video-message-content {
+  position: relative; 
+  z-index: 2; 
+  color: white; 
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.video-message-title { 
+  font-weight: 600; 
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.video-message-text { 
+  font-size: 0.8rem;
+  opacity: 0.9;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Highlight effect */
+.video-message-wrapper.highlighted .video-message-card {
+  animation: highlight-fade 2.5s ease-out;
+}

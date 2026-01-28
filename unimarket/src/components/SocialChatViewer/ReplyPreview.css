@@ -1,0 +1,52 @@
+/* ========================================= */
+/* --- PREVIEW TRẢ LỜI (TRÊN KHUNG INPUT) --- */
+/* ========================================= */
+.reply-preview-container {
+  display: flex;
+  padding: 8px 16px;
+  background-color: var(--theme-bg-secondary);
+  border-top: 1px solid var(--theme-border-color);
+  position: relative;
+}
+
+.reply-preview-border {
+  width: 3px;
+  background-color: #007aff;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+
+.reply-preview-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.reply-preview-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #007aff;
+}
+
+.reply-preview-text {
+  font-size: 0.85rem;
+  color: var(--theme-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reply-preview-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--theme-text-secondary);
+  padding: 4px;
+  border-radius: 50%; 
+  transition: background-color 0.2s ease;
+}
+
+.reply-preview-close:hover {
+  background-color: var(--theme-bg-hover);
+}

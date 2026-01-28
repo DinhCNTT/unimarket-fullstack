@@ -1,0 +1,338 @@
+
+/* Layout HomePage */
+.unimarketHomeContainer {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fef3c7, #fde68a, #f59e0b, #d97706);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.unimarketHomeContent {
+  text-align: center;
+}
+.unimarketHomeBrand {
+  margin-bottom: 2rem;
+}
+.unimarketHomeBrandLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.unimarketHomeBrandIcon {
+  background: #fbbf24;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  margin-right: 0.75rem;
+}
+.unimarketHomeBrandIconText {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+.unimarketHomeBrandText {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+.unimarketHomeBrandSlogan {
+  font-size: 1.25rem;
+  color: #374151;
+}
+.unimarketHomeActions {
+  margin-top: 2rem;
+}
+.unimarketHomeLoginBtn {
+  background: #fbbf24;
+  color: #1f2937;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-right: 1rem;
+}
+.unimarketHomeLoginBtn:hover {
+  background: #f59e0b;
+}
+.unimarketHomeRegisterBtn {
+  background: #fff;
+  color: #1f2937;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.unimarketHomeRegisterBtn:hover {
+  background: #f3f4f6;
+}
+
+/* Sửa lại login cho đồng bộ layout */
+.unimarketLoginContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background: linear-gradient(135deg, #fdf6e3, #fceabb, #f9d776, #f6c453);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unimarketLoginLeftSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.unimarketLoginBranding {
+  text-align: center;
+  max-width: 32rem;
+  margin: 0 auto; /* căn giữa toàn bộ branding */
+}
+
+.unimarketLoginBranding img {
+  width: 250px;        /* giảm kích thước logo, nhỏ gọn hơn */
+  height: auto;        /* giữ tỉ lệ gốc */
+  display: block;
+  margin: 0 auto;      /* căn giữa logo */
+  
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+.unimarketLoginBranding img:hover {
+  transform: scale(1.1);
+}
+.unimarketLoginSlogan {
+    margin-top: -3rem;                  
+    font-family: 'Poppins', 'Inter', 'Segoe UI', 'Roboto', sans-serif; 
+    font-size: 1.85rem;                  /* nhỏ hơn (~30px) */
+    font-weight: 700;                   
+    text-align: center;
+    color: #d97706;                     
+    letter-spacing: 0.4px;              
+    line-height: 1.4;                   
+    text-shadow: none;                  
+}
+
+.unimarketLoginWelcomeText {
+  margin-top: 2rem;
+  color: #374151;
+}
+.unimarketLoginWelcomeTitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+.unimarketLoginWelcomeSubtitle {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+.unimarketLoginRightSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.unimarketLoginFormWrapper {
+  width: 100%;
+  max-width: 28rem;
+}
+.unimarketLoginFormContainer {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 2.5rem;
+  border: 1px solid #fef3c7;
+  transition: all 0.3s ease;
+}
+.unimarketLoginTitle {
+  font-size: 2rem;           
+  font-weight: 700;          
+  color: #111827;            
+  text-align: center;
+  letter-spacing: 0.5px;    
+  font-family: 'Inter', 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05); 
+
+  /* điều chỉnh vị trí */
+  margin-top: 15px;       /* đẩy tiêu đề lên gần logo */
+  margin-bottom: 2rem;    /* khoảng cách với form */
+}
+
+.unimarketLoginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;             /* khoảng cách giữa các input */
+  width: 100%;              /* chiếm toàn bộ wrapper */
+  max-width: 400px;         /* giới hạn chiều ngang */
+  margin: 0 auto;           /* căn giữa form */
+  box-sizing: border-box;
+}
+
+.unimarketLoginInput {
+  width: 100%;              /* input luôn khớp với form */
+  padding: 0.85rem 1rem;    /* gọn gàng, thoải mái khi nhập */
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;   /* bo tròn nhẹ nhàng */
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-align: left;          /* căn trái nội dung input */
+  box-sizing: border-box;    /* padding được tính vào width */
+}
+
+.unimarketLoginInput:focus {
+  border-color: #fbbf24;
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+}
+.unimarketLoginInput:hover {
+  border-color: #fbbf24;
+  transform: translateY(-1px);
+}
+.unimarketLoginForgotPassword {
+  text-align: right;
+}
+.unimarketLoginForgotPasswordLink {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.unimarketLoginForgotPasswordLink:hover {
+  color: #d97706;
+}
+.unimarketLoginButton {
+  width: 100%;
+  background: linear-gradient(to right, #fbbf24, #f59e0b);
+  color: #1f2937;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+.unimarketLoginButton.loading {
+  color: transparent !important;
+}
+.unimarketLoginButton.loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid #e0e0e0;
+  border-top: 2px solid #666;
+  border-radius: 50%;
+  animation: login-spin 0.8s linear infinite;
+}
+@keyframes login-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.unimarketLoginButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.unimarketLoginDivider {
+  margin-top: 2rem;
+  text-align: center;
+}
+.unimarketLoginDividerLine {
+  position: relative;
+}
+.unimarketLoginDividerLine::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e5e7eb;
+}
+.unimarketLoginDividerText {
+  position: relative;
+  padding: 0 1rem;
+  background: white;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+.unimarketLoginSocialButtons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+.unimarketLoginSocialButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  background: transparent;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.unimarketLoginSocialButton:hover {
+  border-color: transparent;
+  background: #eff6ff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+}
+
+.google-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+.unimarketLoginSignupLink {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+.unimarketLoginSignupLinkText {
+  color: #d97706;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.unimarketLoginSignupLinkText::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #d97706;
+  transition: width 0.3s ease;
+}
+.unimarketLoginSignupLinkText:hover::after {
+  width: 100%;
+}
+.unimarketLoginSignupLinkText:hover {
+  color: #b45309;
+  transform: translateY(-1px);
+}

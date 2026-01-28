@@ -1,0 +1,159 @@
+/* src/components/VideoContextMenu.module.css */
+
+.menuContainer {
+  position: fixed;
+  
+  /* --- MẶC ĐỊNH: LIGHT MODE --- */
+  /* Nền trắng mờ, sang trọng, không chói */
+  background-color: rgba(255, 255, 255, 0.85); 
+  
+  /* Hiệu ứng kính mờ (Glassmorphism) */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Viền xám rất nhạt cho nền sáng */
+  border: 1px solid rgba(0, 0, 0, 0.08); 
+  
+  border-radius: 12px;
+  padding: 6px;
+  min-width: 240px;
+  
+  /* Shadow mềm mại cho nền sáng */
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  
+  z-index: 99999;
+  
+  /* Animation xuất hiện mượt mà */
+  transform-origin: top left;
+  animation: scaleIn 0.15s cubic-bezier(0.2, 0, 0.13, 1.5);
+  
+  /* Font chữ chuyên nghiệp */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- CẤU HÌNH DARK MODE (Override) --- */
+/* Khi thẻ html/body có attribute data-theme="dark" */
+:global([data-theme='dark']) .menuContainer {
+  /* YÊU CẦU: "Không đen quá" */
+  /* Sử dụng màu xám than (Dark Slate) thay vì đen tuyền (#000) */
+  background-color: rgba(35, 35, 40, 0.90); 
+  
+  /* Viền sáng nhẹ để tách nền tối */
+  border: 1px solid rgba(255, 255, 255, 0.1); 
+  
+  /* Shadow đậm hơn để nổi trên nền tối */
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 2px;
+  
+  /* Typography */
+  font-size: 14px;
+  font-weight: 500; 
+  letter-spacing: 0.3px;
+  
+  /* --- MÀU CHỮ TỰ ĐỘNG THEO BIẾN THEME --- */
+  /* Nếu bạn chưa định nghĩa biến, nó sẽ fallback về màu cứng bên dưới */
+  color: var(--theme-text-primary, #161823); 
+  
+  /* Reset button mặc định */
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: left;
+  border-radius: 8px; 
+  transition: all 0.2s ease;
+}
+
+/* Override màu chữ riêng cho Dark Mode nếu không dùng biến */
+:global([data-theme='dark']) .menuItem {
+  color: #e8e8e8; /* Màu trắng ngà dịu mắt */
+}
+
+/* Hiệu ứng hover */
+.menuItem:hover {
+  /* Tự động dùng màu hover của theme hoặc màu xám nhạt */
+  background-color: var(--theme-bg-hover, rgba(0, 0, 0, 0.05));
+  transform: translateX(2px); /* Hiệu ứng nảy nhẹ sang phải */
+}
+
+/* Hover trong Dark Mode */
+:global([data-theme='dark']) .menuItem:hover {
+  background-color: rgba(255, 255, 255, 0.12); /* Sáng lên một chút trên nền tối */
+  color: #ffffff;
+}
+
+/* Icon */
+.icon {
+  margin-right: 14px;
+  font-size: 20px;
+  
+  /* Màu icon ở chế độ sáng (Xám trung tính) */
+  color: var(--theme-text-secondary, #666); 
+  
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+/* Màu icon ở chế độ tối (Xám bạc) */
+:global([data-theme='dark']) .icon {
+  color: #b0b0b0;
+}
+
+.menuItem:hover .icon {
+  /* Khi hover thì icon lấy màu chính của chữ (Đậm lên hoặc Sáng lên) */
+  color: var(--theme-text-primary, #000);
+}
+
+:global([data-theme='dark']) .menuItem:hover .icon {
+  color: #ffffff;
+}
+
+/* Đường kẻ phân cách */
+.divider {
+  height: 1px;
+  margin: 6px 0;
+  width: 100%;
+  
+  /* Gradient cho Light Mode (Xám mờ) */
+  background: linear-gradient(
+    90deg, 
+    rgba(0, 0, 0, 0) 0%, 
+    rgba(0, 0, 0, 0.08) 50%, 
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* Gradient cho Dark Mode (Trắng mờ) */
+:global([data-theme='dark']) .divider {
+  background: linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.15) 50%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Animation Keyframes (Giữ nguyên) */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

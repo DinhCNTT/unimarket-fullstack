@@ -1,0 +1,168 @@
+/* src/components/CategoryListNhaTro/CategoryListNhaTro.module.css */
+
+.container {
+    width: 100%;
+    max-width: 95%;
+    margin: 20px auto 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    margin: 0;
+    text-align: left;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.viewAllBtn {
+    background: #ff6b35;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.viewAllBtn:hover {
+    background: #e55a24;
+}
+
+/* Khu vực carousel */
+.carouselWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.list::-webkit-scrollbar {
+    display: none;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 3px;
+}
+
+.list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.item {
+    flex: 0 0 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s;
+}
+
+.item:hover {
+    transform: translateY(-5px);
+}
+
+.item:hover .name {
+    color: #ff6b35;
+}
+
+.imageWrapper {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.name {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #555;
+    word-wrap: break-word;
+    transition: color 0.2s;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+/* Nút cuộn trái phải */
+.scrollBtn {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #eee;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    transition: all 0.2s;
+    color: #555;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.scrollBtn:hover {
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ff6b35;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        margin: 100px auto 20px auto;
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 16px;
+    }
+
+    .item {
+        flex: 0 0 110px;
+    }
+
+    .imageWrapper {
+        height: 100px;
+    }
+}

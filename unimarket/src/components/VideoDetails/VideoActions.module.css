@@ -1,0 +1,104 @@
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.actions button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  /* Đây là nguyên nhân khiến icon bị trắng. Ta sẽ override nó ở dưới */
+  color: #e5e5e5; 
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.actions button:hover {
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.iconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  position: relative;
+  
+  /* Mặc định icon màu trắng xám */
+  color: #ccc; 
+}
+
+.iconCircle svg {
+  /* Đảm bảo svg nhận màu từ cha (currentColor) */
+  fill: currentColor; 
+  stroke: currentColor;
+}
+
+.actions button:hover .iconCircle {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.count,
+.commentCount {
+  color: #f8f8f8;
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ✅ SỬA LOGIC MÀU SẮC Ở ĐÂY */
+
+/* Khi đã Like (class .liked) -> Icon chuyển đỏ */
+.liked .iconCircle {
+  color: #ff2e63; /* Màu đỏ TikTok */
+  border-color: rgba(255, 46, 99, 0.5); /* Viền đỏ nhạt */
+}
+
+/* Khi đã Save (class .saved) -> Icon chuyển vàng */
+.saved .iconCircle {
+  color: #FFD700; /* Màu vàng */
+  border-color: rgba(255, 215, 0, 0.5); /* Viền vàng nhạt */
+}
+
+/* Hiệu ứng active khi bấm */
+.likeBtn:active .iconCircle,
+.saveBtn:active .iconCircle {
+  transform: scale(0.9);
+}
+
+/* Animation Tim đập */
+:global(.heart-pulse-circle) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 46, 99, 0.3), transparent);
+  border: 2px solid rgba(255, 46, 99, 0.7);
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0.8;
+  animation: pulseCircle 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes pulseCircle {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.9; }
+  50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}

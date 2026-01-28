@@ -1,0 +1,697 @@
+.unimarketRegisterSlogan .slogan-black {
+    font-family: inherit;               /* đồng bộ với slogan chính */
+    color: #222 !important;             /* giữ màu đen logic như bạn muốn */
+    font-weight: 600;                   /* giảm nhẹ để đối lập hài hòa với chữ vàng cam */
+}
+/* Chia đều 2 bên 50/50, logo to hơn */
+.unimarketRegisterLeftSide {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex: 1 1 0;
+    width: 50%;
+    max-width: 50vw;
+}
+.unimarketRegisterRightSide {
+    background: transparent; /* gradient vàng từ container vẫn thấy */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex: 1 1 0;
+    width: 50%;
+    max-width: 50vw;
+}
+
+.unimarketRegisterBranding img {
+    width: 100px;
+    max-width: 90vw;
+    margin: 0 auto 2.5rem auto;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+.unimarketRegisterBranding {
+    text-align: center;
+    max-width: 32rem;
+}
+.unimarketRegisterBranding img {
+    width: 200px;
+    max-width: 90vw;
+    margin: 0 auto 2rem auto;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+}
+.unimarketRegisterBranding img:hover {
+    transform: scale(1.1);
+}
+.unimarketRegisterSlogan {
+    margin-top: -3rem;                  /* giảm bớt để không bị đẩy lên quá cao */
+    font-family: 'Poppins', 'Inter', 'Segoe UI', 'Roboto', sans-serif; 
+    font-size: 1.75rem;                 /* nhỏ hơn 1 xíu để dễ nhìn */
+    font-weight: 700;                   /* bớt nặng nề, vẫn giữ sự mạnh mẽ */
+    text-align: center;
+    color: #d97706;                     /* giữ tone vàng cam thương hiệu */
+    letter-spacing: 0.5px;              /* giãn chữ nhẹ để thoáng hơn */
+    line-height: 1.4;                   /* cân bằng chiều cao dòng */
+}
+
+.unimarketRegisterWelcomeText {
+    margin-top: 2rem;
+    color: #374151;
+}
+.unimarketRegisterWelcomeTitle {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+.unimarketRegisterWelcomeSubtitle {
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+.unimarketRegisterBgGradient {
+    background: linear-gradient(135deg, #fef3c7, #fde68a, #f59e0b, #d97706);
+}
+.unimarketRegisterLeftSide {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.unimarketRegisterRightSide {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+/* Password criteria popup - modern style */
+.unimarketRegisterPasswordCriteria {
+    position: absolute;
+    left: 0;
+    top: 110%;
+    width: 100%;
+    background: #fff;
+    border: 2px solid #fbbf24;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(251,191,36,0.15);
+    padding: 16px 20px;
+    z-index: 20;
+    font-size: 15px;
+    text-align: left;
+    animation: fadeIn 0.3s;
+}
+.unimarketRegisterPasswordCriteriaTitle {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #d97706;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+.unimarketRegisterPasswordCriteriaList {
+    padding-left: 20px;
+    margin: 0;
+}
+.unimarketRegisterPasswordCriteriaItem {
+    list-style: none;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+}
+.unimarketRegisterPasswordCriteriaItem.unimarketRegisterValid {
+    color: #22c55e;
+    font-weight: 600;
+}
+.unimarketRegisterPasswordCriteriaItem.unimarketRegisterInvalid {
+    color: #ef4444;
+    font-weight: 500;
+    opacity: 0.85;
+}
+
+/* Password error below input - modern style */
+.unimarketRegisterPasswordError {
+    color: #ef4444;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    text-align: left;
+    width: 100%;
+    background: #fff1f2;
+    border-left: 4px solid #ef4444;
+    border-radius: 8px;
+    padding: 8px 14px;
+    box-shadow: 0 2px 8px rgba(239,68,68,0.07);
+}
+.unimarketRegisterPasswordErrorList {
+    padding-left: 18px;
+    margin: 0;
+}
+.unimarketRegisterPasswordErrorItem {
+    color: #ef4444;
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+/* Modern unimarket-register styles for RegisterForm */
+.unimarketRegisterContainer {
+    min-height: 100vh;               /* luôn full chiều cao màn hình */
+    width: 100vw;                    /* full chiều rộng màn hình */
+    margin: 0;                       /* bỏ khoảng trắng mặc định */
+    padding: 0;
+    background: linear-gradient(135deg, #fdf6e3, #fceabb, #f9d776, #f6c453);
+    display: flex;
+    animation: fadeIn 1s ease-out;
+    overflow: hidden;                /* ẩn thanh trượt */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+
+
+
+
+.unimarketRegisterTitle {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.unimarketRegisterForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.unimarketRegisterInput {
+   width: 100%;
+    max-width: 570px;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+.unimarketRegisterInput:focus {
+    border-color: #fbbf24;
+    outline: none;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+}
+.unimarketRegisterInput:hover {
+    border-color: #fbbf24;
+    transform: translateY(-1px);
+}
+
+.unimarketRegisterCheckboxContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+}
+.unimarketRegisterCheckbox {
+    margin-top: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #d97706;
+    border: 2px solid #d1d5db;
+    border-radius: 0.25rem;
+}
+.unimarketRegisterCheckbox:focus {
+    outline: 2px solid #f59e0b;
+}
+.unimarketRegisterCheckboxLabel {
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.625;
+}
+.unimarketRegisterCheckboxLink {
+    color: #d97706;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.unimarketRegisterCheckboxLink:hover {
+    color: #b45309;
+}
+
+.unimarketRegisterButton {
+    width: 100%;
+    background: linear-gradient(to right, #fbbf24, #f59e0b);
+    color: #1f2937;
+    font-weight: bold;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+.unimarketRegisterButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+.unimarketRegisterButton:hover::before {
+    left: 100%;
+}
+.unimarketRegisterButton:hover {
+    background: linear-gradient(to right, #f59e0b, #d97706);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 0 20px rgba(251, 191, 36, 0.4);
+    transform: translateY(-2px);
+}
+.unimarketRegisterButton:active {
+    transform: translateY(0);
+}
+
+.unimarketRegisterSocialButtons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+.unimarketRegisterSocialButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    background: transparent;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.unimarketRegisterSocialButton:hover {
+    border-color: #3b82f6;
+    background: #eff6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+}
+
+.unimarketRegisterLoginLink {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+.unimarketRegisterLoginLinkText {
+    color: #d97706;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+.unimarketRegisterLoginLinkText::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #d97706;
+    transition: width 0.3s ease;
+}
+.unimarketRegisterLoginLinkText:hover::after {
+    width: 100%;
+}
+.unimarketRegisterLoginLinkText:hover {
+    color: #b45309;
+    transform: translateY(-1px);
+}
+/* RegisterForm.css - CSS với tiền tố unimarketRegister- */
+
+.unimarketRegisterContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Giữ gradient ở background tổng */
+    background: linear-gradient(135deg, #fdf6e3, #fceabb, #f9d776, #f6c453);
+
+    overflow: hidden;
+}
+
+
+.unimarketRegisterFormWrapper {
+    background: #ffffff;
+    padding: 16px 28px;      /* giảm top/bottom từ 24px xuống 16px, left/right từ 32 xuống 28 */
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.05);
+    
+    width: 48vw;
+    min-width: 320px;
+    max-width: 480px;        /* giảm max-width một chút cho gọn */
+    
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    margin: 24px auto;       /* giảm margin top/bottom từ 40px xuống 24px */
+    transition: all 0.3s ease;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+
+    box-sizing: border-box;   
+    overflow: hidden;         
+}
+
+
+.unimarketRegisterForm {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 16px;
+
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    /* tự canh bằng tay */
+    margin-left: -15px;   /* đẩy toàn bộ form sang trái theo ý bạn */
+    padding-left: 0;     /* padding không cần nếu muốn form sát */
+}
+
+
+ .unimarketRegisterInput {
+    width: 100%;
+    padding: 12px 16px;
+    margin: 0;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 7px;
+    background: #fff !important;
+    color: #222 !important;
+    font-size: 16px;
+    transition: border 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+ .unimarketRegisterInput:focus {
+    border: 1.5px solid #ff9800;
+    box-shadow: 0 0 0 2px #ffe0b2;
+}
+
+ .unimarketRegisterInput.unimarketRegisterError {
+    border: 1.5px solid #e53935;
+    background: #fff5f5 !important;
+}
+
+ .unimarketRegisterTitle {
+    color: #222 !important;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.unimarketRegisterButton {
+    width: 105%;          /* chiếm hết chiều ngang của form wrapper */
+    padding: 12px 0;      /* padding ngang vừa đủ, không bị ảnh hưởng margin */
+    background-color: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+
+ .unimarketRegisterButton:hover {
+    background-color: #e68900;
+    box-shadow: 0 4px 16px rgba(255,152,0,0.13);
+}
+
+ .unimarketRegisterButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+ .unimarketRegisterCheckboxContainer {
+    font-size: 12.5px;
+    color: #888;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.2rem;
+}
+
+ .unimarketRegisterCheckboxLink {
+    color: #ff9800;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+ .unimarketRegisterCheckboxLink:hover {
+    color: #e68900;
+}
+
+ .unimarketRegisterCheckbox {
+    margin-top: 2px;
+    accent-color: #ff9800;
+    width: 18px;
+    height: 18px;
+}
+
+ .unimarketRegisterCheckboxLabel {
+    font-weight: 400;
+    color: #888;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+ .unimarketRegisterSocialButtons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin: 18px 0 10px 0;
+}
+
+ .unimarketRegisterSocialButton {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: #f5f5f5;
+    color: #555;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+ .unimarketRegisterSocialButton.unimarketRegisterFacebook {
+    background: #1877F2;
+    color: #fff;
+}
+
+ .unimarketRegisterSocialButton.unimarketRegisterFacebook:hover {
+    background: #1456b8;
+}
+
+ .unimarketRegisterSocialButton.unimarketRegisterGoogle {
+    background: #fff;
+    color: #db4437;
+    border: 1.5px solid #eee;
+}
+
+ .unimarketRegisterSocialButton.unimarketRegisterGoogle:hover {
+    background: #f5f5f5;
+    color: #a42820;
+}
+
+ .unimarketRegisterSocialButton.unimarketRegisterApple {
+    background: #222;
+    color: #fff;
+}
+
+ .unimarketRegisterSocialButton.unimarketRegisterApple:hover {
+    background: #444;
+}
+
+ .unimarketRegisterLoginLink {
+    text-align: center;
+    color: #111 !important;
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+ .unimarketRegisterLoginLinkText {
+    color: #ff9800;
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+ .unimarketRegisterLoginLinkText:hover {
+    color: #e68900;
+}
+
+/* Password criteria styles */
+.unimarketRegisterPasswordCriteria {
+    position: absolute;
+    left: 0;
+    top: 110%;
+    width: 100%;
+    background: #fff;
+    border: 1.5px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 12px 16px;
+    z-index: 10;
+    font-size: 14px;
+    text-align: left;
+}
+
+ .unimarketRegisterPasswordCriteriaTitle {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #222;
+}
+
+ .unimarketRegisterPasswordCriteriaList {
+    padding-left: 18px;
+    margin: 0;
+}
+
+ .unimarketRegisterPasswordCriteriaItem {
+    list-style: disc;
+    margin-bottom: 2px;
+}
+
+ .unimarketRegisterPasswordCriteriaItem.unimarketRegisterValid {
+    color: #388e3c;
+    font-weight: 500;
+}
+
+ .unimarketRegisterPasswordCriteriaItem.unimarketRegisterInvalid {
+    color: #d32f2f;
+    font-weight: 400;
+}
+
+/* Password error styles */
+/* Wrapper cho mật khẩu và xác nhận mật khẩu */
+.unimarketRegisterPasswordWrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px; /* để tạo khoảng cách */
+}
+
+/* Lỗi hiển thị dưới input */
+.unimarketRegisterPasswordError {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-top: 4px; /* thay vì -8px để không bị chèn */
+  margin-bottom: 8px;
+  text-align: left;
+  width: 95%;
+}
+
+/* Danh sách lỗi chi tiết */
+.unimarketRegisterPasswordErrorList {
+  padding-left: 18px;
+  margin: 4px 0 0 0;
+}
+
+.unimarketRegisterPasswordErrorItem {
+  color: #d32f2f;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+/* Khi nhập mật khẩu show tiêu chí */
+.unimarketRegisterPasswordCriteria {
+  margin-top: 4px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.unimarketRegisterPasswordCriteriaTitle {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.unimarketRegisterPasswordCriteriaList {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.unimarketRegisterPasswordCriteriaItem {
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.unimarketRegisterValid {
+  color: #2e7d32;
+}
+
+.unimarketRegisterInvalid {
+  color: #d32f2f;
+}
+.unimarketRegisterInputError {
+  border: 2px solid #ef4444;  /* viền đỏ */
+  outline: none;
+}
+
+.unimarketRegisterInputError:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3); /* hiệu ứng đỏ khi focus */
+}

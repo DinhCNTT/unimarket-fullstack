@@ -1,0 +1,463 @@
+/* Container chính: Flex column để chia 3 phần dọc */
+.sidebarContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--theme-bg-primary); /* Thay #fff */
+    overflow: hidden; /* Không cho container chính cuộn */
+    color: var(--theme-text-primary); /* Đặt màu chữ mặc định */
+}
+
+/* --- PHẦN 1: FIXED HEADER GROUP (Không cuộn) --- */
+.fixedHeaderGroup {
+    flex-shrink: 0; 
+    border-bottom: 1px solid var(--theme-border-color); /* Thay #f1f1f1 */
+    background: var(--theme-bg-primary); /* Thay #fff */
+    z-index: 10;
+}
+
+.userInfo {
+    padding: 22px 20px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%; object-fit: cover;
+    border: 1px solid var(--theme-border-color); /* Thêm viền nhẹ để tách biệt khi dark mode */
+}
+
+.userDetails {
+    display: flex; flex-direction: column;
+}
+
+.userNameText {
+    margin: 0; font-size: 16px; font-weight: 700;
+    color: var(--theme-text-primary);
+}
+
+.userSubText {
+    font-size: 12px; 
+    color: var(--theme-text-primary); /* Thay #161823, giữ opacity để tạo màu phụ */
+    opacity: 0.75;
+}
+
+.btnFollow {
+    background-color: #fe2c55; /* Giữ nguyên màu thương hiệu */
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 7px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.btnFollow:hover { background-color: #ef2950; }
+
+.captionSection { padding: 0 20px 15px; }
+.captionText { 
+    font-size: 15px; 
+    margin-bottom: 6px; 
+    color: var(--theme-text-primary); /* Thay #161823 */
+}
+.timeText { 
+    font-size: 13px; 
+    color: var(--theme-text-secondary); /* Thay rgba(22, 24, 35, 0.5) */
+}
+
+.statsBar { display: flex; gap: 20px; margin-top: 12px; }
+.statItem { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    font-size: 12px; 
+    font-weight: 700; 
+    color: var(--theme-text-primary);
+}
+.iconCircle { 
+    background: var(--theme-bg-secondary); /* Thay #f1f1f2 */
+    padding: 6px; 
+    border-radius: 50%; 
+    display: flex; 
+    color: var(--theme-text-primary);
+}
+
+.linkCopySection {
+    margin: 0 20px 15px;
+    background: var(--theme-bg-secondary); /* Thay #f1f1f2 */
+    padding: 10px;
+    display: flex; justify-content: space-between;
+    border-radius: 2px; font-size: 13px; 
+    color: var(--theme-text-secondary); /* Thay rgba... */
+}
+.linkText { 
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; margin: 0; 
+    color: var(--theme-text-secondary);
+}
+.copyBtn { 
+    border: none; 
+    background: none; 
+    font-weight: 700; 
+    cursor: pointer; 
+    color: var(--theme-text-primary);
+}
+
+/* --- TABS --- */
+.tabs { 
+    display: flex; 
+    border-bottom: 1px solid var(--theme-border-color); /* Thay #e3e3e4 */
+    margin-top: 60px; 
+}
+
+.tabItem {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    background: none; 
+    border: none;
+    font-weight: 600; 
+    font-size: 14px; 
+    color: var(--theme-text-secondary); /* Thay rgba... */
+    cursor: pointer; 
+    position: relative;
+}
+
+.tabItem.active { 
+    color: var(--theme-text-primary); /* Thay #161823 */
+}
+
+.tabItem.active::after {
+    content: ''; 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 2px; 
+    background: var(--theme-text-primary); /* Thay #161823 */
+}
+
+/* --- PHẦN 2: SCROLL CONTENT --- */
+.scrollContent {
+    flex: 1; 
+    overflow-y: auto; 
+    background-color: var(--theme-bg-primary); /* Thay #ffff */
+    padding: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--theme-bg-hover) transparent;
+}
+.scrollContent::-webkit-scrollbar { width: 6px; }
+.scrollContent::-webkit-scrollbar-thumb { 
+    background-color: var(--theme-border-color); /* Thay #ccc */
+    border-radius: 4px; 
+}
+
+
+/* --- PHẦN 3: FOOTER INPUT (ĐÃ CHỈNH SỬA GỌN HƠN) --- */
+
+.commentInputArea {
+    flex-shrink: 0;
+    padding: 10px 20px; 
+    background: var(--theme-bg-primary); /* Thay #fff */
+    border-top: 1px solid var(--theme-border-color); /* Thay #f1f1f1 */
+    display: flex; 
+    align-items: flex-end; 
+    gap: 12px;
+}
+
+.inputWrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--theme-bg-secondary); 
+    border: 1px solid var(--theme-border-color); 
+    border-radius: 8px; 
+    padding: 8px 12px; 
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.inputBox {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: var(--theme-text-primary); /* Thay #161823 */
+    font-family: inherit;
+    resize: none; 
+    
+    /* Chỉnh min-height nhỏ lại để khớp với 1 dòng text */
+    min-height: 18px; 
+    max-height: 100px; 
+    overflow-y: auto; 
+    line-height: 1.4; /* Line height vừa đủ */
+    padding: 0;
+    margin: 0;
+}
+.charCounter {
+    align-self: flex-end; 
+    font-size: 10px;
+    color: var(--theme-text-secondary); /* Thay #a0a0a0 */
+    margin-top: 2px; /* Giảm khoảng cách margin */
+    font-weight: 400;
+}
+
+.limitReached {
+    color: #ff9f1c; 
+}
+
+.postBtn {
+    /* Canh chỉnh nút Đăng nằm ngang hàng với dòng chữ khi chưa xuống dòng */
+    margin-bottom: 8px; 
+    background: none;
+    border: none;
+    color: #ff9f1c; /* Màu cam giống ảnh bạn gửi */
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Nếu nút bị mờ khi chưa nhập gì */
+.postBtn:disabled {
+    color: #ff9f1c; /* Hoặc màu xám nhạt */
+    opacity: 0.5;
+    cursor: default;
+}
+/* ================= OVERLAY ================= */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay luôn tối, kể cả dark mode */
+    backdrop-filter: blur(5px); 
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInOverlay 0.2s ease-out forwards;
+}
+
+/* ================= MODAL BOX ================= */
+.modalContent {
+    background: var(--theme-bg-primary); /* Thay #ffffff */
+    width: 340px; 
+    max-width: 90%;
+    border-radius: 16px; 
+    padding: 28px 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); 
+    text-align: center;
+
+    /* 🔥 CẢI TIẾN PHÔNG CHỮ QUAN TRỌNG NHẤT */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+
+    transform: scale(0.9);
+    opacity: 0;
+    animation: popInModal 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ================= TEXT ================= */
+.modalTitle {
+    font-size: 20px; 
+    font-weight: 700;
+    color: var(--theme-text-primary); /* Thay #111827 */
+    margin: 0 0 10px 0;
+    letter-spacing: -0.025em; 
+    line-height: 1.3;
+}
+
+.modalDesc {
+    font-size: 15px; 
+    font-weight: 400;
+    color: var(--theme-text-secondary); /* Thay #6b7280 */
+    line-height: 1.6; 
+    margin-bottom: 28px;
+    padding: 0 10px; 
+}
+
+/* ================= ACTION BUTTONS ================= */
+.modalActions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Nút chung */
+.btnCancel,
+.btnDelete {
+    flex: 1;
+    padding: 12px 16px; 
+    font-size: 15px; 
+    font-weight: 600;
+    border-radius: 12px; 
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+
+    /* Đảm bảo nút dùng cùng phông chữ đẹp */
+    font-family: inherit; 
+    letter-spacing: 0.3px; 
+}
+
+/* ================= CANCEL – XÁM NHẸ ================= */
+.btnCancel {
+    background-color: var(--theme-bg-secondary); /* Thay #f3f4f6 */
+    color: var(--theme-text-primary); /* Thay #374151 */
+}
+
+.btnCancel:hover {
+    background-color: var(--theme-bg-hover); /* Thay #e5e7eb */
+    color: var(--theme-text-primary);
+}
+
+.btnCancel:active {
+    transform: scale(0.98);
+}
+
+/* ================= DELETE – VÀNG CAM NỔI BẬT ================= */
+.btnDelete {
+    background: linear-gradient(135deg, #ffb703, #fb8500);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(251, 133, 0, 0.3); 
+}
+
+.btnDelete:hover {
+    background: linear-gradient(135deg, #fca311, #f77f00);
+    box-shadow: 0 6px 16px rgba(247, 127, 0, 0.4);
+    transform: translateY(-1px); 
+}
+
+.btnDelete:active {
+    transform: scale(0.98) translateY(0);
+}
+
+/* ================= ANIMATIONS (GIỮ NGUYÊN) ================= */
+@keyframes fadeInOverlay {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+    }
+}
+
+@keyframes popInModal {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* SidebarInfo.module.css */
+
+/* ... Các styles cũ ... */
+
+/* --- NÚT XEM CHI TIẾT SẢN PHẨM --- */
+.productInfoBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Đẩy mũi tên sang phải cùng */
+    padding: 14px 16px; 
+
+    background-color: var(--theme-bg-primary); /* Thay #ffffff */
+    /* Viền dưới nhạt và tinh tế hơn */
+    border-bottom: 1px solid var(--theme-border-color); /* Thay rgba(22, 24, 35, 0.06) */
+
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+
+    /* Font hệ thống chuẩn đẹp */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.productInfoBar:hover {
+    background-color: var(--theme-bg-hover); /* Thay #f8f9fa */
+}
+
+/* --- WRAPPER ICON --- */
+.productIconWrapper {
+    width: 36px;  /* Tăng kích thước icon lên xíu */
+    height: 36px;
+
+    /* Bo góc kiểu squircle (vuông bo tròn) nhìn hiện đại hơn tròn hẳn */
+    border-radius: 10px; 
+
+    /* Màu nền đỏ nhạt thương hiệu - Giữ nguyên vì là brand color */
+    background-color: rgba(254, 44, 85, 0.08); 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 14px;
+    flex-shrink: 0; /* Đảm bảo icon không bị bóp méo */
+
+    transition: transform 0.2s ease;
+}
+
+/* Hiệu ứng: Khi hover vào thanh, icon nảy nhẹ lên */
+.productInfoBar:hover .productIconWrapper {
+    transform: scale(1.08);
+}
+
+/* --- TEXT CONTAINER --- */
+.productText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: center;
+    gap: 3px; /* Khoảng cách giữa Label và Tên */
+}
+
+/* --- NHÃN "CHI TIẾT SẢN PHẨM" --- */
+.productLabel {
+    font-size: 11px;
+    color: var(--theme-text-secondary); /* Thay #8a8b91 */
+    text-transform: uppercase;
+    font-weight: 700; 
+    letter-spacing: 0.6px; 
+    line-height: 1;
+}
+
+/* --- TÊN SẢN PHẨM --- */
+.productNameTruncated {
+    font-size: 15px; 
+    font-weight: 600; 
+    color: var(--theme-text-primary); /* Thay #161823 */
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    letter-spacing: -0.2px; 
+    line-height: 1.3;
+}
+
+/* --- CHỈNH SỬA MŨI TÊN (CHEVRON) --- */
+.productInfoBar svg:last-child { 
+    color: var(--theme-text-secondary); /* Thay #b0b0b4 */
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.productInfoBar:hover svg:last-child {
+    color: var(--theme-text-primary); /* Hover thì đậm lên */
+    transform: translateX(3px); 
+}

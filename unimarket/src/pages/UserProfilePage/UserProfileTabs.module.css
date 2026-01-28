@@ -1,0 +1,60 @@
+.tabsContainer {
+  display: flex;
+  /* Thêm fallback màu trắng cho chế độ sáng */
+  background-color: var(--theme-bg-primary, #ffffff);
+  /* Thêm fallback màu viền xám cho chế độ sáng */
+  border-bottom: 1px solid var(--theme-border-color, #e0e0e0);
+  padding-left: 12px;
+  /* Đổi gap rộng ra một chút cho thoáng giống TikTok desktop */
+  gap: 20px; 
+  width: 100%; /* Đổi từ fit-content thành 100% hoặc cụ thể để dàn trải đẹp hơn */
+  min-width: 400px;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Các phần khác giữ nguyên */
+.tabsContainer::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: var(--underline-left, 0);
+  width: var(--underline-width, 0);
+  height: 2px;
+  /* TikTok dùng màu đen/trắng theo theme cho underline -> Fallback là #111 (đen) */
+  background: var(--theme-text-primary, #111111); 
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Tăng khoảng cách icon và chữ */
+  padding: 12px 14px;
+  background: none;
+  border: none;
+  font-size: 16px; /* Font to hơn chút cho giống TikTok Desktop */
+  font-weight: 600;
+  /* Màu chữ phụ -> Fallback là #555 (xám) */
+  color: var(--theme-text-secondary, #555555);
+  cursor: pointer;
+  transition: color 0.25s ease;
+  position: relative;
+  outline: none;
+  /* Font Family nếu cần thiết */
+  font-family: 'ProximaNova', system-ui, -apple-system, sans-serif;
+}
+
+.tab:hover {
+  /* Hover thành màu đậm -> Fallback là #111 (đen) */
+  color: var(--theme-text-primary, #111111); 
+  background: none;
+}
+
+.tab.active {
+  /* Active là màu đậm (đen/trắng) -> Fallback là #111 (đen) */
+  color: var(--theme-text-primary, #111111); 
+  background: none;
+}

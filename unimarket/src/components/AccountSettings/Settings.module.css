@@ -1,0 +1,216 @@
+/* --- CẤU HÌNH FONT CHUNG CHO TOÀN BỘ TRANG --- */
+.container {
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    
+    /* Layout 2 cột */
+    gap: 24px; 
+    align-items: flex-start; 
+
+    /* 👇 FONT CHỮ MỚI: Hiện đại, sạch sẽ, chuyên nghiệp */
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; /* Giúp chữ mượt mà hơn trên Mac/iPhone */
+    color: #161823;
+}
+
+/* --- KHUNG 1: SIDEBAR MENU (CỐ ĐỊNH) --- */
+.sidebar {
+    width: 290px; /* Tăng nhẹ chiều rộng để chứa chữ to hơn */
+    flex-shrink: 0;
+
+    /* Sticky logic */
+    position: sticky;
+    top: 80px; 
+    
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e1e1e1;
+    
+    padding: 20px 12px; /* Padding thoáng hơn */
+    height: fit-content;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px; /* Nút to hơn, dễ bấm */
+    cursor: pointer;
+    
+    /* 👇 CHỮ TO HƠN, ĐẬM HƠN */
+    font-size: 17px; 
+    font-weight: 600;
+    color: #4a4a4a; /* Màu xám đậm chuyên nghiệp */
+    
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin-bottom: 6px;
+}
+
+.menuItem:hover {
+    background-color: rgba(22, 24, 35, 0.03);
+    color: #161823;
+}
+
+.menuItem.active {
+    background-color: rgba(254, 44, 85, 0.06); 
+    color: #FE2C55;
+    font-weight: 700; /* Đậm hơn nữa khi active */
+}
+
+.menuIcon {
+    margin-right: 16px;
+    font-size: 22px; /* Icon to rõ */
+    display: flex;
+    align-items: center;
+}
+
+/* --- KHUNG 2: NỘI DUNG --- */
+.contentPanel {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e1e1e1;
+
+    padding: 40px 48px; /* Padding rộng rãi cho nội dung */
+    gap: 32px;
+
+    margin-top: 40px; 
+}
+
+/* Các đường kẻ phân cách */
+.divider {
+    border: none;
+    border-bottom: 1px solid #ebebeb;
+    margin: 16px 0;
+}
+
+.sectionWrapper {
+    scroll-margin-top: 120px; 
+}
+
+/* --- TYPOGRAPHY: TIÊU ĐỀ & CHỮ --- */
+
+/* Tiêu đề chính của từng mục (Ví dụ: Quản lý tài khoản) */
+.sectionTitle {
+    font-size: 28px; /* To hơn (cũ 24px) */
+    font-weight: 800; /* Rất đậm */
+    margin-bottom: 24px;
+    color: #161823;
+    letter-spacing: -0.5px; /* Thu hẹp khoảng cách chữ giúp tiêu đề chắc chắn hơn */
+}
+
+/* Tiêu đề phụ (Ví dụ: Thông tin hồ sơ) */
+.sectionSubtitle {
+    font-size: 18px; /* To hơn (cũ 15px) */
+    font-weight: 700;
+    color: #161823;
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+/* Hàng chứa thông tin (Item Row) */
+.itemRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Căn lề trên để đẹp hơn khi mô tả dài */
+    padding: 20px 0; /* Giãn cách giữa các hàng */
+    border-bottom: 1px solid rgba(22, 24, 35, 0.06);
+}
+
+.itemRow:last-child {
+    border-bottom: none;
+}
+
+/* Tên cài đặt (Ví dụ: Email, Số điện thoại) */
+.itemLabel {
+    font-size: 17px; /* To hơn (cũ 16px) */
+    font-weight: 600;
+    color: #161823;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Mô tả phụ bên dưới (Ví dụ: Dùng để đăng nhập...) */
+.itemDesc {
+    font-size: 15px; /* To hơn nhiều (cũ 13px) -> DỄ ĐỌC */
+    color: #666666; /* Màu xám đậm hơn để rõ chữ */
+    margin-top: 4px;
+    max-width: 550px;
+    line-height: 1.5; /* Khoảng cách dòng thoáng */
+}
+
+/* Nút thao tác bên phải (Thay đổi, Xóa) */
+.itemAction {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    font-size: 16px; /* To hơn */
+    font-weight: 600;
+    color: #555;
+    
+    cursor: pointer;
+    white-space: nowrap; /* Không xuống dòng */
+    margin-left: 20px; /* Cách xa nội dung text */
+    margin-top: 4px; /* Căn chỉnh với Label */
+}
+
+.itemAction:hover {
+    text-decoration: underline;
+    color: #161823;
+}
+
+.itemAction.danger {
+    color: #FE2C55;
+}
+
+/* --- TOGGLE SWITCH (NÚT BẬT TẮT) --- */
+.toggleSwitch {
+    position: relative;
+    display: inline-block;
+    width: 50px; height: 28px; /* To hơn một chút cho cân đối */
+    margin-top: 4px;
+}
+
+.toggleSwitch input { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #e3e3e3; /* Màu nền khi tắt sáng hơn */
+    transition: .3s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px; width: 22px; /* Nút tròn to hơn */
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .3s cubic-bezier(0.25, 0.1, 0.25, 1); /* Hiệu ứng trượt mượt */
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider { 
+    background-color: #0BE09B; /* Xanh lá tươi sáng */
+} 
+
+input:checked + .slider:before { 
+    transform: translateX(22px); 
+}

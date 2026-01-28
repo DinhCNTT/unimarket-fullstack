@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;600&display=swap');
+
+.specsContainer {
+  font-family: 'Reddit Sans', sans-serif;
+  margin-top: 20px; /* Cách phần mô tả bên trên */
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0; /* Đường gạch ngang ngăn cách với mô tả */
+}
+
+.specsTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+.specsTable {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Khoảng cách giữa các dòng */
+}
+
+.specRow {
+  display: flex;
+  align-items: flex-start;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.specLabel {
+  width: 140px; /* Độ rộng cố định cho cột tên */
+  min-width: 140px;
+  color: #666; /* Màu xám nhạt cho nhãn */
+}
+
+.specValue {
+  flex: 1;
+  color: #333; /* Màu đậm cho giá trị */
+  font-weight: 400;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 480px) {
+  .specRow {
+    flex-direction: row; /* Vẫn giữ hàng ngang nhưng chỉnh lại xíu */
+  }
+  .specLabel {
+    width: 110px;
+    min-width: 110px;
+  }
+}

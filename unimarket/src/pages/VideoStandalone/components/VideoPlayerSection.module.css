@@ -1,0 +1,499 @@
+﻿/* VideoPlayerSection.module.css */
+
+/* ======================================================
+   0. THEME CONFIGURATION (SCOPED TO CONTAINER)
+   Không dùng :root để tránh ảnh hưởng global
+   ====================================================== */
+.container {
+  /* --- Mặc định (Light Mode) --- */
+  --theme-text-primary: #161823;       /* Màu chữ chính (Đen đậm) */
+  --theme-bg-icon: rgba(22, 24, 35, 0.06); /* Nền nút icon (Xám nhạt) */
+  --theme-bg-icon-hover: rgba(22, 24, 35, 0.15); /* Hover nút icon */
+  
+  /* Các biến khác (dự phòng) */
+  --theme-accent-color: #ff6600;
+}
+
+/* --- Kích hoạt Dark Mode khi thẻ cha (html/body) có data-theme="dark" --- */
+:global([data-theme='dark']) .container {
+  --theme-text-primary: #ffffff;       /* Chữ chuyển sang Trắng */
+  --theme-bg-icon: rgba(255, 255, 255, 0.15); /* Nền nút icon sáng hơn trên nền đen */
+  --theme-bg-icon-hover: rgba(255, 255, 255, 0.3); /* Hover sáng hơn */
+}
+
+/* ======================================================
+   1. GLOBAL & CONTAINER
+   ====================================================== */
+.container {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  /* Font chữ hệ thống hiện đại */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 20px;
+
+  max-width: 100%;
+  max-height: 100%;
+  padding-bottom: 20px;
+}
+
+/* ======================================================
+   2. VIDEO WRAPPER (KHUNG VIDEO)
+   ====================================================== */
+.videoWrapper {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+  margin-left: 100px; 
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #000; 
+  transition: all 0.3s ease;
+}
+
+/* VIDEO PLAYER (DỌC MẶC ĐỊNH) */
+.videoPlayer {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+/* LOGIC CŨ: VIDEO NGANG */
+.landscapeWrapper .videoPlayer {
+  width: 100%;
+  max-width: 800px;
+  max-height: 95vh;
+  height: auto;
+  background: #000;
+}
+
+/* ======================================================
+   3. CONTROLS LAYER (VOLUME + SEEK SÁT ĐÁY)
+   ====================================================== */
+/* Lớp phủ chứa controls */
+.controlsLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 30; 
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 20%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Hiển controls khi hover */
+.show {
+    opacity: 1;
+}
+
+/* --- A. VOLUME CONTROL (Góc trái trên) --- */
+.volumeControl {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(22, 24, 35, 0.34);
+    padding: 8px 12px;
+    border-radius: 32px;
+    pointer-events: auto;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s, transform 0.2s;
+}
+
+.volumeControl:hover {
+    background: rgba(22, 24, 35, 0.6);
+    transform: scale(1.02);
+}
+
+.muteBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+}
+
+.volumeSlider {
+    width: 0;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 4px;
+    appearance: none;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.volumeControl:hover .volumeSlider {
+    width: 60px;
+    opacity: 1;
+    transform: scaleX(1);
+    margin-left: 6px;
+}
+
+.volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* --- B. PROGRESS BAR (SÁT ĐÁY) --- */
+.progressBarContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px; 
+    display: flex;
+    align-items: flex-end; 
+    pointer-events: auto;
+    cursor: pointer;
+    z-index: 40; 
+    padding-bottom: 0; 
+}
+
+/* Thanh tua nền */
+.seekSlider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 3px; 
+    background: rgba(255, 255, 255, 0.2); 
+    border-radius: 0;
+    cursor: pointer;
+    outline: none;
+    transition: height 0.1s ease;
+    margin: 0;
+    background-image: linear-gradient(#fff, #fff);
+    background-repeat: no-repeat;
+}
+
+/* Khi hover vào vùng đáy thì thanh to lên */
+.progressBarContainer:hover .seekSlider {
+    height: 8px; /* To lên giống TikTok */
+}
+
+/* Cục tròn kéo tua (Thumb) - Mặc định ẨN */
+.seekSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+
+    /* Ban đầu ẩn (trong suốt) */
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.1s, opacity 0.1s;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+
+/* Khi hover container hoặc active (đang kéo) thì hiện cục tròn */
+.progressBarContainer:hover .seekSlider::-webkit-slider-thumb,
+.seekSlider:active::-webkit-slider-thumb {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* --- C. BIG TIME DISPLAY (GIỜ TO KHI TUA) --- */
+.bigTimeDisplay {
+    position: absolute;
+    bottom: 25px; /* Cách đáy thanh slider 25px */
+    /* Left sẽ được JS tính toán và gán inline style */
+    transform: translateX(-50%); /* Căn giữa so với điểm mốc */
+
+    font-size: 24px; /* Chữ to rõ */
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 50;
+
+    animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) scale(0.8); }
+    to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* ======================================================
+   4. INFO OVERLAY (Thông tin tác giả, mô tả)
+   ====================================================== */
+.infoOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  /* Tăng padding bottom để né thanh tua khi nó to lên */
+  padding: 20px 18px 35px 18px;
+
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  z-index: 10;
+  color: #fff; /* Luôn là màu trắng vì nằm trên video */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  pointer-events: none;
+}
+.infoOverlay > * { pointer-events: auto; }
+
+.authorRow {
+  margin-bottom: 6px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.authorName {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.authorName:hover { text-decoration: underline; }
+
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+.musicRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.musicIcon {
+  font-size: 15px;
+}
+
+.musicText {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
+}
+
+/* ======================================================
+   5. SIDE ACTIONS (Thả tim, comment, share...)
+   ====================================================== */
+.sideActions {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 10px;
+}
+
+.actionItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.actionItem:active { transform: scale(0.9); }
+
+.iconCircle {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background-color: var(--theme-bg-icon);
+  color: var(--theme-text-primary); 
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.iconCircle:hover {
+  background-color: var(--theme-bg-icon-hover);
+}
+
+.actionText {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--theme-text-primary);
+  margin-top: 6px;
+  letter-spacing: 0.2px;
+}
+
+/* Avatar */
+.actionItemAvatar { position: relative; margin-bottom: 12px; cursor: pointer; }
+
+.avatarContainer {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 1px solid #fff;
+}
+.avatarImg { width: 100%; height: 100%; object-fit: cover; }
+
+.plusIcon {
+  position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+  background: #fe2c55; width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* Disc */
+.discAnimation {
+  width: 48px; height: 48px;
+  background: #222; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 9px solid #333;
+  overflow: hidden;
+  animation: spin 5s linear infinite;
+  margin-top: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+.discAnimation img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* ======================================================
+   6. ANIMATIONS & OVERLAYS (Play/Heart)
+   ====================================================== */
+.playIconOverlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none; opacity: 0.8; z-index: 5;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+}
+
+.heartAnimation {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none; animation: heartPop 0.8s ease-out forwards;
+  z-index: 20; filter: drop-shadow(0 0 10px rgba(254, 44, 85, 0.6));
+}
+@keyframes heartPop {
+  0% { transform: translate(-50%, -50%) scale(0) rotate(-15deg); opacity: 0; }
+  15% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  30% { transform: translate(-50%, -50%) scale(0.9); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+/* ======================================================
+   7. RESPONSIVE (MOBILE)
+   ====================================================== */
+@media (max-width: 900px) {
+  .mainContent { display: block; width: 100%; height: 100%; padding: 0; }
+
+  .sideActions {
+    position: absolute; right: 10px; bottom: 80px; z-index: 20;
+    gap: 16px;
+  }
+
+  .actionText {
+    /* Mobile: Chữ nằm trên video nên luôn phải là trắng, không theo theme */
+    color: #fff !important; 
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  }
+
+  /* Mobile: Icon nằm trên video nên trong suốt */
+  .iconCircle { background: transparent !important; width: auto; height: auto; }
+  .iconCircle:hover { background: transparent !important; }
+
+  /* Reset layout video trên mobile */
+  .videoWrapper, .landscapeWrapper {
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+  }
+
+  .videoPlayer, .landscapeWrapper .videoPlayer {
+    max-height: 100vh;
+    max-width: 100%;
+  }
+
+  /* Mobile Adjustments for Controls */
+  .volumeControl {
+    top: 60px; /* Né tai thỏ */
+    left: 10px;
+  }
+
+  /* Mobile: Thanh tua cũng sát đáy */
+  .progressBarContainer {
+    bottom: 0;
+    left: 0; right: 0;
+    padding: 0;
+  }
+  .seekSlider {
+    height: 3px;
+    border-radius: 0;
+  }
+}
+
+/* --- C. TIME DISPLAY (CỐ ĐỊNH GIỮA) --- */
+.timeDisplay {
+    position: absolute;
+    bottom: 35px; /* Cách thanh tua một đoạn */
+    left: 50%;    /* Căn giữa màn hình */
+    transform: translateX(-50%);
+
+    /* Style chữ */
+    color: #ff8800;
+    font-size: 26px;
+    font-weight: 900;
+    font-family: "Segoe UI Black", Roboto, Arial, sans-serif;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 50;
+
+    /* Mặc định là ẨN */
+    opacity: 0;
+    transition: opacity 0.1s ease; /* Chỉnh nhanh hơn chút cho nhạy */
+}
+
+.seekSlider:active ~ .timeDisplay {
+    opacity: 1;
+}

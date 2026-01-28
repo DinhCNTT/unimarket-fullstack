@@ -1,0 +1,87 @@
+/* ========================================= */
+/* --- PREVIEW TIN NHẮN TRẢ LỜI (TRONG BONG BÓNG CHAT) --- */
+/* ========================================= */
+.parent-message-preview {
+  background-color: rgba(0, 0, 0, 0.05); 
+  padding: 6px 10px;
+  margin: -10px -15px 8px -15px;
+  border-radius: 18px 18px 0 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.85rem;
+  cursor: pointer; 
+  transition: background-color 0.2s;
+}
+
+[data-theme="dark"] .text-message-wrapper.received .parent-message-preview {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.parent-message-preview:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+.text-message-wrapper.sent .parent-message-preview:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.text-message-wrapper.sent .parent-message-preview {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.parent-message-sender {
+  font-weight: 600;
+  color: #007aff;
+  font-size: 0.8rem;
+}
+
+.text-message-wrapper.sent .parent-message-sender {
+  color: #fff;
+  opacity: 0.9;
+}
+
+.parent-message-content {
+  color: inherit;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9em; 
+}
+
+.parent-message-content svg {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px; 
+  vertical-align: middle;
+  fill: currentColor; 
+}
+
+.parent-share-preview {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.parent-share-preview.video-preview {
+  font-weight: 500; 
+}
+
+.parent-share-thumbnail {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.text-message-wrapper.sent .parent-message-content {
+  color: #fff;
+}
+
+.text-message-wrapper.sent .parent-share-thumbnail {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.parent-in-video {
+  margin-bottom: 4px;
+}

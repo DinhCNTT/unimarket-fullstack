@@ -1,0 +1,402 @@
+/* src/components/NhaTroHeroHeader/NhaTroHeroHeader.module.css */
+
+/* Import font Reddit Sans */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+/* ===== HERO CONTAINER ===== */
+.heroContainer {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 12px 24px 5px;
+  margin: 0;
+  margin-top: 170px;
+  min-height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 2200;
+  box-shadow: none;
+}
+
+.heroOverlay {
+  display: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 24px 0;
+}
+
+.heroTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.heroSubtitle {
+  font-size: 28px;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+  font-weight: 600;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
+}
+
+/* --- SEARCH BAR CONTAINER (CHỢ TỐT STYLE) --- */
+.searchBar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  height: 68px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transition: all 0.2s ease;
+  margin: 0 auto;
+}
+
+.searchBar:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+/* --- 1. INPUT WRAPPER (Ô NHẬP TỪ KHÓA) --- */
+.inputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 12px;
+  position: relative;
+  border-right: 1px solid #e8e8e8;
+}
+
+.searchIcon {
+  color: #9b9b9b;
+  font-size: 23px;
+  margin-right: 11px;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 17px;
+  color: #222;
+  font-weight: 400;
+  padding-right: 8px;
+}
+
+.searchInput::placeholder {
+  color: #aaa;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  color: #ddd;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
+.clearBtn:hover {
+  color: #999;
+}
+
+/* --- SUGGESTIONS DROPDOWN --- */
+.suggestionsDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+  padding: 8px 0;
+  z-index: 2500;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #f0f0f0;
+  margin-top: 10px;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  gap: 12px;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItem:hover {
+  background-color: #f9f9f9;
+}
+
+.suggestionText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.suggestionTitle {
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.suggestionCategory {
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+
+/* --- 2. FILTERS CONTAINER (CHỨA NÚT LOCATION & CATEGORY) --- */
+.filtersContainer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.filterBtn {
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* --- NÚT CHỌN KHU VỰC (LOCATION) --- */
+.locationBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #e8e8e8;
+  padding: 0 17px;
+  height: 100%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.locationBtn:hover {
+  background-color: #fffbf0;
+}
+
+.locText {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* --- NÚT CHỌN LOẠI HÌNH (CATEGORY) --- */
+.filterDropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  padding: 0 17px;
+  height: 100%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.filterDropdown:hover {
+  background-color: #fffbf0;
+}
+
+.filterLabel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.filterLabel::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-image: url("https://static.chotot.com/storage/chotot-icons/svg/building_fill.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.dropdownIcon {
+  color: #999;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* --- DROPDOWN MENUS --- */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border: 1px solid #eee;
+  z-index: 1000;
+  min-width: 250px;
+  overflow: hidden;
+  padding: 8px 0;
+}
+
+.dropdownSearch {
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  outline: none;
+  font-size: 14px;
+}
+
+.optionsContainer {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.option {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: #fffbf0;
+  color: #f87d14;
+}
+
+.backOption {
+  color: #f87d14;
+  font-weight: 600;
+}
+
+.backOption:hover {
+  background-color: #fffbf0;
+  color: #f87d14;
+}
+
+/* --- 3. NÚT TÌM KIẾM (SEARCH BUTTON) --- */
+.searchBtn {
+  background-color: #f87d14;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  height: 50px;
+  padding: 0 21px;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.searchBtn svg {
+  font-size: 16px;
+}
+
+.scrollBtn {
+  display: none !important;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+  .searchBar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .inputWrapper {
+    width: 100%;
+    flex: none;
+    border-right: none;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+
+  .filtersContainer {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .locationBtn,
+  .filterDropdown {
+    border-right: none;
+    padding: 0 8px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    height: 40px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .filterBtn:first-child {
+    margin-right: 8px;
+    flex: 1;
+  }
+
+  .filterBtn:last-child {
+    flex: 1;
+  }
+
+  .searchBtn {
+    width: 100%;
+    margin: 4px 0 0 0;
+    justify-content: center;
+  }
+}

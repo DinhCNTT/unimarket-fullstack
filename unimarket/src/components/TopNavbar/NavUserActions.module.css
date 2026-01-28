@@ -1,0 +1,363 @@
+/* --- 1. QUAN TRỌNG: IMPORT FONT HIỆN ĐẠI (INTER & ROBOTO) --- */
+/* Bạn đặt dòng này lên đầu file CSS nhé */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+/* --- CÁC PHẦN GIỮ NGUYÊN --- */
+.navRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  position: relative; 
+  z-index: 200; 
+  /* Áp dụng font chung cho khu vực này */
+  font-family: 'Inter', 'Roboto', sans-serif;
+}
+
+/* Icon Buttons */
+.iconBtnWrapper {
+  position: relative;
+}
+
+.iconBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: relative;
+  color: #333;
+}
+
+.iconBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: #ff6600;
+}
+
+/* Badge count */
+.badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: red;
+  color: white;
+  
+  /* Update font số cho dễ đọc */
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  font-weight: 700; /* Đậm hơn chút */
+  
+  padding: 0 4px;
+  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px #fff;
+  z-index: 2;
+}
+
+/* Manage Post Button */
+.managePostBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #202124;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 30px;
+  
+  /* Update Typography */
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600; /* Tăng độ đậm lên 600 nhìn chắc chắn hơn */
+  letter-spacing: -0.2px; /* Thu hẹp chữ lại xíu cho tinh tế */
+  
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.managePostBtn:hover {
+  background: #fff7ed;
+  color: #111;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.scrolled .managePostBtn {
+  border: 1px solid #eee;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Account Section (Nút Avatar trên Navbar) */
+.accountSection {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 5px;
+  z-index: 201; 
+}
+
+.accountInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px; 
+  background-color: #ffffff;
+  padding: 4px 10px 4px 4px;
+  border-radius: 50px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.accountInfo:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  border-color: #ffd400; 
+}
+
+.avatarImg {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarIcon {
+  font-size: 34px;
+  color: #ccc;
+}
+
+.dropdownArrow {
+  font-size: 14px;
+  color: #333;
+  transition: transform 0.3s;
+}
+
+.scrolled .accountInfo {
+  border: 1px solid #eee;
+  box-shadow: none;
+  background: #f5f5f5;
+}
+
+.scrolled .iconBtn {
+  background: #f5f5f5;
+}
+
+/* --- PHẦN MENU DROPDOWN (FONTS ĐƯỢC NÂNG CẤP) --- */
+
+/* Khung chính của Menu */
+.accountDropdown {
+  background: #fff;
+  border-radius: 16px; 
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); 
+  min-width: 300px;
+  padding-bottom: 8px;
+  animation: dropIn 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  overflow: hidden; 
+  border: 1px solid #f0f0f0;
+}
+
+/* Animation khi menu hiện ra */
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Phần Header chứa Avatar to và Tên */
+.dropdownProfileHeader {
+  background-color: #fff;
+  padding: 20px 16px 16px; 
+  text-align: center;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+/* Tên user trong dropdown - Update Font */
+.dropdownProfileHeader div:nth-child(2) {
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a !important;
+  margin-top: 8px;
+  
+  /* Update: To hơn, đậm hơn */
+  font-size: 17px; 
+  font-weight: 700; 
+  letter-spacing: -0.3px; 
+}
+
+/* Text thống kê (Followers) - Update Font */
+.dropdownProfileHeader div:nth-child(3) {
+  font-family: 'Roboto', sans-serif; /* Số dùng Roboto đẹp hơn */
+  font-size: 13px !important;
+  color: #666 !important; /* Màu xám trung tính hơn */
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Tiêu đề Section (Tiện ích, Khác) - Update Font */
+.dropdownHeader {
+  padding: 12px 20px 4px;
+  color: #888; /* Màu nhạt hơn chút cho sang */
+  
+  /* Update: Uppercase gọn gàng */
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 11px; /* Nhỏ lại tí cho tinh tế */
+  text-transform: uppercase;
+  letter-spacing: 0.8px; /* Giãn chữ ra cho dễ đọc */
+}
+
+/* Từng dòng menu item - Update Font */
+.dropdownItem {
+  padding: 12px 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 14px; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  
+  /* Update Typography */
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Hiệu ứng hover item */
+.dropdownItem:hover {
+  background-color: #fffcf5; 
+  color: #000; /* Đen tuyệt đối khi hover */
+  font-weight: 600; /* Đậm lên xíu khi hover */
+  padding-left: 24px; 
+}
+
+/* Thêm thanh màu vàng bên trái khi hover */
+.dropdownItem:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #ffd400;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* Icon trong dropdown item */
+.dropdownItem svg {
+  transition: transform 0.2s;
+  font-size: 18px; 
+  color: #555; /* Màu icon nhạt hơn chữ chút */
+}
+
+.dropdownItem:hover svg {
+  transform: scale(1.1); 
+  color: #ffd400; /* Icon sáng lên khi hover */
+}
+
+/* Đường kẻ phân cách */
+.dropdownDivider {
+  height: 1px;
+  margin: 8px 20px;
+  background-color: #f0f0f0;
+}
+
+/* Nút Đăng xuất */
+.dropdownItem:last-child:hover {
+  background-color: #fff5f5; 
+  color: #ef4444; /* Chữ đỏ khi hover */
+}
+.dropdownItem:last-child:hover::before {
+  background-color: #ef4444; 
+}
+.dropdownItem:last-child:hover svg {
+    color: #ef4444;
+}
+
+/* Login/Register Buttons (Update Font) */
+.authBtns {
+  display: flex;
+  gap: 10px;
+}
+
+.loginBtn {
+  background: #fff;
+  color: #ff5722;
+  padding: 6px 16px;
+  border: 2px solid #ff5722;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  
+  /* Update Typography */
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.loginBtn:hover {
+  background: #ff5722;
+  color: #fff;
+}
+
+.registerBtn {
+  background: #fff;
+  color: #4caf50;
+  padding: 6px 16px;
+  border: 2px solid #4caf50;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  
+  /* Update Typography */
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.registerBtn:hover {
+  background: #4caf50;
+  color: #fff;
+}
+
+/* Post Button Highlight - Update Font */
+.postBtnHighlight {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 24px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  
+  /* Update Typography */
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.3px; /* Giãn nhẹ chữ tạo cảm giác nút cao cấp */
+}
+
+.postBtnHighlight:hover {
+  background-color: #333;
+  transform: translateY(-1px);
+}
+
+.scrolled .postBtnHighlight {
+  background: #ffba00;
+  color: #fff;
+}

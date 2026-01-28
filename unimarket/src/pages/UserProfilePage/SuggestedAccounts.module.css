@@ -1,0 +1,291 @@
+/* 1. KHUNG CHÍNH: Đặt về 100% để khớp với cột nội dung (giống TikTok) */
+.suggestContainer {
+  margin-top: 24px; /* Khoảng cách với phần info bên trên */
+  width: 159%;      /* Chiếm hết chiều rộng cho phép */
+  margin-left: 0;   /* ❌ Bỏ -230px */
+  position: relative;
+  box-sizing: border-box;
+  
+  /* Nếu bạn muốn nó xuất hiện mượt mà (Fade In) */
+  animation: slideDown 0.3s ease-out;
+}
+
+/* 2. HEADER: Căn lề 2 bên (Tiêu đề trái - Nút phải) */
+.headerRow {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  padding: 0;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary, #161823);
+  margin-bottom: 0;
+  transition: color 0.2s; /* Thêm transition cho mượt khi đổi chế độ */
+}
+
+/* --- Dark Mode cho Title --- */
+[data-theme='dark'] .title {
+  color: var(--theme-text-primary, #ffffff);
+}
+
+.seeAllBtn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #161823;
+  cursor: pointer;
+  padding: 4px 0; /* Padding này là độ cao của nút, giữ nguyên để dễ bấm */
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+/* --- Dark Mode cho nút Xem tất cả --- */
+[data-theme='dark'] .seeAllBtn {
+  color: var(--theme-text-primary, #ffffff);
+}
+
+.seeAllBtn:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+/* 3. WRAPPER DANH SÁCH */
+.listWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 12px; 
+}
+
+/* DANH SÁCH: Thêm justify-content: flex-start để không bị bay lung tung */
+.list {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding-left: 0; /* Đảm bảo sát lề trái */
+}
+.list::-webkit-scrollbar {
+  display: none; 
+}
+
+/* 4. CARD: Chỉnh size nhỏ lại một chút (140px) cho giống TikTok */
+.card {
+  /* 1. Sửa lại kích thước cho thống nhất (Code cũ min-width > width là bị lỗi) */
+  min-width: 160px; 
+  width: 160px;
+  height: 220px; /* Tăng nhẹ chiều cao để nút Follow cam thở dễ hơn */
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  /* 2. MÀU NỀN TRUNG TÍNH (Hợp với nút Cam và nền Trắng) */
+  background-color: var(--bg-card, #F2F3F5); /* Màu xám hiện đại, sạch sẽ */
+  
+  /* Viền siêu mỏng, gần như tàng hình */
+  border: 1px solid rgba(22, 24, 35, 0.03); 
+  
+  border-radius: 12px; /* Bo góc tròn hơn xíu cho mềm mại */
+  padding: 12px 10px; 
+  text-align: center;
+  position: relative;
+  flex-shrink: 0; 
+  cursor: pointer;
+  
+  /* Hiệu ứng chuyển màu mượt mà */
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- Dark Mode cho Card --- */
+[data-theme='dark'] .card {
+  /* Sử dụng màu xám đậm vừa phải, không đen kịt */
+  background-color: #1f1f1f; 
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.card:hover {
+  background-color: #ffffff; 
+  border-color: rgba(22, 24, 35, 0.15); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
+}
+
+/* Logic cũ của bạn có 2 lần hover, giữ nguyên theo yêu cầu */
+.card:hover {
+  background-color: #eaeaeb;
+}
+
+/* --- Dark Mode cho Card Hover --- */
+[data-theme='dark'] .card:hover {
+  /* Hover sáng hơn nền card một chút */
+  background-color: #2a2a2a; 
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.avatar {
+  width: 85px;  /* Avatar nhỏ hơn xíu cho cân đối */
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  /* Thêm viền nhẹ ở darkmode để avatar nổi hơn nếu ảnh tối */
+}
+[data-theme='dark'] .avatar {
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.name {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  font-size: 15px;             
+  font-weight: 600;            
+  color: #111827;              
+  letter-spacing: -0.1px;
+  line-height: 1.25;
+
+  margin-bottom: 4px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* --- Dark Mode cho Name --- */
+[data-theme='dark'] .name {
+  color: var(--theme-text-primary, #ffffff);
+}
+
+.nickname {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  font-size: 12.5px;          
+  font-weight: 500;
+  color: #6b7280;             
+  letter-spacing: 0.15px;
+  line-height: 1.3;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* --- Dark Mode cho Nickname --- */
+[data-theme='dark'] .nickname {
+  color: var(--theme-text-secondary, #a1a1aa);
+}
+
+.followBtn {
+  background: linear-gradient(135deg, #f4c430, #f08a24); 
+  /* vàng trầm → cam trầm */
+
+  color: #fff;
+
+  border: none;
+  border-radius: 8px;
+  padding: 6px 0;
+  width: 100%;
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15px;
+
+  cursor: pointer;
+  margin-top: auto;
+
+  box-shadow: 0 1px 4px rgba(240, 138, 36, 0.25);
+
+  transition: background 0.2s ease,
+              box-shadow 0.15s ease,
+              transform 0.15s ease;
+}
+
+/* Dark mode cho nút follow: Giữ nguyên màu nền gradient vì nó là màu thương hiệu, 
+   chỉ chỉnh shadow cho hợp nền tối nếu cần */
+[data-theme='dark'] .followBtn {
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.followBtn:hover {
+  background: linear-gradient(135deg, #eab308, #ea580c);
+  /* hover đậm hơn nhưng vẫn trầm */
+
+  box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+  transform: translateY(-1px);
+}
+
+/* 5. NÚT MŨI TÊN: Nổi lên trên card (Overlay) */
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20; /* Z-index cao để nổi lên trên */
+  color: #161823;
+  font-size: 18px;
+  border: 1px solid rgba(22, 24, 35, 0.05);
+  opacity: 0; 
+  transition: all 0.2s;
+}
+
+/* --- Dark Mode cho Nút Mũi Tên --- */
+[data-theme='dark'] .navBtn {
+  background-color: #333333; /* Nền xám đậm */
+  color: #ffffff; /* Icon trắng */
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Chỉ hiện mũi tên khi di chuột vào vùng danh sách */
+.listWrapper:hover .navBtn {
+  opacity: 1;
+}
+
+.navBtn:hover {
+  background-color: #f8f8f8;
+  transform: scale(1.1) translateY(-45%); /* Hiệu ứng hover nhẹ */
+}
+
+/* --- Dark Mode cho Hover Nút Mũi Tên --- */
+[data-theme='dark'] .navBtn:hover {
+  background-color: #444444; /* Sáng hơn một chút khi hover */
+}
+
+/* Vị trí nút: Nằm đè lên mép danh sách một chút */
+.prevBtn {
+  left: 4px; 
+}
+
+.nextBtn {
+  right: 4px; 
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

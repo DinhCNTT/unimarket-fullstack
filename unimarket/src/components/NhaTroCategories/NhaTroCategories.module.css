@@ -1,0 +1,113 @@
+/* src/components/NhaTroCategories/NhaTroCategories.module.css */
+
+/* Import font Reddit Sans */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@300;400;500;600;700&display=swap');
+
+* {
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.container {
+  width: 95%;
+  max-width: 1300px;
+  margin: 30px auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-family: 'Reddit Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.categoryBox {
+  flex: 1;
+  min-width: 300px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.categoryBox:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.boxHeader {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.boxContent {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.boxImage {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.boxInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.boxTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.boxTitle:hover {
+  color: #ff6b35;
+}
+
+.boxCount {
+  font-size: 13px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+.subCategories {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+
+.subCategoryLink {
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  transition: all 0.2s;
+  display: block;
+}
+
+.subCategoryLink:last-child {
+  border-bottom: none;
+}
+
+.subCategoryLink:hover {
+  background: #fff8f0;
+  color: #ff6b35;
+  padding-left: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .categoryBox {
+    min-width: 100%;
+  }
+}

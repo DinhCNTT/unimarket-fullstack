@@ -1,0 +1,694 @@
+/* ========== Message Wrapper ========== */
+.messageWrapper {
+  display: flex;
+  margin-bottom: 12px;
+  animation: fadeInUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; /* Để absolute position menu hoạt động */
+  padding: 0 44px; /* Dành chỗ cho nút ba chấm */
+}
+
+.sentWrapper {
+  justify-content: flex-end;
+  margin-right: -50px; /* Dịch tin nhắn của bạn sang phải */
+}
+
+.receivedWrapper {
+  justify-content: flex-start;
+  margin-left: -50px; /* Dịch tin nhắn của người khác sang trái */
+}
+
+/* ========== Message Container ========== */
+.message {
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 4px;
+}
+
+.sent {
+  align-items: flex-end;
+}
+
+.received {
+  align-items: flex-start;
+}
+
+/* ========== Menu Container - Positioned Beside Message ========== */
+.menuContainer {
+  position: absolute;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.sent .menuContainer {
+  left: -44px; /* Nằm bên trái tin nhắn của bạn */
+  top: 8px; /* Dịch nút xuống dưới */
+}
+
+.received .menuContainer {
+  right: -44px; /* Nằm bên phải tin nhắn người khác */
+  top: 8px; /* Dịch nút xuống dưới */
+}
+
+.menuTrigger {
+  /* ✅ ĐỔI MÀU: Nền nút 3 chấm */
+  background: var(--theme-bg-secondary);
+  border: none;
+  /* ✅ ĐỔI MÀU: Icon nút 3 chấm */
+  color: var(--theme-text-secondary);
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 28px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.message:hover .menuTrigger {
+  opacity: 1;
+}
+
+.menuTrigger:hover,
+.menuActive {
+  /* ✅ ĐỔI MÀU: Hover nút 3 chấm */
+  background: var(--theme-bg-hover);
+  color: var(--theme-text-primary);
+  transform: scale(1.05);
+}
+
+.menuTrigger:active {
+  transform: scale(0.98);
+}
+
+/* ========== Dropdown Menu ========== */
+.messageMenu {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  right: 0;
+  /* ✅ ĐỔI MÀU: Nền menu dropdown */
+  background: var(--theme-bg-primary);
+  /* ✅ ĐỔI MÀU: Viền menu dropdown */
+  border: 1px solid var(--theme-border-color);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  box-sizing: border-box;
+  width: auto;
+  min-width: 200px;
+  max-width: 320px; /* keep menu compact like other boxes */
+  overflow: hidden;
+  animation: menuSlideIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.received .messageMenu {
+  right: auto;
+  left: 0;
+}
+
+/* When the menu should appear below the message (e.g. first message at top),
+   show it under the message instead of above */
+.messageMenu.menuBelow {
+  bottom: auto;
+  top: calc(100% + 6px);
+  animation: menuSlideDown 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.messageMenu {
+  padding: 8px 12px; /* tighter padding so width remains reasonable */
+}
+
+/* Make the first-message (menuBelow) box a bit smaller than others */
+.messageMenu.menuBelow {
+  max-width: 200px;
+  min-width: 140px;
+  padding: 5px 8px;
+}
+
+.received .messageMenu.menuBelow {
+  left: 0;
+  right: auto;
+}
+
+@keyframes menuSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes menuSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========== Menu Items ========== */
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* ✅ ĐỔI MÀU: Chữ menu item */
+  color: var(--theme-text-primary);
+  font-weight: 500;
+  position: relative;
+}
+
+.menuItem:hover:not(.disabledItem) {
+  /* ✅ ĐỔI MÀU: Hover menu item */
+  background: var(--theme-bg-hover);
+}
+
+.menuItem:active:not(.disabledItem) {
+  transform: scale(0.98);
+}
+
+.menuIcon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.menuText {
+  flex: 1;
+}
+
+/* Recall Item */
+.recallItem {
+  color: #f59e0b;
+}
+
+.recallItem:hover {
+  /* Dùng rgba để hợp cả 2 nền */
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.recallItem .menuIcon {
+  color: #f59e0b;
+}
+
+/* Delete Item */
+.deleteItem {
+  color: #ef4444;
+}
+
+.deleteItem:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.deleteItem .menuIcon {
+  color: #ef4444;
+}
+
+/* Disabled Item */
+.disabledItem {
+  color: var(--theme-text-secondary);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.disabledItem:hover {
+  background: none;
+}
+
+/* Timer Badge */
+.timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #d97706;
+  background: rgba(254, 243, 199, 0.8);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  min-width: 48px;
+  justify-content: center;
+  border: 1px solid rgba(253, 230, 138, 0.5);
+}
+
+.timer svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* Menu Divider */
+.menuDivider {
+  height: 1px;
+  /* ✅ ĐỔI MÀU: Đường kẻ mờ */
+  background: var(--theme-border-color);
+  margin: 4px 0;
+}
+
+/* ========== Message Content ========== */
+.messageContent {
+  display: inline-block;
+  position: relative;
+}
+
+/* Text Messages */
+.textContent {
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin: 0;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.sent .textContent {
+  background: #007aff; /* Màu xanh gửi đi giữ nguyên */
+  color: white;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.received .textContent {
+  /* ✅ ĐỔI MÀU: Nền tin nhắn nhận (xám nhạt/đậm) */
+  background: var(--theme-bg-secondary);
+  /* ✅ ĐỔI MÀU: Chữ tin nhắn nhận */
+  color: var(--theme-text-primary);
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* ========== Media Messages ========== */
+.mediaWrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  display: inline-block;
+  /* ✅ ĐỔI MÀU: Nền media placeholder */
+  background: var(--theme-bg-secondary);
+}
+
+.mediaContent {
+  max-width: 280px;
+  max-height: 280px;
+  border-radius: 12px;
+  display: block;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mediaWrapper:hover .mediaContent {
+  transform: scale(1.02);
+}
+
+.mediaOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  pointer-events: none;
+}
+
+.mediaWrapper:hover .mediaOverlay {
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.zoomIcon {
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white; /* Đổi màu thành trắng */
+  font-size: 24px; /* Giảm kích thước xuống 24px */
+}
+
+.mediaWrapper:hover .zoomIcon {
+  transform: scale(1);
+}
+
+/* Video Controls */
+.mediaContent[controls] {
+  cursor: default;
+}
+
+/* ========== Message Info ========== */
+.messageInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  padding: 0 4px;
+}
+
+.sent .messageInfo {
+  flex-direction: row-reverse;
+}
+
+.messageTime {
+  font-size: 11px;
+  /* ✅ ĐỔI MÀU: Thời gian */
+  color: var(--theme-text-secondary);
+  font-weight: 500;
+}
+
+.seenStatus {
+  font-size: 11px;
+  color: #667eea; /* Giữ màu xanh đã xem */
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* ========== Recalled Messages ========== */
+.recalled {
+  opacity: 0.75;
+}
+
+.recalled .messageContent {
+  background: transparent;
+}
+/* ========== AI Suggestions / Clarifier UI ========== */
+.aiSuggestions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.aiCard {
+  width: 160px;
+  min-width: 140px;
+  background: var(--theme-bg-primary);
+  border: 1px solid var(--theme-border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.aiCardImage {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  background: var(--theme-bg-secondary);
+}
+
+.aiCardImagePlaceholder {
+  width: 100%;
+  height: 90px;
+  background: linear-gradient(90deg, #f0f0f0, #e8e8e8);
+}
+
+.aiCardBody {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aiCardTitle {
+  font-size: 13px;
+  color: var(--theme-text-primary);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.aiCardPrice {
+  font-size: 12px;
+  color: var(--theme-text-secondary);
+  font-weight: 700;
+}
+
+.aiClarify {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.aiClarifyText {
+  background: var(--theme-bg-secondary);
+  color: var(--theme-text-primary);
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.aiClarifyActions {
+  display: flex;
+  gap: 8px;
+}
+
+.aiQuickReply {
+  background: #007aff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.aiQuickReply:active { transform: scale(0.98); }
+.recalledText {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  /* ✅ ĐỔI MÀU: Chữ thu hồi */
+  color: var(--theme-text-secondary);
+  font-style: italic;
+  margin: 0;
+  /* ✅ ĐỔI MÀU: Nền thu hồi */
+  background: var(--theme-bg-secondary);
+  /* ✅ ĐỔI MÀU: Viền thu hồi */
+  border: 1px dashed var(--theme-border-color);
+}
+
+/* ========== Animations ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== Responsive Design ========== */
+@media (max-width: 768px) {
+  .message {
+    max-width: 85%;
+  }
+
+  .mediaContent {
+    max-width: 240px;
+    max-height: 240px;
+  }
+
+  .messageMenu {
+    min-width: 180px;
+  }
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+  .menuTrigger {
+    opacity: 0.8;
+  }
+
+  .message:active .menuTrigger {
+    opacity: 1;
+  }
+
+  .mediaWrapper:hover .mediaContent {
+    transform: none;
+  }
+
+  .mediaWrapper:hover .mediaOverlay {
+    opacity: 0;
+  }
+
+  .mediaWrapper:active .mediaContent {
+    transform: scale(0.98);
+  }
+
+  .menuItem:hover {
+    background: none;
+  }
+
+  .menuItem:active:not(.disabledItem) {
+    background: var(--theme-bg-hover);
+  }
+}
+/* ========== MODERN LOCATION CARD ========== */
+.locationCard {
+  width: 240px;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--theme-bg-primary);
+  border: 1px solid var(--theme-border-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.locationCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Phần hiển thị bản đồ (Iframe) */
+.mapPreview {
+  width: 100%;
+  height: 140px; /* Chiều cao cố định */
+  background: #e5e7eb;
+  position: relative;
+}
+
+.mapPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+}
+
+/* Phần chân trang (Thông tin + Nút bấm) */
+.locationFooter {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff; /* Mặc định nền trắng */
+  cursor: pointer;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.locationInfoText {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-right: 8px;
+}
+
+.locationTitle {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #1e293b;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.locationCoords {
+  font-size: 11px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Nút chỉ đường (Tròn) */
+.directionBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #3b82f6;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.directionBtn:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+/* --- TÙY CHỈNH CHO TIN NHẮN GỬI ĐI (SENT) --- */
+/* Để màu sắc hài hòa với bong bóng chat màu xanh */
+.sent .locationCard {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sent .locationFooter {
+  background: #f8fafc; /* Nền trắng xám */
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+  .locationCard {
+    border-color: #334155;
+  }
+  .locationFooter {
+    background: #1e293b;
+    border-top-color: #334155;
+  }
+  .locationTitle {
+    color: #f1f5f9;
+  }
+  .locationCoords {
+    color: #94a3b8;
+  }
+  .directionBtn {
+    background: #334155;
+    color: #60a5fa;
+  }
+  .directionBtn:hover {
+    background: #2563eb;
+    color: white;
+  }
+}
+.sent .locationTitle {
+  color: #1e293b !important;
+}
+
+.sent .locationCoords {
+  color: #64748b !important;
+}

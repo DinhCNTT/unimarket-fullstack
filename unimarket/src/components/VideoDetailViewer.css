@@ -1,0 +1,454 @@
+/* src/components/VideoDetailViewer.css */
+
+/* Full screen wrapper */
+.vdv-wrapper.vdv-full-screen-scroll {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-bg-secondary);
+  z-index: 9999;
+}
+
+/* Video list container */
+.video-list-container {
+  height: 100vh;
+  width: 100vw;
+  
+  /* Bật cuộn dọc native */
+  overflow-y: scroll; 
+  
+  /* Kích hoạt Scroll Snap (Hít video) */
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth; /* Cuộn mượt khi click nút */
+
+  /* Ẩn thanh cuộn */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.video-list-container::-webkit-scrollbar {
+  display: none;
+}
+.video-list-wrapper {
+  height: auto;
+  width: 100%;
+  /* Xóa transition và transform cũ đi */
+}
+/* Layout 1 item (video + side info) */
+.video-item {
+  height: 100vh;
+  width: 100%;
+  
+  /* Điểm hít: Bắt buộc video phải nằm gọn trong màn hình */
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* Bắt buộc dừng lại từng video, không trượt vèo vèo */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+/* Video transitioning */
+body.video-transitioning .video-item {
+  pointer-events: none;
+}
+
+/* Video container */
+.vdv-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
+  height: 98%;
+  max-width: 650px;
+  flex-shrink: 0;
+  margin-left: 50px; 
+}
+
+/* Tỷ lệ video */
+.vdv-container.vdv-landscape {
+  max-width: 1000px;
+  max-height: 530px;
+}
+
+.vdv-container.vdv-square-wide {
+  max-width: 950px;
+  max-height: 9500px; /* nguyên bản */
+}
+
+.vdv-container.vdv-square {
+  max-width: 750px;
+  max-height: 7500px; /* nguyên bản */
+}
+
+/* ============================
+   HEART ANIMATION
+============================ */
+
+/* Double-tap heart */
+.vdv-heart-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: vdv-heart-pop 1s ease forwards;
+  pointer-events: none;
+  z-index: 3;
+  color: #ff4d6d;
+  filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.5));
+}
+
+@keyframes vdv-heart-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3) rotate(-10deg);
+  }
+  40% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(10deg);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.2) rotate(-5deg);
+  }
+  80% {
+    transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.8) rotate(0deg);
+  }
+}
+
+/* Heart pulse ring */
+.vdv-heart-pulse-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 46, 99, 0.3), transparent);
+  border: 2px solid rgba(255, 46, 99, 0.7);
+  box-shadow:
+    0 0 12px rgba(255, 46, 99, 0.6),
+    0 0 25px rgba(255, 46, 99, 0.4),
+    0 0 40px rgba(255, 46, 99, 0.2);
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0.8;
+  animation: pulseCircle 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes pulseCircle {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.9;
+    box-shadow:
+      0 0 12px rgba(255, 46, 99, 0.7),
+      0 0 20px rgba(255, 46, 99, 0.5);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.5;
+    box-shadow:
+      0 0 18px rgba(255, 46, 99, 0.4),
+      0 0 30px rgba(255, 46, 99, 0.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+    box-shadow:
+      0 0 25px rgba(255, 46, 99, 0.1),
+      0 0 40px rgba(255, 46, 99, 0);
+  }
+}
+
+/* ============================
+   COMMENT OPEN EFFECT
+============================ */
+
+.vdv-container.vdv-portrait.comment-open {
+  transform: translateX(-100px);
+  transition: transform 0.3s ease;
+}
+.vdv-container.vdv-landscape.comment-open {
+  transform: scale(0.75) translateX(-150px);
+  transition: transform 0.3s ease;
+}
+.vdv-container.vdv-portrait.comment-open ~ .vdv-side-info {
+  transform: translateX(-110px);
+  transition: transform 0.3s ease;
+}
+.vdv-container.vdv-landscape.comment-open ~ .vdv-side-info {
+  transform: translateX(-240px) scale(0.85) translateY(-25px);
+  transition: transform 0.3s ease;
+}
+.vdv-container.vdv-square-wide.comment-open {
+  transform: scale(0.75) translateX(-150px);
+  transition: transform 0.3s ease;
+}
+.vdv-container.vdv-square-wide.comment-open ~ .vdv-side-info {
+  transform: translateX(-240px);
+  transition: transform 0.3s ease;
+}
+.vdv-container.vdv-square.comment-open {
+  transform: translateX(-100px);
+  transition: transform 0.3s ease;
+}
+.vdv-container.vdv-square.comment-open ~ .vdv-side-info {
+  transform: translateX(-110px);
+  transition: transform 0.3s ease;
+}
+
+/* ============================
+   LOADING OVERLAY
+============================ */
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ============================
+   RESPONSIVE
+============================ */
+
+@media (max-width: 768px) {
+  .vdv-container {
+    max-width: 95vw;
+    max-height: 75vh;
+  }
+  .vdv-container.vdv-landscape {
+    margin-top: 30px;
+    margin-left: -20px;
+  }
+  .vdv-side-info {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 20px;
+  }
+}
+
+/* =====================================
+   THEME VARIABLES
+===================================== */
+
+[data-theme='light'] {
+  --theme-bg-primary: #ffffff;   /* Sidebar + panel */
+  --theme-bg-secondary: #ffffff; /* Video background cũng trắng luôn */
+  --theme-bg-hover: #f2f2f2;
+
+  --theme-text-primary: #121212;
+  --theme-text-secondary: #555555;
+
+  --theme-border-color: #e8e8e8;
+  --theme-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+[data-theme='dark'] {
+  --theme-bg-primary: #000000; /* Sidebar = đen */
+  --theme-bg-secondary: #000000; /* Video bg = đen */
+  --theme-bg-hover: #1a1a1a;
+
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #bbbbbb;
+
+  --theme-border-color: #222222;
+  --theme-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* =====================================
+   APPLY THEME
+===================================== */
+
+/* ================================================ */
+/*         FIX: ÁP DỤNG THEME + NOT(.active)        */
+/* ================================================ */
+
+/* Navbar thay đổi nền theo theme */
+[data-theme] .um-tn-navbar {
+  background-color: var(--theme-bg-primary);
+  border-right-color: var(--theme-border-color);
+}
+
+/* Icon mặc định — chỉ áp dụng khi KHÔNG ACTIVE */
+[data-theme] .um-tn-icon-btn:not(.active) {
+  color: var(--theme-text-secondary);
+}
+
+/* Chữ trong icon mặc định — khi KHÔNG ACTIVE */
+[data-theme] .um-tn-icon-btn:not(.active) span {
+  color: var(--theme-text-primary);
+}
+
+/* ================================================ */
+/*               LOGO theo THEME                    */
+/* ================================================ */
+[data-theme] .um-tn-logo {
+  background-color: var(--theme-bg-primary);
+}
+
+/* ================================================ */
+/*             VIDEO DETAIL VIEWER WRAPPER          */
+/* ================================================ */
+.vdv-wrapper {
+  background-color: var(--theme-bg-secondary);
+  color: var(--theme-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Overlay thông tin video */
+[data-theme] .vdv-info-overlay {
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* ================================================ */
+/*         VIDEO SIDE ACTIONS (LIKE / SHARE)        */
+/* ================================================ */
+[data-theme] .vsa-wrapper .vsa-action-btn {
+  background-color: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+}
+
+.vdv-right-nav {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  
+  /* Z-index này thấp hơn Overlay comment (9999), 
+     nhưng vì Overlay đã set pointer-events: none nên nút này vẫn bấm được */
+  z-index: 100; 
+
+  /* Nền mờ cho nút */
+  background: rgba(0, 0, 0, 0.4); 
+  padding: 8px 6px;
+  border-radius: 30px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* Hiệu ứng trượt */
+  transition: right 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.vdv-right-nav.shift-for-comments {
+  right: 400px; 
+}
+@media (max-width: 768px) {
+  .vdv-right-nav {
+    display: none; 
+  }
+}
+.vdv-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(60, 60, 60, 0.7); /* Màu nền nút */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect */
+.vdv-nav-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Active/Click effect */
+.vdv-nav-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Disabled state (khi ở đầu hoặc cuối list) */
+.vdv-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background-color: rgba(50, 50, 50, 0.5);
+}
+
+.vdv-nav-divider {
+  width: 20px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  align-self: center;
+}
+
+/* Responsive: Ẩn trên mobile để đỡ vướng (vì mobile vuốt tay được rồi) */
+@media (max-width: 768px) {
+  .vdv-right-nav {
+    display: none;
+  }
+}
+
+/* Theme Integration (Tùy chọn: nếu muốn màu theo theme sáng/tối) */
+[data-theme='light'] .vdv-right-nav {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .vdv-nav-btn {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .vdv-nav-btn:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+[data-theme='light'] .vdv-nav-divider {
+  background-color: rgba(0, 0, 0, 0.1);
+}

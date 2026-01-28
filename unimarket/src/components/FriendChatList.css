@@ -1,0 +1,242 @@
+/* src/components/FriendChatList.css */
+
+/* =========================================================
+   CONTAINER CHÍNH
+   ========================================================= */
+.friend-chatlist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  /* ✅ THAY ĐỔI: Nền theo theme */
+  background: var(--theme-bg-primary);
+  /* Đảm bảo chiều cao full nếu cần */
+  min-height: 100%; 
+}
+
+/* Trạng thái trống */
+.friend-chatlist .chatlist-empty {
+  text-align: center;
+  /* ✅ THAY ĐỔI: Màu chữ phụ */
+  color: var(--theme-text-secondary);
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Error text */
+.friend-chatlist .error-text {
+  color: #ff4444;
+}
+
+/* =========================================================
+   WRAPPER (BAO QUANH MỖI DÒNG CHAT)
+   ========================================================= */
+.chatlist-item-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  margin: 4px 8px;
+}
+
+/* Hiệu ứng hover cho toàn bộ hàng */
+.chatlist-item-wrapper:hover {
+  /* ✅ THAY ĐỔI: Màu nền khi hover */
+  background-color: var(--theme-bg-hover);
+}
+
+/* Highlight màu active cho wrapper */
+.chatlist-item-wrapper.active-chat {
+  /* ✅ THAY ĐỔI: Màu nền khi đang chọn (Active) */
+  background-color: var(--theme-bg-hover);
+}
+
+/* =========================================================
+   ITEM CHAT (NỘI DUNG BÊN TRONG)
+   ========================================================= */
+.friend-chatlist .chatlist-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  flex-grow: 1;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+  /* ✅ THAY ĐỔI: Màu chữ mặc định */
+  color: var(--theme-text-primary);
+}
+
+/* Trạng thái chưa đọc (chỉ áp dụng khi không active) */
+.friend-chatlist .chatlist-item.unread-chat {
+  /* ✅ THAY ĐỔI: Nền khi chưa đọc */
+  background: var(--theme-bg-primary); 
+  font-weight: 600; /* In đậm để nổi bật thay vì đổi màu nền */
+}
+
+/* FIX LỖI ĐỒNG BỘ MÀU: Item con trong suốt khi hover cha */
+.chatlist-item-wrapper:hover .chatlist-item,
+.chatlist-item-wrapper.active-chat .chatlist-item {
+  background-color: transparent;
+}
+
+/* Muted state styling (làm mờ nhẹ nếu bị tắt thông báo) */
+.chatlist-item-wrapper.muted {
+  opacity: 0.8;
+}
+
+/* =========================================================
+   AVATAR & ONLINE STATUS
+   ========================================================= */
+.friend-chatlist .chatlist-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+  /* ✅ THAY ĐỔI: Viền avatar hòa vào nền */
+  border: 2px solid var(--theme-bg-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.friend-chatlist .chatlist-item-title .online-dot {
+  display: inline-block;
+  vertical-align: middle;
+  background: #00c853; /* Màu xanh lá giữ nguyên */
+  border-radius: 50%;
+  margin-left: 6px;
+  width: 8px;
+  height: 8px;
+  box-shadow: 0 0 0 2px var(--theme-bg-primary); /* Viền trắng/đen quanh chấm xanh */
+}
+
+/* =========================================================
+   TEXT CONTENT (TÊN & TIN NHẮN)
+   ========================================================= */
+.friend-chatlist .chatlist-item-content {
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.friend-chatlist .chatlist-item-title-text {
+  /* ✅ THAY ĐỔI: Màu tên người dùng */
+  color: var(--theme-text-primary);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Tin nhắn cuối */
+.friend-chatlist .chatlist-item-last {
+  font-size: 13px;
+  /* ✅ THAY ĐỔI: Màu tin nhắn cuối (xám) */
+  color: var(--theme-text-secondary);
+  font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* Chữ đậm (Dùng cho tên người gửi khi chưa đọc) */
+.friend-chatlist .bold {
+  font-weight: 700;
+  /* ✅ THAY ĐỔI: Màu chữ đậm */
+  color: var(--theme-text-primary);
+}
+
+.friend-chatlist .italic {
+  font-style: italic;
+}
+
+/* Thời gian gửi */
+.friend-chatlist .last-time {
+  /* ✅ THAY ĐỔI: Màu thời gian */
+  color: var(--theme-text-secondary);
+  margin-left: 4px;
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   BADGE & ICONS
+   ========================================================= */
+/* Container cho badge để căn chỉnh */
+.chatlist-item-badge-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.friend-chatlist .unread-badge {
+  background: linear-gradient(135deg, #ff8a00, #ff5e00);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 999px;
+  min-width: 18px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon chuông tắt thông báo */
+.muted-bell-icon {
+    /* ✅ THAY ĐỔI: Màu icon chuông */
+    color: var(--theme-text-secondary);
+}
+
+/* =========================================================
+   HEADER QUAY LẠI (BACK BUTTON)
+   ========================================================= */
+.chatlist-back-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  /* ✅ THAY ĐỔI: Nền header */
+  background-color: var(--theme-bg-primary);
+  border-bottom: 1px solid var(--theme-border-color);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.chatlist-back-header:hover {
+  background-color: var(--theme-bg-hover);
+  transform: translateY(-1px);
+}
+
+.chatlist-back-header .icon {
+  /* ✅ THAY ĐỔI: Màu icon mũi tên */
+  color: var(--theme-text-highlight, #2563eb);
+  font-size: 20px;
+  transition: color 0.2s ease;
+}
+
+.chatlist-back-header:hover .icon {
+  color: #1e40af; /* Hoặc biến highlight đậm hơn */
+}
+
+.chatlist-back-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  /* ✅ THAY ĐỔI: Màu chữ tiêu đề */
+  color: var(--theme-text-primary);
+  letter-spacing: 0.3px;
+  transition: color 0.2s ease;
+}
+
+.chatlist-back-header:hover h3 {
+  color: var(--theme-text-primary);
+}

@@ -1,0 +1,118 @@
+/* src/components/Explore/VideoGridItem.module.css */
+
+.cardContainer {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s ease;
+
+    /* --- THÊM MỚI: Cấu hình phông chữ chuẩn UI --- */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Thêm dòng này để màu chữ mặc định theo theme */
+    color: var(--theme-text-primary); 
+}
+
+.cardContainer:hover {
+    transform: translateY(-2px);
+}
+
+.mediaWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4; 
+    border-radius: 8px;
+    overflow: hidden;
+    /* Giữ màu đen nền video để tránh bị chớp trắng khi load, kể cả ở light mode */
+    background-color: #000; 
+
+    /* Hoặc nếu muốn nền theo theme khi chưa load video thì dùng: */
+    /* background-color: var(--theme-bg-hover); */
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlayInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    /* Overlay luôn là màu tối mờ + chữ trắng để nổi trên video, KHÔNG đổi theo theme */
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    color: white; 
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    /* --- TINH CHỈNH --- */
+    font-size: 0.9rem;
+    font-weight: 600; 
+    letter-spacing: 0.01em; 
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3); 
+}
+
+.heartIcon {
+    stroke-width: 2.5px;
+}
+
+.metaInfo {
+    padding: 0 4px;
+}
+
+.title {
+    /* --- TINH CHỈNH QUAN TRỌNG --- */
+    font-size: 0.9rem;
+
+    /* ĐÃ SỬA: Dùng biến theme thay vì màu cứng #161823 */
+    color: var(--theme-text-primary); 
+
+    font-weight: 600; 
+    line-height: 1.35; 
+    letter-spacing: -0.015em; 
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+
+    /* Thêm viền nhẹ để avatar không bị chìm nếu avatar màu tối trùng nền tối */
+    border: 1px solid var(--theme-border-color);
+}
+
+.username {
+    font-size: 0.85rem;
+
+    /* ĐÃ SỬA: Dùng biến theme thay vì màu cứng #8a8b91 */
+    color: var(--theme-text-secondary); 
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+
+    /* --- TINH CHỈNH --- */
+    font-weight: 500; 
+    letter-spacing: 0.01em; 
+}

@@ -1,0 +1,559 @@
+/* --- CONTAINER CHÍNH --- */
+.tabContent {
+  padding: 32px;
+  /* Đảm bảo nền khớp với theme nếu cần */
+  color: var(--theme-text-primary, #111);
+}
+
+/* Header của section (nếu bạn muốn dùng lại sau này) */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -20px 0 14px 0;
+  padding: 0 4px;
+}
+
+/* --- GRID SYSTEM --- */
+.gridSection {
+  position: relative;
+  margin-top: -25px;
+  margin-left: -18px;
+}
+
+/* Container cuộn khi xem tất cả */
+.gridContainer.showAll {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  border: 1px solid var(--theme-border-color, #e0e0e0); /* Dùng biến border */
+  border-radius: 12px;
+  padding: 16px;
+  /* Tùy chỉnh thanh cuộn */
+  scrollbar-width: thin;
+  scrollbar-color: #999 transparent;
+}
+
+/* Grid hiển thị 5 cột (giống Shopee/Lazada trên Desktop) */
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 12px; /* Khoảng cách giữa các thẻ */
+  margin-bottom: 24px;
+}
+
+/* --- CARD STYLE (THẺ TIN ĐĂNG) --- */
+.postCard {
+  background: var(--theme-bg-primary, #fff); /* Dùng biến nền chính */
+  border: none; 
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.postCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+/* --- KHU VỰC ẢNH/VIDEO (Tỉ lệ 1:1) --- */
+.postImageWrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; 
+  background-color: var(--theme-bg-secondary, #f0f0f0); /* Dùng biến nền phụ */
+  overflow: hidden; 
+  border-radius: 0 0 8px 8px; 
+}
+.postImage,
+.postVideoPreview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cắt ảnh lấp đầy khung */
+  transition: transform 0.3s ease;
+}
+
+/* Lớp phủ tối ở dưới đáy ảnh để text trắng dễ đọc */
+.postOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- CÁC BADGE TRÊN ẢNH --- */
+
+/* 1. Badge Thời gian (Góc trái dưới) */
+.timeBadge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  background-color: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
+  font-size: 11px;          
+  font-weight: 600;         
+  letter-spacing: 0.3px;    
+  padding: 3px 7px;       
+  border-radius: 6px;       
+
+  line-height: 1;
+  z-index: 2;
+}
+
+/* 2. Container chứa các Badge Media (Góc phải dưới) */
+/* Đây là phần giúp 2 icon nằm cạnh nhau */
+.mediaBadgesContainer {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Khoảng cách giữa badge Video và badge Ảnh */
+  z-index: 2;
+}
+
+/* Style chung cho từng Badge (Video hoặc Ảnh) */
+.mediaBadge {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Khoảng cách giữa icon và số */
+}
+
+/* --- NÚT TIM (Góc phải trên) --- */
+.heartButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background-color: rgba(0, 0, 0, 0.3); /* Nền mờ */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.heartButton:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.heartButton:hover .heartIcon {
+  color: #ff424f; /* Đổi màu đỏ khi hover */
+}
+
+.heartIcon {
+  color: white;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+/* --- PHẦN NỘI DUNG BÊN DƯỚI ẢNH --- */
+.postContent {
+  padding: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--theme-bg-primary, #fff); /* Dùng biến nền chính */
+}
+
+.postTitle {
+  font-family: Inter, "SF Pro Text", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;                
+  font-weight: 700;              
+  color: var(--theme-text-primary, #1c1c1c);  /* Dùng biến màu chữ chính */    
+  margin: 0 0 8px 0;
+  line-height: 1.3;               
+  letter-spacing: 0.15px;         
+  display: -webkit-box;
+  -webkit-line-clamp: 1;            
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: antialiased; 
+  text-rendering: optimizeLegibility;
+}
+
+.postDescription {
+  font-family: Inter, "SF Pro Text", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 10px;               
+  font-weight: 400;
+  color: var(--theme-text-secondary, #6f6f6f); /* Dùng biến màu chữ phụ */
+  margin: 0 0 8px 0;
+  line-height: 1.4;                
+  letter-spacing: 0.05px;         
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.postMetaBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto; 
+}
+
+
+.postPrice {
+  font-family: Inter, "SF Pro Display", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;                
+  font-weight: 700;                
+  color: #d0011b; /* Giữ nguyên màu đỏ giá tiền */                  
+  margin: 0;
+  line-height: 1.25;              
+  letter-spacing: 0.2px;           
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+
+.postLocation {
+  font-family: -apple-system, BlinkMacSystemFont, 
+                 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                 
+  font-size: 12px;           
+  font-weight: 500;          
+  color: var(--theme-text-secondary, #6b7280); /* Dùng biến màu chữ phụ */           
+
+  letter-spacing: 0.15px;    
+  line-height: 1.3;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  margin-top: 4px;
+}
+
+
+/* --- NÚT XEM THÊM --- */
+.showMoreContainer {
+  text-align: center;
+  margin-top: 24px;
+  padding-bottom: 24px;
+}
+
+.showMoreBtn {
+  background: var(--theme-bg-primary, white); /* Nền nút theo theme */
+  color: var(--theme-text-primary, #333);     /* Chữ nút theo theme */
+  border: 1px solid var(--theme-border-color, #ddd); /* Viền theo theme */
+  padding: 8px 32px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.showMoreBtn:hover {
+  background: var(--theme-bg-hover, #f5f5f5); /* Hover theo theme */
+  border-color: #bbb;
+}
+
+/* --- RESPONSIVE (Tương thích màn hình nhỏ) --- */
+@media (max-width: 1200px) {
+  .postsGrid {
+    grid-template-columns: repeat(4, 1fr); /* 4 cột trên laptop nhỏ */
+  }
+}
+
+@media (max-width: 900px) {
+  .postsGrid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cột trên tablet */
+  }
+  .tabContent {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .postsGrid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cột trên điện thoại */
+    gap: 8px; /* Giảm khoảng cách cho mobile */
+  }
+  .tabContent {
+    padding: 12px;
+  }
+  .postTitle {
+    font-size: 12px;
+    min-height: 34px;
+  }
+  .postPrice {
+    font-size: 14px;
+  }
+}
+/* ========================================================= */
+/* --- LIST SYSTEM (MỚI) --- */
+/* ========================================================= */
+/* --- Wrapper tổng --- */
+.postsListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Tăng khoảng cách giữa các bài viết một chút cho thoáng */
+  margin-bottom: 24px;
+}
+
+/* --- Thẻ Card từng bài viết --- */
+.postCardList {
+  display: flex;
+  background: var(--theme-bg-primary, #fff); /* Nền chính */
+  border-bottom: 1px solid var(--theme-border-color, #f0f0f0); /* Viền phân cách theo theme */
+  padding: 16px 0; /* Tăng padding trên dưới để card trông cao cấp hơn */
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: relative;
+}
+
+.postCardList:hover {
+  background-color: var(--theme-bg-hover, #f8f9fa); /* Màu hover theo theme */
+  transform: translateY(-1px); /* Hiệu ứng nhấc nhẹ khi hover */
+}
+
+/* --- Ảnh/Video bên trái --- */
+.listImageWrapper {
+  width: 160px; /* TĂNG KÍCH THƯỚC (cũ 140px) */
+  height: 160px;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 8px; /* Bo góc mềm hơn (cũ 4px) */
+  overflow: hidden;
+  background: var(--theme-bg-secondary, #e0e0e0); /* Nền phụ */
+  margin-right: 20px; /* Tăng khoảng cách với chữ cho đỡ dính */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Thêm bóng nhẹ cho ảnh đẹp hơn */
+  border: 1px solid var(--theme-border-color, rgba(0,0,0,0.05)); /* Viền mỏng bao quanh ảnh */
+}
+
+.listImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Hiệu ứng zoom nhẹ ảnh khi hover vào card */
+.postCardList:hover .listImage {
+  transform: scale(1.05);
+}
+
+.listMediaBadge {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.7); /* Đen đậm hơn để chữ rõ hơn */
+  backdrop-filter: blur(4px); /* Hiệu ứng mờ nền sành điệu */
+  color: white;
+  font-size: 11px; /* Tăng nhẹ size chữ */
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* --- Nội dung bên phải --- */
+.listContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-right: 8px; /* Tránh sát mép phải quá */
+}
+
+/* 1. Header: Tiêu đề & Mô tả */
+.listHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.listTitle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px; /* Tăng nhẹ (cũ 16px) */
+  font-weight: 600;
+  color: var(--theme-text-primary, #1a1a1a); /* Màu chữ chính theo theme */
+  margin: 0;
+  line-height: 1.5; /* Dãn dòng giúp dễ đọc hơn */
+  letter-spacing: -0.01em; /* Thu hẹp khoảng cách chữ giúp tiêu đề sắc nét */
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.listMetaInfo {
+  font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--theme-text-secondary, #9ca3af); /* Màu chữ phụ theo theme */
+
+  letter-spacing: 0.2px;
+  line-height: 1.35;
+}
+
+
+/* 2. Middle: Giá & Vị trí */
+.listBodyMiddle {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.listPrice {
+  font-family: "Inter", "Roboto", -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
+
+  font-size: 22px;          
+  font-weight: 700;
+  color: #c62828; /* Giữ màu đỏ */          
+  letter-spacing: -0.4px;   
+  line-height: 1.1;
+}
+
+
+.listLocation {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--theme-text-secondary, #6b7280); /* Màu chữ phụ theo theme */
+
+  letter-spacing: 0.15px;
+  line-height: 1.3;
+}
+
+/* 3. Footer: Người bán */
+.listFooter {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding-right: 40px; /* Tránh nút tim */
+  padding-top: 12px;
+}
+
+.listSeller {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sellerAvatar {
+  width: 24px; /* Tăng nhẹ avatar (cũ 20px) */
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.sellerName {
+  font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--theme-text-secondary, #4b5563); /* Màu chữ phụ theo theme */       
+  letter-spacing: 0.15px;
+  line-height: 1.3;
+}
+
+
+/* Nút Tim */
+.listHeartBtn {
+  position: absolute;
+  bottom: 16px;
+  right: 8px;
+
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--theme-bg-primary, rgba(255, 255, 255, 0.9)); /* Nền nút tim theo theme để không bị chìm trong dark mode */
+  border-radius: 50%;
+  border: 1px solid var(--theme-border-color, rgba(0, 0, 0, 0.08));
+
+  cursor: pointer;
+  z-index: 2;
+
+  transition: transform 0.15s ease, 
+              box-shadow 0.15s ease, 
+              background-color 0.15s ease;
+}
+
+.heartIconSmall {
+  color: #b0b0b0;
+  font-size: 18px; /* To hơn một chút */
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.listHeartBtn:hover .heartIconSmall {
+  color: #ff424f;
+  transform: scale(1.2); /* Hiệu ứng nảy khi hover */
+}
+.listBadgesContainer {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+}
+
+.listBadgeItem {
+  background: rgba(0, 0, 0, 0.65); /* Nền đen mờ */
+  backdrop-filter: blur(2px); /* Hiệu ứng kính mờ nhẹ */
+  color: white;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}

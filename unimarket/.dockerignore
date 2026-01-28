@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output (sẽ build trong container)
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env (tránh lộ key)
+.env
+.env.*

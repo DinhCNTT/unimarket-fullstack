@@ -1,0 +1,219 @@
+/* --- CẤU HÌNH CHUNG --- */
+.card {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* --- KHUNG CHỨA VIDEO (GIỮ NGUYÊN KÍCH THƯỚC) --- */
+.thumbnailWrapper {
+  position: relative;
+  width: 100%;
+  height: 0; 
+  padding-bottom: 133.33%; /* Tỷ lệ cũ của bạn */
+  border-radius: 12px;
+  overflow: hidden; 
+  background-color: #1a1a1a; 
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.videoContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Zoom nhẹ video khi hover */
+.thumbnailWrapper:hover .videoContainer video {
+  transform: scale(1.05);
+}
+
+.videoContainer video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+  border: none;
+  transition: transform 0.5s ease;
+}
+
+/* --- [STYLE CHUNG] HIỆU ỨNG KÍNH MỜ (GLASSMORPHISM) --- */
+/* Class này dùng chung để tạo độ trong suốt, mờ nền */
+.glassBase {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  
+  /* Hiệu ứng kính */
+  background: rgba(0, 0, 0, 0.35); /* Nền đen mờ nhẹ */
+  backdrop-filter: blur(8px);       /* Làm nhòe video phía sau */
+  -webkit-backdrop-filter: blur(8px);
+  
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Viền trắng siêu mỏng */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  
+  color: #fff;
+  pointer-events: none;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* --- 1. NHÃN TRẠNG THÁI (Góc TRÊN Phải) --- */
+/* Ví dụ: Giá Tốt, Hợp Lý */
+.priceBadge {
+  composes: glassBase;
+  top: 10px;
+  right: 10px;
+  
+  padding: 4px 10px;
+  border-radius: 20px; /* Bo tròn dạng viên thuốc */
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* Màu riêng cho từng loại badge (vẫn giữ độ trong suốt) */
+.badgeGood {
+  background: rgba(220, 20, 60, 0.4); /* Đỏ hồng trong suốt */
+  border-color: rgba(255, 100, 100, 0.3);
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.badgeReasonable {
+  background: rgba(46, 204, 113, 0.4); /* Xanh lá trong suốt */
+  border-color: rgba(100, 255, 150, 0.3);
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.badgeIcon {
+  font-size: 12px;
+}
+
+/* --- 2. GIÁ TIỀN (Góc DƯỚI Phải) --- */
+.priceTagOverlay {
+  composes: glassBase; 
+  bottom: 8px;
+  right: 8px;
+  padding: 2px 6px;      
+  border-radius: 6px;     
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 10px;       
+  font-weight: 700;       
+  line-height: 1.2;
+  background: rgba(0, 0, 0, 0.55); 
+  border: 0.5px solid rgba(255,255,255,0.2);
+  z-index: 20;           
+  max-width: 60%;         
+  white-space: nowrap;   
+  overflow: hidden;       
+  text-overflow: ellipsis; 
+}
+/* --- 3. TIM & LIKE (Góc DƯỚI Trái) --- */
+.overlayBottomLeft {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff; 
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  font-weight: 600;
+  font-size: 13px;
+  pointer-events: none; 
+}
+.heartIcon { 
+  font-size: 16px; 
+}
+
+/* --- BÓNG MỜ NỀN (Gradient) --- */
+/* Giúp phần chữ bên dưới dễ đọc hơn */
+.thumbnailWrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%; 
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* --- PHẦN THÔNG TIN USER BÊN DƯỚI --- */
+.metaData {
+  margin-top: 10px;
+  padding: 0 4px;
+}
+
+.titleRow {
+  margin-bottom: 4px;
+}
+
+.videoTitle {
+  margin: 0;
+  font-size: 14px; 
+  line-height: 1.4; 
+  color: var(--theme-text-primary);
+  font-weight: 600; 
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  color: #888;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.userInfoLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1; 
+  overflow: hidden; 
+  opacity: 0.9;
+}
+.userInfoLeft:hover { opacity: 1; }
+
+.userAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #eee;
+}
+
+.userName {
+  font-weight: 500; 
+  color: var(--theme-text-secondary); 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.postDate {
+  font-size: 11px;
+  color: #999;
+}

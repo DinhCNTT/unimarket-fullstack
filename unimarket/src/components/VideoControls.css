@@ -1,0 +1,326 @@
+/* Volume Control - Góc trái phía trên video - TikTok Style */
+.VideoControls-volume-control {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.VideoControls-volume-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.VideoControls-volume-button:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: scale(1.05);
+}
+
+.VideoControls-volume-button:active {
+  transform: scale(0.95);
+}
+
+/* Volume Slider Container - Horizontal bên phải nút */
+.VideoControls-volume-slider-container {
+  position: absolute;
+  top: 20%;
+  left: 50px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: visible;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.VideoControls-volume-slider-container.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Volume Slider - Horizontal */
+.VideoControls-volume-slider {
+  width: 60px; /* Chiều rộng slider ngang */
+  height: 2.5px;
+  margin: 3px 3px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* WebKit Slider Track */
+.VideoControls-volume-slider::-webkit-slider-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* WebKit Slider Thumb */
+.VideoControls-volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+  margin-top: -1.6px;
+}
+
+.VideoControls-volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Firefox Slider */
+.VideoControls-volume-slider::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  border: none;
+}
+
+.VideoControls-volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Progress fill effect - màu vàng #fab62b */
+.VideoControls-volume-slider {
+  background: linear-gradient(to right, 
+    #fab62b 0%, 
+    #fab62b var(--volume-percentage, 0%), 
+    rgba(255, 255, 255, 0.3) var(--volume-percentage, 0%), 
+    rgba(255, 255, 255, 0.3) 100%
+  );
+}
+
+/* Center Time Display - Hiển thị ở giữa trên khi drag */
+.VideoControls-center-time-display {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: 'Inter', 'Roboto', monospace;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.VideoControls-drag-current-time {
+  color: #fab62b;
+  font-weight: 700;
+}
+
+.VideoControls-drag-time-separator {
+  margin: 0 6px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.VideoControls-drag-total-time {
+  color: rgba(255, 255, 255, 0.9);
+}
+.VideoControls-progress-control {
+  position: absolute;
+  bottom: -5px;
+  left: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Đảm bảo thanh progress bar luôn hiển thị */
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Progress Bar */
+.VideoControls-progress-bar-container {
+  cursor: pointer;
+  padding: 4px 0;
+  /* Đảm bảo vùng tương tác đủ lớn */
+  min-height: 12px;
+}
+
+.VideoControls-progress-bar-background {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.VideoControls-progress-bar-fill {
+  height: 100%;
+  background: #fab62b;
+  border-radius: 2px;
+  transition: width 0.1s ease;
+  position: relative;
+}
+
+.VideoControls-progress-bar-thumb {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 11; /* Đảm bảo thumb hiển thị trên cùng */
+}
+
+/* Hiển thị thumb khi hover hoặc đang drag */
+.VideoControls-progress-bar-container:hover .VideoControls-progress-bar-thumb,
+.VideoControls-progress-bar-thumb[style*="opacity: 1"] {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.VideoControls-progress-bar-container:hover .VideoControls-progress-bar-background {
+  height: 4px;
+}
+
+.VideoControls-progress-bar-container:hover .VideoControls-progress-bar-fill {
+  height: 4px;
+}
+/* Animation khi thay đổi volume */
+@keyframes VideoControls-volumeChange {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.VideoControls-volume-button.changing {
+  animation: VideoControls-volumeChange 0.2s ease;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .VideoControls-volume-control {
+    top: 16px;
+    left: 12px;
+  }
+  
+  .VideoControls-volume-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .VideoControls-volume-button svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .VideoControls-volume-slider-container {
+    top: 50%;
+    left: 42px;
+    padding: 6px 8px;
+  }
+  
+  .VideoControls-volume-slider {
+    width: 60px;
+  }
+  
+  .VideoControls-progress-control {
+    bottom: 16px; /* FIXED: Giữ khoảng cách phù hợp trên mobile */
+    left: 12px;
+    right: 12px;
+  }
+  
+  .VideoControls-time-display {
+    font-size: 11px;
+  }
+  
+  .VideoControls-center-time-display {
+    top: 40px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+
+/* Dark theme optimization */
+@media (prefers-color-scheme: dark) {
+  .VideoControls-volume-button {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .VideoControls-volume-slider-container {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* Accessibility */
+.VideoControls-volume-button:focus,
+.VideoControls-volume-slider:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.VideoControls-progress-bar-container:focus {
+  outline: 2px solid rgba(254, 44, 85, 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Đảm bảo progress bar hiển thị tốt khi drag */
+.VideoControls-progress-bar-container[style*="dragging"] .VideoControls-progress-bar-thumb {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

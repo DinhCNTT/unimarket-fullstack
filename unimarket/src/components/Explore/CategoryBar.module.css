@@ -1,0 +1,150 @@
+/* src/components/Explore/CategoryBar.module.css */
+
+/* --- Wrapper bên ngoài (Khung dính) --- */
+.stickyWrapper {
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+
+    /* ĐÃ SỬA: Dùng biến theme thay vì màu cứng rgba(255, 255, 255, 0.98) */
+    /* Ở Light mode là trắng, Dark mode là đen */
+    background-color: var(--theme-bg-primary);
+
+    padding: 15px 16px; 
+    width: 100%; 
+
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+
+    /* ĐÃ SỬA: Xóa viền ngang bên dưới như yêu cầu cũ */
+    border-bottom: none;
+}
+
+/* --- TRẠNG THÁI ẨN --- */
+.stickyWrapper.hidden {
+    background-color: transparent;
+    border: none;
+    pointer-events: none;
+}
+
+/* --- Container danh mục --- */
+.containerRelative {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 280px); 
+
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.stickyWrapper.hidden .containerRelative {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* --- SidebarHeader --- */
+.headerRightSection {
+    position: absolute;
+    right: 0; 
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 280px;
+    z-index: 100;
+    opacity: 1 !important;
+    pointer-events: auto;
+}
+
+/* --- Các phần nút bấm giữ nguyên --- */
+.scrollContainer {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 4px;
+}
+.scrollContainer::-webkit-scrollbar { display: none; }
+
+.categoryBtn {
+    border: none;
+
+    /* ĐÃ SỬA: Nền nút xám nhạt (Light) hoặc xám tối (Dark) */
+    background-color: var(--theme-bg-hover); 
+
+    padding: 8px 16px;
+    border-radius: 99px; 
+    font-size: 14px;
+    font-weight: 600;
+
+    /* ĐÃ SỬA: Màu chữ đen (Light) hoặc trắng (Dark) */
+    color: var(--theme-text-primary);
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categoryBtn:hover { 
+    /* ĐÃ SỬA: Khi hover dùng màu viền (thường đậm hơn bg một chút) để làm nền */
+    background-color: var(--theme-border-color); 
+}
+
+.categoryBtn.active { 
+    /* ĐÃ SỬA: Active: Nền đen chữ trắng (Light) -> Nền trắng chữ đen (Dark) */
+    /* Logic: text-primary là đen ở Light, trắng ở Dark. Đảo ngược lại để nổi bật */
+    background-color: var(--theme-text-primary); 
+    color: var(--theme-bg-primary); 
+}
+
+.arrowBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+
+    /* ĐÃ SỬA: Viền theo theme */
+    border: 1px solid var(--theme-border-color);
+
+    /* ĐÃ SỬA: Nền trắng/đen theo theme */
+    background-color: var(--theme-bg-primary);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+
+    /* ĐÃ SỬA: Màu icon mũi tên */
+    color: var(--theme-text-primary);
+
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+}
+
+.arrowBtn:hover {
+    /* ĐÃ SỬA: Nền khi hover mũi tên */
+    background-color: var(--theme-bg-hover);
+}
+
+.arrowLeft { left: -10px; }
+.arrowRight { right: -10px; }
+
+@media (max-width: 768px) {
+    .stickyWrapper { top: 50px; padding: 10px; }
+    .containerRelative { width: 100%; }
+    .headerRightSection { display: none; }
+    .arrowBtn { display: none; }
+}

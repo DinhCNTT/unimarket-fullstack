@@ -1,0 +1,173 @@
+/* --- CẤU TRÚC CHUNG --- */
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột đều nhau */
+    gap: 12px; /* Khoảng cách chuẩn mobile */
+    padding: 12px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hiệu ứng click xịn hơn */
+.card:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+}
+
+/* --- PHẦN HÌNH ẢNH & VIDEO --- */
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    
+    /* Tỉ lệ 3:4 (Đúng theo yêu cầu ngắn lại) */
+    aspect-ratio: 3 / 4; 
+    
+    border-radius: 10px;
+    overflow: hidden;
+    
+    /* Sử dụng biến nền phụ (Xám nhạt / Đen) */
+    background-color: var(--theme-bg-secondary);
+    
+    /* Sử dụng biến viền để tạo đường bao nhẹ (tự đổi màu khi Dark mode) */
+    box-shadow: inset 0 0 0 1px var(--theme-border-color); 
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* Không cần transition transform ở đây nữa vì video sẽ đè lên */
+}
+
+/* --- MỚI: Video Preview đè lên ảnh --- */
+.previewVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo video full khung không bị méo */
+    z-index: 2; /* Nằm trên ảnh */
+    border-radius: 10px;
+    background-color: #000; /* Nền đen tránh nháy trắng khi load video */
+}
+
+/* --- PHẦN THÔNG TIN --- */
+.info {
+    margin-top: 10px;
+    padding: 0 4px;
+}
+
+/* Tiêu đề */
+.title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    
+    /* Sử dụng biến màu chữ chính */
+    color: var(--theme-text-primary);
+    
+    margin: 0 0 6px 0;
+    letter-spacing: -0.01em;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Hàng Người đăng */
+.authorRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.smallAvatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    
+    /* Nền phụ cho avatar khi chưa load */
+    background-color: var(--theme-bg-secondary);
+    
+    /* Viền nhẹ quanh avatar */
+    border: 1px solid var(--theme-border-color);
+}
+
+.authorName {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    
+    /* Sử dụng biến màu chữ phụ */
+    color: var(--theme-text-secondary);
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* Hàng Thống kê */
+.statsRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    
+    /* Sử dụng biến màu chữ phụ */
+    color: var(--theme-text-secondary);
+}
+
+.statsText {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.statsRow svg {
+    width: 14px;
+    height: 14px;
+    margin-right: 1px;
+}
+
+.statsRow svg path {
+    /* Stroke lấy theo màu chữ hiện tại của cha (theme-text-secondary) */
+    stroke: currentColor; 
+    stroke-width: 3;
+}
+
+.dot {
+    font-size: 10px;
+    margin: 0 3px;
+    opacity: 0.6;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    
+    /* Sử dụng biến màu chữ phụ */
+    color: var(--theme-text-secondary);
+    
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    grid-column: 1 / -1;
+}

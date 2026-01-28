@@ -1,0 +1,187 @@
+/* ======================================================
+   1. LAYOUT CŨ (GIỮ NGUYÊN KHÔNG THAY ĐỔI)
+   ====================================================== */
+
+.fullPageLayout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    /* Thay #000 bằng màu nền chính (Trắng/Đen tùy mode) */
+    background-color: var(--theme-bg-primary); 
+    overflow: hidden;
+    position: relative; /* Quan trọng để neo absolute con */
+    color: var(--theme-text-primary);
+}
+
+.leftNavColumn {
+    width: 72px; 
+    /* Thay #fff */
+    background-color: var(--theme-bg-primary);
+    /* Thay #2f2f2f bằng viền theo theme */
+    border-right: 1px solid var(--theme-border-color);
+    flex-shrink: 0;
+    display: flex; 
+    flex-direction: column;
+}
+
+/* --- KHUNG CHỨA VIDEO (SCROLL SNAP) --- */
+.videoSection {
+    flex: 1;
+    position: relative;
+    /* Thay #ffff. Dùng bg-secondary (xám nhẹ/đen) để làm nổi bật video nếu cần, 
+       hoặc dùng bg-primary nếu muốn tệp màu nền */
+    background: var(--theme-bg-primary); 
+    
+    /* Cho phép cuộn dọc */
+    overflow-y: scroll; 
+    
+    /* Kích hoạt Scroll Snap (Cuộn dính) */
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+
+    /* Ẩn thanh cuộn cho đẹp */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* Ẩn thanh cuộn Chrome/Safari */
+.videoSection::-webkit-scrollbar {
+    display: none;
+}
+
+/* Class bao bọc từng Video Item */
+.videoSnapItem {
+    width: 100%;
+    height: 100%; /* Chiều cao bằng đúng khung nhìn */
+    scroll-snap-align: start; /* Dính vào đầu */
+    scroll-snap-stop: always; /* Buộc phải dừng ở từng video */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* ... Giữ nguyên các class khác như backButton, sidebarSection ... */
+.sidebarSection {
+    width: 380px;
+    /* Thay #fff */
+    background-color: var(--theme-bg-primary);
+    /* Thay #e0e0e0 */
+    border-left: 1px solid var(--theme-border-color);
+    flex-shrink: 0;
+    position: relative;
+    display: flex; 
+    flex-direction: column;
+    height: 100%;
+}
+
+.loadingState, .errorState {
+    width: 100vw; 
+    height: 100vh;
+    /* Thay #000 */
+    background: var(--theme-bg-primary);
+    /* Thay #fff */
+    color: var(--theme-text-primary);
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+/* ======================================================
+   NAVIGATION MŨI TÊN (CỐ ĐỊNH, TRONG SUỐT)
+   ====================================================== */
+
+/* Container chứa 2 nút mũi tên */
+.fixedNavigationGroup {
+    position: absolute; /* Neo theo khung cha (fullPageLayout) */
+    top: 50%;
+    transform: translateY(-50%); /* Căn giữa chiều dọc */
+
+    /* Vị trí ngang: Nằm ngay sát bên trái của Sidebar */
+    right: 380px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 100; /* Nổi lên trên cùng */
+    padding: 10px;
+    pointer-events: none; /* Để click xuyên qua vùng padding rỗng */
+}
+
+/* Style cho từng nút (Glassmorphism - Trong suốt đẹp) */
+.fixedNavBtn {
+    pointer-events: auto; /* Bật lại click cho nút */
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+
+    /* Glassmorphism: Dùng theme-bg-secondary để tự đổi màu (xám nhạt / xám tối) */
+    background-color: var(--theme-bg-secondary);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* Viền đổi màu theo theme */
+    border: 1px solid var(--theme-border-color);
+    
+    /* Icon đổi màu (đen/trắng) */
+    color: var(--theme-text-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fixedNavBtn:hover {
+    /* Khi hover dùng bg-hover (đậm hơn chút) */
+    background-color: var(--theme-bg-hover);
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* Giữ màu chữ chuẩn */
+    color: var(--theme-text-primary);
+}
+
+.fixedNavBtn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Trạng thái disabled (khi ở video đầu tiên) */
+.disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+    /* Nền nhạt đi */
+    background-color: var(--theme-bg-secondary);
+    box-shadow: none;
+}
+
+/* ======================================================
+   3. RESPONSIVE (GIỮ NGUYÊN LOGIC CŨ)
+   ====================================================== */
+@media (max-width: 900px) {
+    .fullPageLayout { 
+        flex-direction: column; 
+        overflow-y: auto; 
+    }
+
+    .videoSection { 
+        height: 100vh; 
+        width: 100%; 
+    }
+
+    .sidebarSection { 
+        display: none; 
+    }
+
+    .leftNavColumn { 
+        display: none; 
+    }
+
+    /* Ẩn nút điều hướng trên mobile vì chật chội */
+    .fixedNavigationGroup {
+        display: none;
+    }
+}

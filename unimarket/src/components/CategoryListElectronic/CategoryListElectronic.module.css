@@ -1,0 +1,140 @@
+/* src/components/CategoryListElectronic/CategoryListElectronic.module.css */
+
+.container {
+    width: 95%;
+    max-width: 1300px;
+    margin: 140px auto 20px auto;
+    background-color: #fff;
+    border-radius: 8px; /* Bo góc nhẹ như hình */
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+
+    /* 🔥 ÁP DỤNG FONT CHO TOÀN BỘ KHUNG CHỨA */
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase; /* Chữ in hoa tiêu đề */
+    margin: 0;
+    text-align: left;
+
+    /* Font đã được kế thừa từ .container, nhưng khai báo lại nếu muốn chắc chắn */
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+/* Khu vực cuộn ngang */
+.scrollWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px; /* Để chừa chỗ cho thanh scrollbar nếu có */
+    width: 100%;
+    scrollbar-width: none;  /* Ẩn trên Firefox */
+  -ms-overflow-style: none;  /* Ẩn trên IE/Edge cũ */
+}
+
+/* Ẩn thanh cuộn mặc định cho đẹp */
+.list::-webkit-scrollbar {
+    display: none; /* Ẩn trên Chrome, Safari, Cốc Cốc */
+}
+.list::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 3px;
+}
+.list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.item {
+    flex: 0 0 120px; /* Chiều rộng cố định cho mỗi mục */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s;
+}
+
+.item:hover {
+    transform: translateY(-5px);
+}
+
+.item:hover .name {
+    color: #ee4d2d; /* Màu cam shopee hoặc màu thương hiệu của bạn */
+}
+
+.imageBox {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Giữ tỷ lệ ảnh, không bị méo */
+}
+
+.name {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #555;
+    word-wrap: break-word;
+    /* Font đã được kế thừa từ .container */
+}
+
+/* Nút điều hướng trái phải */
+.navBtn {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #eee;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 2;
+    transition: all 0.2s;
+    color: #555;
+
+    /* 🔥 QUAN TRỌNG: Button thường không kế thừa font, cần set thủ công */
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.navBtn:hover {
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    color: #000;
+}
+
+.prevBtn {
+    left: -15px;
+}
+
+.nextBtn {
+    right: -15px;
+}

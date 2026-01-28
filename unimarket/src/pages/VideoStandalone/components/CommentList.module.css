@@ -1,0 +1,415 @@
+/* src/components/SidebarInfo/CommentList.module.css */
+
+/* ======================================================
+   GLOBAL FONT & CONTAINER
+   ====================================================== */
+.listContainer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 0 10px 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    /* Sử dụng biến nền chính */
+    background-color: var(--theme-bg-primary); 
+}
+
+.loadingText, .emptyText {
+    text-align: center;
+    /* Sử dụng biến màu chữ phụ */
+    color: var(--theme-text-secondary); 
+    font-size: 15px;
+    margin-top: 20px;
+    width: 100%;
+    font-weight: 500;
+}
+
+/* --- WRAPPER CỦA MỖI COMMENT --- */
+.commentItemWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* ======================================================
+   PHẦN HIỂN THỊ COMMENT CHÍNH
+   ====================================================== */
+.commentItem {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+}
+
+/* Avatar người dùng */
+.avatar {
+    width: 32px; 
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    cursor: pointer;
+    /* Sử dụng biến màu viền */
+    border: 1px solid var(--theme-border-color); 
+}
+
+/* Khối nội dung bên phải avatar */
+.content {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.userName {
+    font-size: 14px;
+    font-weight: 700;
+    /* Sử dụng biến màu chữ chính */
+    color: var(--theme-text-primary); 
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+.userName:hover {
+    text-decoration: underline;
+}
+
+.text {
+    font-size: 15px;
+    /* Sử dụng biến màu chữ chính (thay cho #292b35) */
+    color: var(--theme-text-primary); 
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+}
+
+/* Metadata (Ngày giờ, Nút trả lời) */
+.metaData {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 6px;
+}
+
+.time {
+    font-size: 13px;
+    /* Sử dụng biến màu chữ phụ */
+    color: var(--theme-text-secondary); 
+    font-weight: 400;
+}
+
+.replyBtn {
+    font-size: 13px;
+    font-weight: 600;
+    /* Sử dụng biến màu chữ phụ */
+    color: var(--theme-text-secondary); 
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.replyBtn:hover {
+    text-decoration: none;
+    /* Hover chuyển sang màu chữ chính */
+    color: var(--theme-text-primary); 
+}
+
+/* ======================================================
+   🔥 MENU 3 CHẤM (THAY THẾ NÚT TIM)
+   ====================================================== */
+.menuContainer {
+    position: relative; /* Để popup menu căn theo cái này */
+    display: flex;
+    align-items: flex-start;
+    padding-top: 5px;
+    min-width: 24px;
+    justify-content: center;
+}
+
+/* Nút icon 3 chấm */
+.menuIconWrapper {
+    cursor: pointer;
+    /* Sử dụng biến màu chữ chính */
+    color: var(--theme-text-primary); 
+    opacity: 0; /* Mặc định ẩn cho gọn */
+    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.menuIconWrapper:hover {
+    /* Sử dụng biến nền hover */
+    background-color: var(--theme-bg-hover); 
+}
+
+/* Khi hover vào dòng comment -> Hiện nút 3 chấm */
+.commentItem:hover .menuIconWrapper,
+.menuIconWrapper:hover { 
+    opacity: 1;
+}
+
+/* Nếu đang mở menu (có popupMenu bên trong) thì giữ icon luôn hiện */
+.menuContainer:has(.popupMenu) .menuIconWrapper {
+    opacity: 1;
+}
+
+/* --- POPUP MENU (Xóa / Báo cáo) --- */
+.popupMenu {
+    position: absolute;
+    top: 30px; /* Đẩy xuống dưới icon một chút */
+    right: 0;
+    /* Sử dụng biến nền chính */
+    background: var(--theme-bg-primary); 
+    border-radius: 8px;
+    /* Giữ nguyên box-shadow hoặc dùng var(--theme-shadow) nếu muốn */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    padding: 4px 0;
+    z-index: 99;
+    min-width: 120px;
+    /* Sử dụng biến viền */
+    border: 1px solid var(--theme-border-color); 
+    animation: fadeInMenu 0.1s ease-out;
+}
+
+.menuOption {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    /* Sử dụng biến màu chữ chính */
+    color: var(--theme-text-primary); 
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.menuOption:hover {
+    /* Sử dụng biến nền hover */
+    background-color: var(--theme-bg-hover); 
+}
+
+.menuOption span {
+    flex: 1;
+}
+
+/* Icon trong menu (thùng rác/cờ) */
+.menuOption svg {
+    font-size: 16px;
+    /* Sử dụng biến màu chữ chính */
+    color: var(--theme-text-primary); 
+}
+
+@keyframes fadeInMenu {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ======================================================
+   DANH SÁCH REPLY CON (ĐỆ QUY)
+   ====================================================== */
+.repliesList {
+    margin-left: 44px;
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-left: none; 
+}
+
+.repliesListFlat {
+    margin-left: 0;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ======================================================
+   KHUNG NHẬP TRẢ LỜI (INLINE REPLY BOX)
+   ====================================================== */
+.inlineReplyBox {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px; 
+    margin-top: 14px;
+    width: 100%;
+}
+
+.inlineInputWrapper {
+    width: 200px;
+    /* Sử dụng biến nền phụ (hoặc hover/input bg) */
+    background: var(--theme-bg-secondary); 
+    border-radius: 18px; 
+    padding: 10px 14px;
+    display: flex;
+    align-items: flex-end;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.inlineInputWrapper:focus-within {
+    /* Sử dụng biến viền khi focus */
+    border-color: var(--theme-border-color); 
+    /* Khi focus nền chuyển về màu chính (trắng/đen) */
+    background: var(--theme-bg-primary); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.inlineInput {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+    outline: none;
+    resize: none; 
+    overflow: hidden;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+    min-height: 21px;
+    max-height: 120px;
+    /* Sử dụng biến màu chữ chính */
+    color: var(--theme-text-primary); 
+    font-family: inherit;
+}
+
+.inlineInput::placeholder {
+    /* Sử dụng biến màu chữ phụ */
+    color: var(--theme-text-secondary); 
+}
+
+.charCounter {
+    font-size: 11px;
+    /* Sử dụng biến màu chữ phụ (hoặc cụ thể hơn nếu cần) */
+    color: var(--theme-text-secondary); 
+    margin-left: 8px;
+    white-space: nowrap;
+    padding-bottom: 3px;
+    user-select: none;
+    font-weight: 500;
+}
+
+/* Container chứa nút Gửi và X */
+.actionButtons {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    padding-bottom: 8px;
+}
+
+.sendIcon {
+    font-size: 14px;
+    font-weight: 700;
+    /* Giữ nguyên màu brand TikTok (#fe2c55) hoặc dùng var(--theme-accent-color) nếu muốn đổi sang cam */
+    color: #fe2c55; 
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+    transition: opacity 0.2s;
+}
+
+.sendIcon.disabled {
+    /* Màu xám cho trạng thái disabled */
+    color: #d6d6d9; 
+    cursor: default;
+}
+
+.sendIcon:hover:not(.disabled) {
+    opacity: 0.8;
+}
+
+.closeIcon {
+    font-size: 20px;
+    /* Màu icon đóng (dùng text phụ) */
+    color: var(--theme-text-secondary); 
+    width: 32px;
+    height: 32px;
+    /* Nền icon đóng (dùng nền phụ) */
+    background-color: var(--theme-bg-secondary); 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.closeIcon:hover {
+    /* Hover đổi màu chữ chính */
+    color: var(--theme-text-primary); 
+    /* Hover đổi nền (dùng bg-hover) */
+    background-color: var(--theme-bg-hover); 
+    transform: scale(1.05);
+}
+
+/* ======================================================
+   XEM THÊM (VIEW REPLIES)
+   ====================================================== */
+.viewRepliesWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    cursor: pointer;
+    width: fit-content;
+    user-select: none;
+    padding: 2px 0;
+}
+
+.horizontalLine {
+    width: 24px;
+    height: 1px;
+    /* Dùng màu chữ phụ hoặc border làm màu vạch kẻ */
+    background-color: var(--theme-text-secondary); 
+    transition: background-color 0.2s ease;
+}
+
+.viewMoreText {
+    font-size: 13px;
+    font-weight: 600;
+    /* Dùng màu chữ phụ */
+    color: var(--theme-text-secondary); 
+    transition: color 0.2s ease;
+}
+
+.viewRepliesWrapper:hover .viewMoreText {
+    /* Hover đổi màu chữ chính */
+    color: var(--theme-text-primary); 
+    text-decoration: underline;
+}
+
+.viewRepliesWrapper:hover .horizontalLine {
+    /* Hover đổi màu vạch kẻ */
+    background-color: var(--theme-text-primary); 
+}
+
+/* ======================================================
+   ANIMATIONS & MOBILE
+   ====================================================== */
+@keyframes flashHighlight {
+  0% { background-color: rgba(255, 255, 0, 0.3); }
+  100% { background-color: transparent; }
+}
+
+.highlightFlash {
+  animation: flashHighlight 3s ease-out forwards;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+/* Trên điện thoại thì luôn hiện 3 chấm vì không có hover chuột */
+@media (max-width: 768px) {
+    .menuIconWrapper {
+        opacity: 1; 
+        /* Màu icon mobile */
+        color: var(--theme-text-secondary); 
+    }
+}

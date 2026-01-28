@@ -1,0 +1,329 @@
+/* --- Global Font & Box Model --- */
+.item, .item * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* --- Comment Thread Item --- */
+.item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  position: relative;
+  width: 100%;
+}
+
+.mainContainer {
+  display: flex;
+  align-items: flex-start;
+  padding: 0 16px;
+  position: relative;
+  padding-right: 40px; 
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  flex-shrink: 0;
+  object-fit: cover;
+  background-color: #333;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contentWrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 13px;
+  color: #E4E6EB;
+  margin-bottom: 2px;
+  display: inline-block;
+}
+
+.replyTo {
+  color: #B0B3B8;
+  font-size: 13px;
+  margin-left: 4px;
+  font-weight: 400;
+}
+
+.content {
+  font-size: 15px;
+  font-weight: 400;
+  color: #E4E6EB;
+  line-height: 1.4;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.contentCollapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.readMoreBtn {
+  background: none;
+  border: none;
+  color: #B0B3B8;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 4px;
+  text-align: left;
+}
+.readMoreBtn:hover {
+  color: #E4E6EB;
+  text-decoration: underline;
+}
+
+.meta {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: #B0B3B8;
+  font-weight: 500;
+}
+
+.replyActionBtn {
+  background: none;
+  border: none;
+  color: #B0B3B8;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+.replyActionBtn:hover {
+  color: #E4E6EB;
+  text-decoration: underline;
+}
+
+/* --- INPUT AREA --- */
+.replyInputContainer {
+  margin-top: 10px;
+  width: 100%;
+  padding: 0; 
+  animation: slideDown 0.2s ease-out forwards;
+}
+
+.replyInputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Giảm gap để bộ đếm gần input hơn */
+  width: 70%; /* Giữ logic cũ của bạn */
+  max-width: 550px;
+}
+
+.replyInput {
+  width: 100%;
+  background-color: #3A3B3C;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 10px 14px;
+  color: #E4E6EB;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none; /* Không cho kéo thủ công */
+  min-height: 40px;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  display: block;
+  overflow: hidden; /* Ẩn thanh cuộn, dùng auto-grow */
+}
+
+.replyInput:focus {
+  background-color: #242526;
+  border-color: #666;
+}
+
+/* --- FOOTER: Chứa Counter và Buttons --- */
+.inputFooter {
+    display: flex;
+    justify-content: space-between; /* Counter bên trái, Nút bên phải */
+    align-items: center;
+    width: 100%;
+}
+
+/* Bộ đếm ký tự */
+.charCounter {
+    font-size: 12px;
+    color: #666;
+    margin-left: 4px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+/* Khi đạt giới hạn 150/150 thì chuyển đỏ */
+.limitReached {
+    color: #ff4d4f; 
+}
+
+/* Nhóm nút bấm (Hủy/Gửi) */
+.replyActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  align-items: center;
+}
+
+.cancelBtn {
+  background: transparent;
+  color: #B0B3B8;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.cancelBtn:hover {
+  color: #E4E6EB;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sendReplyBtn {
+  background: #ff7a00;
+  color: white;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 6px 20px;
+  border-radius: 18px;
+}
+.sendReplyBtn:hover {
+  opacity: 0.9;
+}
+.sendReplyBtn:disabled {
+  background-color: #555;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* --- More Button (3 chấm) --- */
+.moreBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: #B0B3B8;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.moreBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #E4E6EB;
+}
+
+.mainContainer:hover .moreBtn,
+.moreBtn.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* --- Dropdown Menu --- */
+.menuWrapper {
+  position: absolute;
+  top: 40px;
+  right: 16px;
+  z-index: 100;
+  background-color: #242526;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  min-width: 140px;
+  padding: 6px;
+  animation: fadeIn 0.1s ease-out;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: #E4E6EB;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.menuItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.reportOption:hover { color: #FFD166; }
+.deleteOption { color: #FF4D4F; }
+.deleteOption:hover { background-color: rgba(255, 77, 79, 0.15); }
+
+/* --- Recursive Replies --- */
+.repliesContainer {
+  width: 100%;
+}
+
+.viewRepliesBtn {
+  background: none;
+  border: none;
+  color: #B0B3B8;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 68px;
+  transition: color 0.2s;
+}
+.viewRepliesBtn::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background-color: #666;
+}
+.viewRepliesBtn:hover {
+  color: #E4E6EB;
+}
+.viewRepliesBtn:hover::before {
+  background-color: #B0B3B8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

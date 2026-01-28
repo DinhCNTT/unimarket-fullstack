@@ -1,0 +1,81 @@
+/* src/components/VideoInfoOverlay.css */
+
+.vdv-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 16px;
+  color: white;
+  text-shadow: 0 0 5px black;
+  max-width: calc(100% - 32px);
+  z-index: 2;
+}
+
+.vdv-user-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #ffffff;
+  font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+  letter-spacing: 0.3px;
+  text-shadow: 
+    0 1px 2px rgba(0,0,0,0.6),
+    0 0 3px rgba(0,0,0,0.4);
+  user-select: none;
+}
+
+.vdv-title {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.vdv-price-address {
+  font-size: 14px;
+  font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.vdv-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ff3b30;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+  font-family: 'Inter', 'Roboto', 'Segoe UI', sans-serif;
+  text-shadow: 
+    0 2px 4px rgba(0,0,0,0.6),
+    0 0 6px rgba(255,59,48,0.4);
+  user-select: none;
+}
+
+.vdv-address {
+  font-size: 13px; 
+  font-weight: 500;
+  color: #f1f1f1;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 
+    0 1px 2px rgba(0,0,0,0.6), 
+    0 0 3px rgba(0,0,0,0.4);
+  user-select: none;
+}
+
+.vdv-view-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.vdv-view-icon {
+  font-size: 14px;
+  color: #aaa;
+  transition: color 0.2s ease;
+}

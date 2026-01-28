@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* --- 1. CẤU HÌNH MÀU SẮC & FONT (LOCAL) --- */
+:global(:root) {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Màu chủ đạo (Cam) */
+  --color-primary: #f59e0b;
+  --color-primary-dark: #d97706;
+  
+  /* Màu giá (Đỏ dịu hơn, không quá chói) */
+  --color-price: #ef4444; 
+  
+  /* Màu chữ - ĐÃ SỬA: Không dùng đen tuyền (#000) mà dùng xám đậm (#1f2937) */
+  --local-text-primary: #1f2937;       /* Gray 800 */
+  --local-text-secondary: #6b7280;     /* Gray 500 */
+  
+  /* Nền scrollbar */
+  --scrollbar-thumb: #d1d5db;
+  --scrollbar-track: transparent;
+}
+
+/* --- 2. OVERLAY (NỀN TỐI LÀM MỜ) --- */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Màu nền đen nhưng độ trong suốt thấp hơn (0.3) để thoáng hơn */
+  background: rgba(0, 0, 0, 0.3);
+  /* Hiệu ứng làm mờ nền phía sau mạnh hơn (Glassmorphism) */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  /* Animation nhẹ khi xuất hiện */
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* --- 3. PANEL CHÍNH --- */
+.panel {
+  background-color: var(--theme-bg-primary, #1f2937);
+  color: var(--theme-text-primary, #f3f4f6);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased; 
+  width: 700px;
+  max-width: 95vw;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 32px; 
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+/* --- 4. THANH CUỘN (SCROLLBAR) --- */
+.panel::-webkit-scrollbar {
+  width: 6px;
+}
+.panel::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  margin-block: 10px;
+}
+.panel::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 10px;
+}
+.panel:hover::-webkit-scrollbar-thumb {
+  background-color: #9ca3af; /* Đậm hơn chút khi hover */
+}
+
+/* --- 5. GLOBAL HELPERS (LOCK SCROLL) --- */
+:global(.vdv-wrapper.no-scroll),
+:global(.vdv-full-screen-scroll.no-scroll) {
+  overflow: hidden !important;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
+
+/* --- 6. BỐ CỤC NỘI DUNG --- */
+.scrollContent {
+  flex: 1;
+  padding-right: 4px; /* Tránh nội dung dính sát thanh cuộn */
+  min-height: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Tăng khoảng cách giữa các khối tin (Tiêu đề, ảnh, giá...) */
+  line-height: 1.6;
+  padding-bottom: 40px;
+}
+
+/* --- 7. BADGE DANH MỤC --- */
+.categoryBadge {
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--theme-text-secondary, #555);
+  background-color: var(--theme-bg-secondary, #f3f4f6); /* Xám rất nhạt */
+  padding: 6px 12px;
+  border-radius: 99px; /* Bo tròn dạng viên thuốc (Pill shape) */
+  align-self: flex-start;
+  transition: background 0.2s;
+  cursor: default;
+}
+
+.categoryBadge:hover {
+  background-color: #e5e7eb;
+}
+
+/* --- 8. TIÊU ĐỀ CHÍNH --- */
+.mainTitle {
+  font-size: 24px; /* Tăng size chữ tiêu đề */
+  font-weight: 700;
+  color: var(--theme-text-primary, #111827); /* Gần đen nhưng không đen kịt */
+  margin: 0;
+  line-height: 1.4;
+  letter-spacing: -0.02em; /* Kéo chữ lại gần chút cho chặt chẽ */
+}
+
+/* --- 9. GIÁ BÁN --- */
+.priceSection {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: -8px; /* Kéo gần tiêu đề hơn */
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--theme-border-color, #f0f0f0); /* Gạch ngang nhẹ phân cách */
+}
+
+.priceValue {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-price);
+  letter-spacing: -0.02em;
+}
+
+.priceNote {
+  font-size: 14px;
+  color: var(--theme-text-secondary, #6b7280);
+  font-weight: 500;
+}
+
+/* --- 10. TRẠNG THÁI LOADING/ERROR --- */
+.loading, .error {
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  font-size: 16px;
+  color: var(--theme-text-secondary, #6b7280);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--color-primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+  .panel {
+    width: 100%;
+    height: 100%; /* Full màn hình trên mobile */
+    border-radius: 0; /* Bỏ bo góc */
+    padding: 16px;
+  }
+  
+  .mainTitle {
+    font-size: 20px;
+  }
+  
+  .priceValue {
+    font-size: 24px;
+  }
+}

@@ -1,0 +1,276 @@
+/* src/components/CategoryFilters/LocMoRongPhone.module.css */
+
+.container {
+  background-color: transparent; /* hoặc giữ #fff nếu vẫn muốn nền */
+  padding: 15px 20px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: none;
+  animation: fadeIn 0.3s ease;
+  font-family: sans-serif;
+  position: relative;
+}
+
+/* --- FILTER BAR --- */
+.filterBar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+/* Nút Lọc (Icon Filter) */
+.filterIconBtn {
+    background-color: #222;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+/* Tag Đen (Điện thoại) */
+.activeTag {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.closeCircle {
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+/* Các nút Filter (Pill) */
+.filterGroup {
+    position: relative; /* Để dropdown căn theo nút này */
+}
+
+.pillBtn {
+  background-color: #f3f3f3;
+  border: 1px solid transparent;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.pillBtn:hover {
+  background-color: #e5e5e5;
+}
+
+/* Khi dropdown mở hoặc có giá trị */
+.pillActive {
+    background-color: #fff9e6; /* Vàng nhạt */
+    /* border: 1px solid #ffba00; */ /* Có thể bỏ viền nếu muốn giống hình */
+    color: #d35400; /* Chữ cam đậm */
+    font-weight: 500;
+}
+
+/* --- DROPDOWN POPUP --- */
+.dropdownContent {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border: 1px solid #eee;
+    border-radius: 12px;
+    z-index: 1000;
+    min-width: 320px; /* Độ rộng popup */
+    padding: 16px;
+    animation: popUp 0.2s ease-out;
+}
+
+/* --- List & Search Styles --- */
+.listContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.searchWrapper {
+    position: relative;
+}
+
+.miniSearch {
+    width: 100%;
+    padding: 10px 12px 10px 36px; /* Padding left cho icon search nếu có */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+.miniSearch:focus {
+    border-color: #ffba00;
+}
+
+.listScroll {
+    max-height: 280px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.listItem {
+    padding: 10px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+.listItem:hover {
+    background-color: #f9f9f9;
+}
+
+/* Radio Button Custom */
+.checkboxRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.radioCircle {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    position: relative;
+}
+/* Khi checked thì đổi màu viền và thêm chấm tròn */
+.radioChecked {
+    border-color: #ffba00;
+}
+.radioChecked::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px; height: 10px;
+    background-color: #ffba00;
+    border-radius: 50%;
+}
+
+.emptyText {
+    text-align: center; color: #999; font-size: 13px; padding: 10px;
+}
+
+/* --- Price Popup Styles --- */
+.dropdownTitle {
+    font-weight: 600; margin-bottom: 15px; font-size: 15px;
+}
+.rangeSliderWrapper {
+    height: 4px; background: #eee; position: relative; margin: 20px 0;
+}
+.rangeTrack {
+    height: 100%; background: #ffba00; width: 100%;
+}
+.rangeThumb {
+    width: 20px; height: 20px; background: #fff; border: 2px solid #ffba00;
+    border-radius: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); cursor: pointer;
+}
+.priceLabelRow {
+    display: flex; justify-content: space-between; font-size: 12px; color: #777; margin-bottom: 10px;
+}
+.priceInputs {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 15px;
+}
+.priceInput {
+    width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; text-align: center;
+}
+.quickPriceTags {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
+}
+.quickTag {
+    background: #f5f5f5; border: 1px solid transparent; padding: 6px 12px;
+    border-radius: 16px; font-size: 12px; cursor: pointer; color: #555;
+}
+.quickTag:hover {
+    border-color: #ffba00; color: #d35400; background: #fff9e6;
+}
+
+/* --- Footer (Xóa lọc / Áp dụng) --- */
+.dropdownFooter {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #eee; padding-top: 15px; margin-top: 5px;
+}
+.btnReset {
+    background: #fff; border: 1px solid #ddd; padding: 8px 20px;
+    border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 500; color: #555;
+}
+.btnApply {
+    background: #ffba00; border: none; padding: 8px 24px;
+    border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; color: #fff;
+    box-shadow: 0 2px 6px rgba(255, 186, 0, 0.3);
+}
+.btnApply:hover {
+    background: #e6a800;
+}
+
+/* --- Row 2: Location (Giữ nguyên) --- */
+.locationRow {
+  display: flex; gap: 8px; align-items: center; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px;
+}
+.locationPill {
+  border: 1px solid #eee; background: #fff; padding: 4px 12px; border-radius: 16px;
+  font-size: 12px; cursor: pointer; white-space: nowrap; color: #555;
+}
+.locationPill:hover { border-color: #ccc; background-color: #f9f9f9; }
+.labelLocation { font-size: 13px; color: #777; white-space: nowrap; }
+
+/* --- Row 3: Brand Grid (Giữ nguyên) --- */
+.brandRow {
+  display: flex; gap: 15px; flex-wrap: wrap; justify-content: flex-start; padding-top: 15px; border-top: 1px dashed #eee;
+}
+.brandItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 5px;
+}
+
+.brandActive { border: 2px solid #ffba00; background-color: #fff9e6; }
+.brandImgContainer { width: 100%; height: 40px; display: flex; align-items: center; justify-content: center; margin-bottom: 5px; }
+.brandImg { max-width: 100%; max-height: 100%; object-fit: contain; }
+.brandName { font-size: 12px; color: #555; text-align: center; }
+.brandActive .brandName { color: #d35400; font-weight: 600; }
+
+@keyframes popUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

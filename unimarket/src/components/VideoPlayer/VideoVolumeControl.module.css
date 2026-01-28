@@ -1,0 +1,70 @@
+.volumeControlWrapper {
+  position: absolute;
+  bottom: 20px;
+  /* SỬA Ở ĐÂY: Thay đổi từ 530px thành 20px để nó nằm sát góc phải */
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.volumeBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease-in-out;
+  order: 2;
+  color: #fff;
+}
+
+.volumeBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.volumeSlider {
+/* Thay bằng đoạn này: */
+writing-mode: vertical-lr;
+direction: rtl;  /* Quan trọng: Để Volume to nằm ở trên, nhỏ ở dưới */
+appearance: auto; /* Reset lại hiển thị chuẩn */
+  width: 6px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  order: 1; /* Slider nằm trên nút loa */
+  margin-bottom: 10px;
+  transition: opacity 0.3s ease;
+
+  /* Style cho thanh trượt (thumb) */
+  accent-color: #fff;
+}
+/* Ẩn thanh trượt mặc định để style lại (tuỳ chọn) */
+.volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.volumeSlider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}

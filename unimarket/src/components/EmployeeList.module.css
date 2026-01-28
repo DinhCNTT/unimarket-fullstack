@@ -1,0 +1,133 @@
+/* EmployeeList.module.css */
+.container {
+    font-family: 'Reddit Sans', sans-serif;
+    padding: 24px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.titleIcon {
+    color: #ffca00;
+}
+
+/* Table Card */
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table th {
+    background-color: #fdfdfd;
+    padding: 16px;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 2px solid #ffca00;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.table td {
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.table tr:hover {
+    background-color: #fffdf5;
+}
+
+/* Badges */
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.active {
+    background-color: #e6fcf5;
+    color: #0ca678;
+}
+
+.locked {
+    background-color: #fff5f5;
+    color: #fa5252;
+}
+
+/* Action Buttons */
+.btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.btnLock {
+    background-color: #ffca00;
+    color: #333;
+}
+
+.btnLock:hover {
+    background-color: #e6b600;
+}
+
+.btnUnlock {
+    background-color: #333;
+    color: white;
+}
+
+.btnUnlock:hover {
+    background-color: #000;
+}
+
+.noData {
+    padding: 40px;
+    text-align: center;
+    color: #999;
+}
+
+/* Để fix lỗi lệch: Bỏ transform và dùng margin nếu cần, 
+   hoặc để component cha quản lý layout bằng Flexbox */

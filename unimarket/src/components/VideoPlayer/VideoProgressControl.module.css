@@ -1,0 +1,115 @@
+.progressWrapper {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  
+  width: 90%;
+  max-width: 450px;
+  
+  /* Xóa padding và background để nó trong suốt hoàn toàn */
+  padding: 0;
+  background: transparent;
+  
+  z-index: 900;
+  opacity: 0; 
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* --- ĐÃ XÓA PHẦN .progressWrapper::before ĐỂ MẤT NỀN ĐEN --- */
+
+/* Class kích hoạt hiển thị */
+.visible {
+  opacity: 1;
+  visibility: visible;
+  bottom: 20px;
+  pointer-events: auto;
+}
+
+.sliderContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 14px;
+  position: relative;
+  /* Thêm bóng đổ nhẹ cho vùng chứa để tách biệt với video */
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+}
+
+/* Input Range (Thanh trượt) */
+.progressBar {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  /* Màu nền thanh chưa chạy: Trắng mờ */
+  background: rgba(255, 255, 255, 0.3); 
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  
+  /* Màu thanh đã chạy */
+  background-image: linear-gradient(#fff, #fff); 
+  background-repeat: no-repeat;
+  transition: height 0.2s ease;
+  
+  /* Thêm bóng đổ cho thanh trượt để nổi bật trên nền trong suốt */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.sliderContainer:hover .progressBar {
+  height: 6px;
+}
+
+/* Cục tròn (Thumb) - Chrome/Safari */
+.progressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4); /* Bóng đổ cho cục tròn */
+  transform: scale(0);
+  transition: transform 0.2s;
+}
+
+.sliderContainer:hover .progressBar::-webkit-slider-thumb {
+  transform: scale(1);
+}
+
+/* Cục tròn (Thumb) - Firefox */
+.progressBar::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  transform: scale(0);
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+.sliderContainer:hover .progressBar::-moz-range-thumb {
+  transform: scale(1);
+}
+
+/* Hiển thị thời gian */
+.timeDisplay {
+  font-size: 11px;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  font-family: monospace;
+  min-width: 80px;
+  text-align: right;
+  
+  /* QUAN TRỌNG: Thêm bóng đổ đậm cho chữ để đọc được trên video sáng màu */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}

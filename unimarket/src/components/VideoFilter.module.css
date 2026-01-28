@@ -1,0 +1,492 @@
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: transparent;
+  border-bottom: none;
+  gap: 24px;
+  margin-left: -20px; /* Dịch sang trái 10px */
+}
+
+.filterContainer {
+  display: flex;
+  gap: 12px;
+}
+
+.filterGroup {
+  position: relative;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.filterButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 232, 132, 0.1));
+  transition: width 0.3s ease;
+}
+
+.filterButton:hover::before {
+  width: 100%;
+}
+
+.filterButton:hover {
+  border-color: #ffe884;
+  box-shadow: 0 2px 8px rgba(255, 232, 132, 0.3);
+  transform: translateY(-1px);
+}
+
+.filterButton.active {
+  border-color: #000;
+  font-weight: 600;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chevron {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filterButton.active .chevron {
+  transform: rotate(180deg);
+}
+
+/* --- Active Filters Container (Bên phải) --- */
+.activeFiltersContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.activeFiltersLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  white-space: nowrap;
+}
+
+/* --- Filter Tags (Chip/Badge) --- */
+.filterTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ffe884 0%, #ffd966 100%);
+  border: 1px solid #ffd966;
+  border-radius: 20px;
+  padding: 6px 10px 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #000;
+  box-shadow: 0 2px 6px rgba(255, 232, 132, 0.3);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.filterTagText {
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filterTagClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  color: #000;
+}
+
+.filterTagClose:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+.filterTagClose:active {
+  transform: scale(0.95);
+}
+
+/* --- Nút Xóa tất cả --- */
+.clearAllButton {
+  padding: 8px 18px;
+  border: 1.5px solid #000;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  white-space: nowrap;
+}
+
+.clearAllButton:hover {
+  background-color: #000;
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.clearAllButton:active {
+  transform: translateY(0);
+}
+
+/* --- Dropdown Menu Chung --- */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  overflow: hidden;
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Dropdown Danh Mục --- */
+.categoryDropdown {
+  display: flex;
+  width: 540px;
+  height: 420px;
+}
+
+.parentMenu,
+.childMenu {
+  width: 50%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.parentMenu {
+  background-color: #fafafa;
+}
+
+.childMenu {
+  border-left: 1px solid #f0f0f0;
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  transition: all 0.2s ease;
+}
+
+.categoryItem:hover {
+  background-color: #f5f5f5;
+  transform: translateX(4px);
+}
+
+.categoryItem.activeItem {
+  background: linear-gradient(135deg, #ffe884 0%, #ffd966 100%);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(255, 232, 132, 0.3);
+}
+
+.categoryIcon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.allItem {
+  font-weight: 600;
+  color: #000;
+  background-color: #f0f0f0;
+}
+
+.allItem:hover {
+  background-color: #e8e8e8;
+}
+
+/* Scrollbar styling */
+.parentMenu::-webkit-scrollbar,
+.childMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.parentMenu::-webkit-scrollbar-track,
+.childMenu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.parentMenu::-webkit-scrollbar-thumb,
+.childMenu::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 3px;
+}
+
+.parentMenu::-webkit-scrollbar-thumb:hover,
+.childMenu::-webkit-scrollbar-thumb:hover {
+  background: #b0b0b0;
+}
+
+/* --- Dropdown Giá --- */
+.priceDropdown {
+  width: 360px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.sliderContainer {
+  position: relative;
+  height: 50px;
+  margin-bottom: 16px;
+}
+
+.sliderTrack {
+  position: absolute;
+  top: 23px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(to right, #e0e0e0, #f0f0f0);
+  border-radius: 3px;
+}
+
+.sliderRange {
+  position: absolute;
+  top: 23px;
+  height: 6px;
+  background: linear-gradient(135deg, #ffe884 0%, #ffd966 100%);
+  border-radius: 3px;
+  z-index: 1;
+  box-shadow: 0 2px 6px rgba(255, 232, 132, 0.4);
+}
+
+.slider {
+  position: absolute;
+  top: 23px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+  z-index: 2;
+  margin: 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  border: 2px solid #ffe884;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(255, 232, 132, 0.2);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2), 0 0 0 6px rgba(255, 232, 132, 0.3);
+}
+
+.slider::-webkit-slider-thumb:active {
+  transform: scale(1.05);
+}
+
+.slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  border: 2px solid #ffe884;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(255, 232, 132, 0.2);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2), 0 0 0 6px rgba(255, 232, 132, 0.3);
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  margin-top: 12px;
+}
+
+/* --- Input Giá --- */
+.inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.priceInputContainer {
+  position: relative;
+  flex: 1;
+}
+
+.priceInput {
+  width: 100%;
+  height: 44px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 10px 32px 10px 14px;
+  box-sizing: border-box;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.priceInput:hover {
+  border-color: #ffe884;
+  background-color: #fff;
+}
+
+.priceInput:focus {
+  outline: none;
+  border-color: #ffe884;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 232, 132, 0.2);
+}
+
+.currencySymbol {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.divider {
+  color: #999;
+  font-weight: 600;
+}
+
+/* --- Nút Áp dụng --- */
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+}
+
+.applyButton {
+  flex: 1;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(135deg, #000000 0%, #2a2a2a 100%);
+  color: #ffffff;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.applyButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #2a2a2a 0%, #000000 100%);
+}
+
+.applyButton:active {
+  transform: translateY(0);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .filterBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .activeFiltersContainer {
+    width: 100%;
+  }
+
+  .categoryDropdown {
+    width: 100vw;
+    max-width: 480px;
+  }
+}

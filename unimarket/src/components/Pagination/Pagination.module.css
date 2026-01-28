@@ -1,0 +1,40 @@
+/* Pagination.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@300;400;500;700&display=swap');
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  gap: 8px;
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.pageBtn {
+  min-width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  font-family: 'Reddit Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+}
+
+.active {
+  background-color: #ffba00;
+  border-color: #ffba00;
+  color: #fff;
+  font-weight: bold;
+}
+
+.pageBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

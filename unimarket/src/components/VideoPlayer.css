@@ -1,0 +1,17 @@
+/* src/components/VideoPlayer.css */
+
+.vdv-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  background: #000;
+}
+
+/* Responsive cho player (từ file gốc) */
+@media (max-width: 768px) {
+  .vdv-container.vdv-landscape .vdv-player {
+    max-width: 95vw;
+    max-height: 60vh;
+  }
+}

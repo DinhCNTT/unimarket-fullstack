@@ -1,0 +1,29 @@
+/* src/styles/theme.css */
+
+/* 1. CHẾ ĐỘ SÁNG (MẶC ĐỊNH) */
+:root {
+  --theme-bg-primary: #ffffff;         /* Nền chính của panel, modal (Trắng) */
+  --theme-bg-secondary: #f8f8f8;      /* Nền cho cả trang web (Xám rất nhạt) */
+  --theme-bg-hover: #f1f1f1;          /* Màu khi di chuột vào item */
+  
+  --theme-text-primary: #111111;       /* Màu chữ chính (Đen) */
+  --theme-text-secondary: #555555;     /* Màu chữ phụ, mô tả (Xám) */
+  
+  --theme-border-color: #e0e0e0;      /* Màu đường viền, phân tách (Xám nhạt) */
+  --theme-accent-color: #ff6600;      /* Màu nhấn (Cam - ví dụ) */
+}
+
+/* 2. CHẾ ĐỘ TỐI */
+/* Sẽ được kích hoạt khi ThemeContext thêm data-theme="dark" vào thẻ <html> hoặc <body> */
+[data-theme='dark'] {
+  --theme-bg-primary: #000000; /* Sidebar = đen */
+  --theme-bg-secondary: #000000; /* Video bg = đen */
+  --theme-bg-hover: #1a1a1a;
+
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #bbbbbb;
+
+  --theme-border-color: #222222;
+  --theme-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+

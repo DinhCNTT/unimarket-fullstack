@@ -1,0 +1,207 @@
+/* QuanLyBaoCao.module.css */
+
+/* Container chính */
+.container {
+    padding: 30px;
+    background-color: #f8f9fa; /* Nền xám nhạt hiện đại */
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Reddit Sans', sans-serif;
+    color: #333;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.titleGroup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    color: #222;
+}
+
+/* Bộ lọc */
+.filters {
+    display: flex;
+    gap: 15px;
+}
+
+.select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s;
+}
+
+.select:focus {
+    border-color: #ffca00;
+    box-shadow: 0 0 0 3px rgba(255, 202, 0, 0.15);
+}
+
+/* Card chứa bảng */
+.card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    overflow: hidden; /* Bo tròn góc bảng */
+}
+
+/* Bảng */
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table th {
+    background-color: #fffdf5; /* Nền vàng cực nhạt cho header */
+    color: #555;
+    font-weight: 600;
+    padding: 16px;
+    text-align: left;
+    border-bottom: 2px solid #ffca00;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+    color: #444;
+}
+
+.table tr:hover {
+    background-color: #fafafa;
+}
+
+/* Cột Chi tiết (giới hạn độ dài) */
+.detailsCell {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: help;
+}
+
+/* Badge trạng thái */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badgePending {
+    background-color: #fff5f5;
+    color: #e03131;
+    border: 1px solid #ffc9c9;
+}
+
+.badgeResolved {
+    background-color: #ebfbee;
+    color: #2f9e44;
+    border: 1px solid #b2f2bb;
+}
+
+/* Action Buttons Group */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Nút hành động chung */
+.actionBtn {
+    border: none;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.actionBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.actionBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Màu sắc từng nút */
+.btnDelete {
+    background-color: #ffe3e3;
+    color: #fa5252;
+}
+.btnDelete:hover:not(:disabled) { background-color: #ffc9c9; }
+
+.btnWarn {
+    background-color: #fff3bf;
+    color: #f08c00;
+}
+.btnWarn:hover:not(:disabled) { background-color: #ffec99; }
+
+.btnBan {
+    background-color: #343a40;
+    color: #fff;
+}
+.btnBan:hover:not(:disabled) { background-color: #212529; }
+
+.btnDismiss {
+    background-color: #f1f3f5;
+    color: #868e96;
+}
+.btnDismiss:hover:not(:disabled) { background-color: #e9ecef; color: #495057; }
+
+/* Loading & Empty state */
+.loading, .empty {
+    padding: 40px;
+    text-align: center;
+    color: #888;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .table th, .table td {
+        padding: 12px;
+    }
+    .detailsCell {
+        max-width: 150px;
+    }
+}

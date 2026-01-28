@@ -1,0 +1,102 @@
+/* Sidebar */
+.sidebar {
+  width: 100%;   /* Chiếm trọn 250px của khung cha AdminLayout */
+  height: 100%;  /* Chiếm trọn chiều cao */
+  background: linear-gradient(135deg, #FFA726, #FF9800);
+  color: white;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+/* Avatar bằng icon */
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.avatar-icon {
+  font-size: 70px;
+  color: white;
+}
+
+/* Chào Admin */
+.welcome-text {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Menu */
+.sidebar-menu {
+  width: 100%;
+  list-style: none;
+  padding: 0 15px;
+}
+
+.sidebar-menu li {
+  padding: 12px;
+  text-align: left;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+
+.sidebar-menu a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.menu-icon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.sidebar-menu li:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+/* Nút Đăng Xuất */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.logout-btn {
+  position: relative;
+  top: -10px; /* Đẩy lên 30px */
+  width: 100%;
+  padding: 15px;
+  background: white;
+  color: #FF9800;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+
+  display: flex; /* ✅ Thêm dòng này */
+  align-items: center; /* ✅ Căn giữa theo chiều dọc */
+  justify-content: center; /* ✅ Nếu muốn căn giữa ngang */
+  gap: 8px; /* ✅ Thêm khoảng cách giữa icon và chữ */
+}
+
+.logout-btn:hover {
+  background: #FF9800;
+  color: white;
+}
+
+.logout-btn .menu-icon {
+  margin-right: 8px;
+}
+
+

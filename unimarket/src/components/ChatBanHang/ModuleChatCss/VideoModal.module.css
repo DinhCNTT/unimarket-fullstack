@@ -1,0 +1,64 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 300px; /* dịch sang phải xíu - GIỮ NGUYÊN */
+  margin-top: 80px;   /* dịch xuống dưới xíu - GIỮ NGUYÊN */
+}
+
+.videoPlayer {
+  /* Quan trọng: giữ tỷ lệ */
+  object-fit: contain;
+}
+
+.closeButton {
+  position: absolute;
+  top: 2px;
+  right: -10px;
+  background: transparent;
+  border: none;
+  
+  /* ✅ SỬA: Dùng biến màu (hoặc mặc định là đen) */
+  color: var(--theme-text-primary, black);
+  
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1051;
+  opacity: 0.8;
+  
+  /* ✅ SỬA: Thêm hiệu ứng chuyển màu mượt mà */
+  transition: opacity 0.2s, color 0.3s;
+}
+
+/* ✅ THÊM: Quy định màu trắng khi ở chế độ tối */
+[data-theme="dark"] .closeButton {
+  color: #ffffff;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

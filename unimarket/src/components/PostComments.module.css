@@ -1,0 +1,354 @@
+/* Import font Reddit Sans */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* --- Main Container (Khối trên trang) --- */
+.container {
+  background-color: #fff;
+  border-radius: 8px;
+  height: auto; 
+  display: flex;
+  flex-direction: column;
+
+  /* Styles tạo khung */
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+
+  /* Font chữ chung */
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.header {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 700;
+  font-size: 16px;
+  color: #222;
+  background-color: #fff;
+}
+
+.count {
+  font-weight: 400;
+  color: #777;
+  margin-left: 4px;
+}
+
+/* List bình luận */
+.commentList {
+  padding: 16px;
+  background-color: #fff;
+}
+
+.previewListWrapper {
+  display: block;
+}
+
+.noComment {
+  text-align: center;
+  color: #999;
+  padding: 20px 0;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Nút Xem thêm */
+.seeMoreBtn {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  border: none;
+  border-top: 1px solid #eee;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  transition: background 0.2s;
+  
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.seeMoreBtn:hover {
+  background-color: #fafafa;
+  text-decoration: underline;
+}
+
+/* --- Input Area --- */
+.inputArea {
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+}
+
+.inputWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.myAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.inputRight {
+  flex: 1;
+}
+
+.textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  outline: none;
+  resize: none;
+  
+  font-family: 'Reddit Sans', sans-serif;
+  
+  font-size: 14px;
+  min-height: 40px;
+  max-height: 120px;
+  background-color: #f8f8f8;
+}
+
+.textarea:focus {
+  background-color: #fff;
+  border-color: #FFBA00;
+}
+
+.inputFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+/* NÚT GỬI */
+.sendBtn {
+  background-color: #FFBA00;
+  color: #222;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.sendBtn:disabled {
+  background-color: #eee;
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.loginPrompt {
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FFBA00;
+  background: #fff8e1;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px dashed #FFBA00;
+  
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+/* --- Comment Item Styling (FIX LỖI TRÀN TEXT Ở ĐÂY) --- */
+.commentItem {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 4px;
+  
+  /* Đảm bảo item không vượt quá chiều rộng cha */
+  max-width: 100%;
+}
+/* Thêm class này để tạo khoảng cách giữa các comment cha (cấp 1) */
+.commentList > div {
+    margin-bottom: 16px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  
+  /* Giữ nguyên size avatar, không cho co lại khi text quá dài */
+  flex-shrink: 0; 
+}
+
+.contentWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  
+  /* 🔥 FIX QUAN TRỌNG: min-width: 0 giúp Flexbox wrap được text dài */
+  min-width: 0;
+}
+
+.bubble {
+  background-color: #f0f2f5;
+  padding: 8px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  
+  /* Đảm bảo bong bóng chat không tràn */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.userName {
+  font-weight: 700;
+  font-size: 13px;
+  color: #222;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.authorBadge {
+  background-color: #FFBA00;
+  color: #222;
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: 700;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.text {
+  font-size: 14px;
+  color: #333;
+  margin-top: 2px;
+  line-height: 1.4;
+
+  /* 🔥 FIX LỖI TEXT KHÔNG NGẮT DÒNG 🔥 */
+  white-space: pre-wrap;       /* Giữ các dấu xuống dòng của user */
+  word-wrap: break-word;       /* Hỗ trợ trình duyệt cũ */
+  word-break: break-word;      /* Ngắt từ hợp lý */
+  overflow-wrap: anywhere;     /* (Mạnh nhất) Bẻ gãy chuỗi ký tự dài bất kỳ để xuống dòng */
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+  margin-left: 4px;
+  font-size: 12px;
+  color: #777;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  color: #555;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  
+  font-family: 'Reddit Sans', sans-serif;
+}
+.actionBtn:hover { text-decoration: underline; }
+
+.time { font-size: 12px; color: #999; }
+
+/* Reply Box nhỏ */
+.inlineReplyBox {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.repliesContainer {
+  margin-left: 0;
+  padding-left: 42px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.toggleRepliesBtn {
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  
+  font-family: 'Reddit Sans', sans-serif;
+}
+.replyLine {
+    width: 20px;
+    height: 1px;
+    background: #ccc;
+    display: inline-block;
+}
+/* --- Custom Toast Confirm --- */
+.toastContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 200px;
+}
+
+.toastTitle {
+  font-family: 'Reddit Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: #333;
+}
+
+.toastActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 4px;
+  margin-right: 33px;
+}
+
+.toastBtn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: 'Reddit Sans', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.toastBtnCancel {
+  background-color: #f0f2f5;
+  color: #555;
+}
+.toastBtnCancel:hover { background-color: #e4e6eb; }
+
+.toastBtnDelete {
+  background-color: #ffeff1;
+  color: #dc3545;
+}
+.toastBtnDelete:hover { background-color: #ffe0e3; }
+.repliesContainerIndent {
+  margin-left: 0;
+  padding-left: 44px; /* Thụt vào 1 lần duy nhất */
+  margin-top: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 2. Dùng cho con của Cấp 2 trở đi (KHÔNG thụt nữa - Phẳng) */
+.repliesContainerFlat {
+  margin-left: 0;
+  padding-left: 0 !important;
+  margin-top: 0;
+  width: 100%;
+  box-sizing: border-box;
+}

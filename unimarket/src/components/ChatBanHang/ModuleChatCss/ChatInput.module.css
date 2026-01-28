@@ -1,0 +1,306 @@
+/* Container chính */
+.chatInput {
+  /* ✅ ĐỔI MÀU: Nền container input */
+  background: var(--theme-bg-primary);
+  /* ✅ ĐỔI MÀU: Viền trên */
+  border-top: 1px solid var(--theme-border-color);
+  
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px; /* bo góc rõ hơn */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Wrapper thanh input */
+.inputWrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  min-height: auto;
+  transition: all 0.3s ease;
+}
+
+/* Class chứa textarea, hình "viên thuốc" */
+.textWrap {
+  flex: 1;
+  min-width: 0;
+  /* ✅ ĐỔI MÀU: Nền ô nhập liệu (xám nhạt ở Light, xám đậm ở Dark) */
+  background: var(--theme-bg-secondary);
+  border-radius: 20px;
+  padding: 8px 14px;
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+.textWrap:focus-within {
+  /* ✅ ĐỔI MÀU: Nền khi focus */
+  background: var(--theme-bg-hover);
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* Textarea */
+.textWrap textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  max-height: 100px;
+  padding: 0;
+  margin: 0;
+  /* ✅ ĐỔI MÀU: Màu chữ nhập liệu */
+  color: var(--theme-text-primary);
+}
+
+.textWrap textarea:focus {
+  outline: none;
+}
+
+.textWrap textarea::placeholder {
+  /* ✅ ĐỔI MÀU: Màu placeholder */
+  color: var(--theme-text-secondary);
+}
+
+/* Nút Gửi */
+.sendBtn {
+  background: #3b82f6; /* Giữ màu xanh thương hiệu */
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sendBtn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.sendBtn:disabled {
+  /* ✅ ĐỔI MÀU: Nút gửi khi disabled */
+  background: var(--theme-bg-secondary);
+  color: var(--theme-text-secondary);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Cảnh báo kết nối */
+.warning {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  width: 100%;
+  margin-bottom: 8px;
+  /* ✅ ĐỔI MÀU: Nền cảnh báo */
+  background: var(--theme-bg-secondary);
+  /* Giữ màu đỏ cho chữ cảnh báo hoặc dùng biến */
+  color: #ff4444; 
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid rgba(255, 68, 68, 0.2);
+}
+
+/* Group nút upload */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Nút upload (icon) */
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+  /* Giữ màu xanh cho icon action */
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+
+.actionBtn:hover {
+  /* ✅ ĐỔI MÀU: Nền hover nút action */
+  background: var(--theme-bg-hover);
+  color: #2563eb;
+}
+
+/* Preview */
+.previews {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding-left: 0;
+}
+
+.thumb {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* ✅ ĐỔI MÀU: Viền nhẹ cho thumb để nổi trên nền tối */
+  border: 1px solid var(--theme-border-color);
+}
+
+.thumb img,
+.thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.thumbRemove {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: white;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.thumbRemove:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* Drag & Drop Overlay */
+.dragOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(59, 130, 246, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.dragContent {
+  color: white;
+  text-align: center;
+}
+
+.dragContent p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.chatInput.dragging {
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+/* Upload Progress */
+.uploadProgress {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  /* ✅ ĐỔI MÀU: Nền thanh progress */
+  background: var(--theme-bg-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #3b82f6;
+  transition: width 0.3s ease;
+}
+
+.progressText {
+  font-size: 12px;
+  /* ✅ ĐỔI MÀU: Chữ progress */
+  color: var(--theme-text-secondary);
+  text-align: center;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Thumb Info */
+.thumbInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  padding: 2px 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .previews {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatInput {
+    padding: 8px;
+  }
+  .inputWrap {
+    gap: 4px;
+  }
+  .actionBtn {
+    width: 32px;
+    height: 32px;
+  }
+  .sendBtn {
+    width: 36px;
+    height: 36px;
+  }
+  .previews {
+    padding-left: 0;
+  }
+}

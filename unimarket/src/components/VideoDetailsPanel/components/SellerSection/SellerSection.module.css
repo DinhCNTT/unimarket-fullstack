@@ -1,0 +1,35 @@
+.container {
+  border-top: 1px solid var(--theme-border-color);
+  padding-top: 24px;
+}
+.title {
+  font-size: 16px; font-weight: 700; color: var(--theme-text-primary);
+  margin-bottom: 12px; letter-spacing: -0.01em;
+}
+.info { display: flex; align-items: center; gap: 14px; }
+.avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  object-fit: cover; border: 1px solid var(--theme-border-color);
+}
+.name {
+  font-size: 16px; font-weight: 700; color: var(--theme-text-primary); line-height: 1.2;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 15px; font-weight: 600; padding: 12px 20px;
+  border-radius: 10px; border: 1px solid transparent; flex-grow: 1; cursor: pointer;
+  font-family: var(--font-sans); transition: all 0.2s ease;
+}
+.phone {
+  background-color: var(--color-primary); color: white;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+.phone:hover { background-color: var(--color-primary-dark); transform: translateY(-1px); }
+.chat {
+  background-color: var(--theme-bg-hover); color: var(--theme-text-primary);
+  border: 1px solid var(--theme-border-color);
+}
+.chat:hover {
+  background-color: var(--theme-bg-primary); border-color: var(--theme-text-secondary);
+}

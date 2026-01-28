@@ -1,0 +1,91 @@
+/* UniMarketIntro.module.css */
+
+.container {
+  max-width: 1210px; 
+  margin: 20px auto; 
+  padding: 24px 30px;
+  background-color: #fff;
+  border-radius: 12px; 
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08); 
+  border: 1px solid #f0f0f0; 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #000;
+}
+
+.contentWrapper {
+  position: relative;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out; 
+}
+
+.contentCollapsed {
+  max-height: 220px; 
+}
+
+/* Hiệu ứng mờ dần ở dưới khi thu gọn */
+.contentCollapsed::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; 
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  pointer-events: none;
+}
+
+.contentExpanded {
+  max-height: 2000px;
+}
+
+/* Style cho các đoạn văn */
+.paragraph {
+  margin-bottom: 12px;
+  text-align: justify;
+}
+
+/* Style cho danh sách */
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+}
+
+.listItem {
+  margin-bottom: 8px;
+}
+
+.boldText {
+  font-weight: 700;
+  color: #333;
+}
+
+/* Nút bấm (Style sạch, viền xám) */
+.toggleButton {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 24px; 
+  border-radius: 6px; 
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.toggleButton:hover {
+  background-color: #f9f9f9;
+  border-color: #999;
+}

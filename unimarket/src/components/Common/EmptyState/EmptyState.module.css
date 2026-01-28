@@ -1,0 +1,25 @@
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--theme-text-secondary);
+}
+
+.icon {
+  font-size: 50px;
+  line-height: 1;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--theme-text-primary);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--theme-text-secondary);
+  margin: 0;
+}

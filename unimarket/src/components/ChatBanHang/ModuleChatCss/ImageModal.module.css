@@ -1,0 +1,268 @@
+.mediaModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  /* Giữ màu overlay tối bán trong suốt để tập trung vào ảnh */
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.mediaModalContent {
+  position: relative;
+  max-width: 30vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: zoomIn 0.3s ease forwards;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  
+  /* Giữ nguyên vị trí margin */
+  margin-top: 90px;
+  margin-left: 200px;
+  
+  /* ✅ ĐỔI MÀU: Nền modal (quan trọng nếu ảnh trong suốt hoặc nhỏ hơn khung) */
+  background-color: var(--theme-bg-primary);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.mediaModalClose {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  /* ✅ ĐỔI MÀU: Nền nút đóng (bán trong suốt) */
+  background: rgba(0, 0, 0, 0.7); 
+  border: none;
+  color: white; /* Icon giữ màu trắng vì nền nút luôn tối */
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  z-index: 10001;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.mediaModalClose:hover {
+  background: rgba(255, 59, 48, 0.8); /* Màu đỏ khi hover */
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3);
+}
+
+.mediaModalClose:active {
+  transform: scale(0.95);
+}
+
+.mediaModalImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  /* ✅ ĐỔI MÀU: Thêm nền trắng/đen phía sau ảnh nếu ảnh là PNG trong suốt */
+  background-color: var(--theme-bg-secondary);
+}
+
+.mediaModalVideo {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  outline: none;
+  background-color: black; /* Video thường nền đen */
+}
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  /* ✅ ĐỔI MÀU: Nút đóng lớn */
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  z-index: 10001;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.closeButton:hover {
+  background: rgba(255, 59, 48, 0.8);
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 59, 48, 0.3);
+}
+
+.closeButton:active {
+  transform: scale(0.95);
+}
+
+.navigationButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* ✅ ĐỔI MÀU: Nút điều hướng (Next/Prev) */
+  background: rgba(255, 255, 255, 0.2); /* Giữ bán trong suốt */
+  border: none;
+  color: white; /* Mũi tên trắng */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10002; /* Đảm bảo nằm trên ảnh */
+}
+
+/* Điều chỉnh nút điều hướng khi hover */
+.navigationButton:hover {
+  /* ✅ ĐỔI MÀU: Sáng hơn khi hover */
+  background: rgba(255, 255, 255, 0.4); 
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.prevButton {
+  left: -60px;
+}
+
+.nextButton {
+  right: -60px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoomOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.7); }
+}
+
+.closing {
+  animation: fadeOut 0.25s ease forwards;
+}
+
+.closing .mediaModalContent {
+  animation: zoomOut 0.25s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mediaModalContent {
+    max-width: 95vw;
+    max-height: 85vh;
+    margin: 20px;
+  }
+
+  .mediaModalClose {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .mediaModalClose svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* Điều chỉnh nút điều hướng trên mobile */
+  .prevButton {
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .nextButton {
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  .mediaModalContent {
+    max-width: 98vw;
+    max-height: 80vh;
+    margin: 10px;
+  }
+
+  .mediaModalClose {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .clickableMedia:hover::after {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+  
+  .modalContent {
+    max-width: 98vw;
+    max-height: 80vh;
+    margin: 10px;
+  }
+
+  .closeButton {
+    top: 8px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .image {
+    border-radius: 6px;
+  }
+}

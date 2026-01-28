@@ -1,0 +1,212 @@
+/* src/pages/AdminDashboard.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #ffca00;
+  --text-main: #333;
+  --text-light: #666;
+  --bg-white: #ffffff;
+  --border-color: #e0e0e0;
+  --danger: #ff4d4f;
+  --success: #52c41a;
+  --warning: #fa8c16;
+  --info: #1890ff;
+}
+
+/* ... (Các class container, header, title, tableCard, table, th, td, tr giữ nguyên) ... */
+.container {
+  font-family: 'Reddit Sans', sans-serif;
+  width: 100%;
+  padding: 0;
+  background-color: transparent;
+  color: var(--text-main);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+  position: relative;
+  padding-left: 16px;
+  margin: 0;
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 24px;
+  background-color: var(--primary);
+  border-radius: 4px;
+}
+
+.tableCard {
+  background: var(--bg-white);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table thead {
+  background-color: #fafafa;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.th {
+  padding: 16px;
+  font-weight: 600;
+  color: #555;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.tr:hover {
+  background-color: #fffdf2;
+}
+
+/* --- Badges (Vai trò) --- */
+/* ... (Giữ nguyên phần badges) ... */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.badgeAdmin {
+  background-color: #e6f7ff;
+  color: var(--info);
+  border: 1px solid #91d5ff;
+}
+
+.badgeUser {
+  background-color: #f6ffed;
+  color: var(--success);
+  border: 1px solid #b7eb8f;
+}
+
+
+/* --- Buttons --- */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  border-radius: 6px; /* Bo góc giống hình bạn gửi */
+  padding: 8px 12px; /* Tăng padding lên chút cho đẹp */
+  font-size: 13px; /* Tăng font size lên chút */
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Khoảng cách giữa icon và chữ */
+  transition: all 0.2s ease;
+  font-family: inherit;
+
+  /* --- QUAN TRỌNG: Cái này giúp chữ luôn nằm trên 1 hàng --- */
+  white-space: nowrap; 
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Nút Khóa / Mở Khóa */
+.btnLock {
+  background-color: #fff7e6;
+  color: var(--warning);
+  border: 1px solid #ffd591;
+}
+
+.btnLock:hover:not(:disabled) {
+  background-color: var(--warning);
+  color: white;
+}
+
+.btnUnlock {
+  background-color: #e6fffb; /* Màu nền xanh nhạt giống hình */
+  color: #13c2c2; /* Màu chữ xanh giống hình */
+  border: 1px solid #87e8de;
+}
+
+.btnUnlock:hover:not(:disabled) {
+  background-color: #13c2c2;
+  color: white;
+}
+
+/* Nút Xóa */
+.btnDelete {
+  background-color: #fff1f0; /* Màu nền đỏ nhạt giống hình */
+  color: var(--danger); /* Màu chữ đỏ giống hình */
+  border: 1px solid #ffa39e;
+}
+
+.btnDelete:hover:not(:disabled) {
+  background-color: var(--danger);
+  color: white;
+}
+
+/* --- MỚI: Animation xoay cho icon loading --- */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- Utilities --- */
+/* ... (Giữ nguyên phần utilities) ... */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  color: var(--danger);
+  background-color: #fff1f0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-light);
+}

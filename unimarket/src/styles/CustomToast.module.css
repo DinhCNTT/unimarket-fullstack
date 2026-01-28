@@ -1,0 +1,64 @@
+/* CustomToast.module.css - prefix = um-toast để tránh trùng */
+.umToastContainer {
+  top: 22px !important;          /* vị trí cách top 22px */
+  left: 50% !important;
+  transform: translateX(-50%) !important; /* luôn căn giữa màn hình */
+  width: auto !important;
+  z-index: 99999 !important;
+  pointer-events: none; /* allow clicks to pass except on toast itself */
+}
+
+/* Base toast */
+.umToast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* giảm khoảng cách icon - text */
+  padding: 8px 12px; /* gọn hơn */
+  border-radius: 10px;
+  font-size: 13.5px; /* chữ vừa đủ, nhỏ hơn một chút */
+  font-weight: 500;
+  letter-spacing: 0.2px; /* chữ cân đối, dễ đọc */
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.95);
+  min-width: 180px; /* giảm chiều ngang tối thiểu */
+  max-width: 300px; /* giới hạn chiều rộng để gọn hơn */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4); /* fallback cho nền trong suốt */
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Nội dung text */
+.umToastBody {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-weight: 500;
+}
+
+/* progress bar styling (nếu dùng) */
+.umToastProgress {
+  background: rgba(255,255,255,0.25) !important;
+}
+
+/* type colors */
+.umToastSuccess { background: linear-gradient(135deg,#34c759,#28a745) !important; }
+.umToastError   { background: linear-gradient(135deg,#ff3b30,#e53935) !important; }
+.umToastWarning { background: linear-gradient(135deg,#ff9500,#fb8c00) !important; }
+.umToastInfo    { background: linear-gradient(135deg,#0a84ff,#1e88e5) !important; }
+
+/* small icon container */
+.umToastIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}

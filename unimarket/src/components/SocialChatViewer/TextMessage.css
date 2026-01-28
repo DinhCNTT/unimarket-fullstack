@@ -1,0 +1,69 @@
+/* ========================================= */
+/* CSS TIN NHẮN TEXT (MESSAGE BUBBLES)       */
+/* ========================================= */
+
+.text-message-wrapper { 
+  display: flex;
+  gap: 8px; 
+  max-width: 600px; 
+  align-items: flex-end;
+  margin-bottom: 2px; 
+  position: relative; /* Để định vị cho action menu */
+}
+
+.text-message-wrapper.sent { 
+  justify-content: flex-end; 
+  margin-left: auto;
+}
+
+.text-message-wrapper.received { 
+  justify-content: flex-start; 
+  margin-right: auto;
+}
+
+.text-message-bubble {
+  max-width: 100%; 
+  padding: 10px 16px; 
+  border-radius: 18px; 
+  font-size: 0.95rem; 
+  line-height: 1.45; 
+  word-break: break-word;
+  position: relative;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.text-message-wrapper.sent .text-message-bubble { 
+  background-color: var(--chat-bubble-sent-bg); 
+  color: var(--chat-bubble-sent-text); 
+  border-bottom-right-radius: 4px; 
+}
+
+.text-message-wrapper.received .text-message-bubble { 
+  background-color: var(--chat-bubble-received-bg); 
+  color: var(--chat-bubble-received-text); 
+  border-bottom-left-radius: 4px;
+}
+
+/* Highlight effect (khi click từ thông báo) */
+.text-message-wrapper.highlighted .text-message-bubble {
+  animation: highlight-fade 2.5s ease-out;
+}
+
+/* ========================================= */
+/* --- TIN NHẮN BỊ THU HỒI --- */
+/* ========================================= */
+.text-message-wrapper.recalled .text-message-bubble {
+  background-color: var(--theme-bg-secondary); 
+  color: var(--theme-text-secondary);
+  font-style: italic;
+  padding: 8px 12px;
+  border: 1px dashed var(--theme-border-color); 
+}
+
+.text-message-wrapper.recalled.sent {
+  justify-content: flex-end;
+}
+
+.text-message-wrapper.recalled.received {
+  justify-content: flex-start;
+}

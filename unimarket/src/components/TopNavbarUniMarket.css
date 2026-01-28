@@ -1,0 +1,434 @@
+/* src/components/TopNavbarUniMarket.css */
+
+/* ============================== */
+/* NAVBAR CHÍNH          */
+/* ============================== */
+.um-tn-navbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 185px; /* Chiều rộng mặc định */
+
+  /* Theme & Layout */
+  background-color: var(--theme-bg-primary);
+  border-right: none; 
+  z-index: 999;
+
+  /* Flex Layout cho việc chia vùng Fixed/Scroll */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0; /* Xóa padding chung, padding sẽ nằm ở từng section con */
+
+  transition:
+    width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* ============================== */
+/* VÙNG CỐ ĐỊNH (Logo + Search)*/
+/* ============================== */
+.um-tn-fixed-section {
+  flex-shrink: 0; 
+  width: 100%;
+  padding: 16px 10px 0 10px;
+  background-color: var(--theme-bg-primary); 
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0px; 
+}
+
+/* ============================== */
+/* VÙNG CUỘN (Menu + Friends)  */
+/* ============================== */
+.um-tn-scroll-section {
+  flex-grow: 1;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 10px 20px 10px;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+/* Tùy chỉnh thanh cuộn (Webkit: Chrome/Safari/Edge) */
+.um-tn-scroll-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.um-tn-scroll-section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.um-tn-scroll-section::-webkit-scrollbar-thumb {
+  background-color: rgba(136, 136, 136, 0.3);
+  border-radius: 3px;
+  visibility: hidden; /* Chỉ hiện khi hover */
+}
+
+.um-tn-scroll-section:hover::-webkit-scrollbar-thumb {
+  visibility: visible;
+}
+
+/* Container chứa các icon menu */
+.um-tn-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px; /* Cách phần trên một chút */
+}
+
+/* ============================== */
+/* ICON BUTTON           */
+/* ============================== */
+.um-tn-icon-btn {
+  all: unset;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+
+  /* Theme */
+  color: var(--theme-text-primary);
+
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+  padding: 10px 14px;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box; /* Đảm bảo padding không làm vỡ width */
+
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+.um-tn-icon-btn svg {
+  font-size: 24px; /* Chuẩn hóa size icon */
+  transition: transform 0.25s ease, color 0.25s ease;
+  flex-shrink: 0;
+}
+
+/* Hover + Active */
+.um-tn-icon-btn:hover,
+.um-tn-icon-btn.active {
+  color: orange;
+}
+
+.um-tn-icon-btn:hover svg,
+.um-tn-icon-btn.active svg {
+  color: orange;
+  transform: scale(1.1);
+}
+.um-tn-search-text {
+  white-space: nowrap;      
+  overflow: hidden;        
+  text-overflow: ellipsis;  
+  display: block;
+  max-width: 190px;         
+  font-size: 18px;         
+  font-weight: 700;         
+  line-height: 1.2;
+  text-align: left;
+  font-family: 'ProximaNova', system-ui, -apple-system, sans-serif;
+}
+/* Wrapper cho icon có badge */
+.um-tn-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+}
+
+/* ============================== */
+/* LOGO               */
+/* ============================== */
+.um-tn-logo-u {
+  font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-weight: 900;
+  font-size: 60px;
+  
+  /* Màu chữ / Gradient */
+  color: var(--theme-text-primary);
+  /* Nếu muốn gradient cho chữ U */
+  /* background: linear-gradient(to right, #000000 50%, #f5a623 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+
+  text-align: center;
+  width: 100%;
+  line-height: 1;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 72px;
+  border-radius: 14px;
+  background-color: var(--theme-bg-hover); 
+  box-shadow: 0 6px 20px rgba(8, 15, 30, 0.08);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.um-tn-logo-u:hover {
+  transform: translateY(-2px) scale(1.07);
+  box-shadow: 0 10px 32px rgba(8, 15, 30, 0.12);
+}
+
+.um-tn-logo-img {
+  width: 110px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ============================== */
+/* SEARCH BUTTON (TOP)       */
+/* ============================== */
+.um-tn-icon-btn.search-btn {
+  border: 1px solid var(--theme-border-color);
+  background: var(--theme-bg-hover);
+  border-radius: 20px;
+  padding: 8px 12px; 
+  justify-content: flex-start; 
+  width: 200px; 
+}
+
+.um-tn-icon-btn.search-btn:hover {
+  background: var(--theme-bg-primary);
+  border-color: orange;
+}
+
+/* ============================== */
+/* PHÂN CÁCH DANH SÁCH FOLLOWING */
+/* ============================== */
+.um-tn-following-section {
+  border-top: 1px solid rgba(0, 0, 0, 0.1); 
+  margin-top: 10px;  
+  padding-top: 14px;
+  width: 100%;
+  display: block; 
+}
+.um-tn-following-section.mini {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ============================== */
+/* COLLAPSED            */
+/* ============================== */
+.um-tn-navbar.collapsed {
+  width: 60px;
+  border-right: 1px solid var(--theme-border-color);
+}
+
+/* Ẩn chữ trong nút khi thu gọn */
+.um-tn-navbar.collapsed .um-tn-icon-btn span {
+  opacity: 0;
+  display: none; /* Ẩn hẳn để không chiếm chỗ */
+  pointer-events: none;
+}
+
+/* Căn giữa icon khi thu gọn */
+.um-tn-navbar.collapsed .um-tn-icon-btn {
+  justify-content: center;
+  padding: 10px 0; /* Giảm padding ngang */
+  width: 100%;
+}
+
+.um-tn-navbar.collapsed .um-tn-icon-btn svg {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+/* Logo khi thu gọn */
+.um-tn-navbar.collapsed .um-tn-logo-img {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Logo U khi thu gọn */
+.um-tn-navbar.collapsed .um-tn-logo-u {
+  /* 1. Kích thước & Căn chỉnh */
+  font-size: 32px;
+  height: 48px;
+  width: 48px;
+  margin: 0 auto;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900; 
+  background: linear-gradient(to right, #000000 40%, #ffb700 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; 
+  border-radius: 12px; 
+  background-color: rgba(255, 183, 0, 0.1); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+/* Search btn khi thu gọn */
+.um-tn-navbar.collapsed .search-btn {
+  background: none;
+  border: none;
+  padding: 10px 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.um-tn-navbar.collapsed .search-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ============================== */
+/* PANEL WRAPPER           */
+/* ============================== */
+.um-tn-panel-wrapper {
+  position: fixed;
+  top: 0;
+  left: 185px; /* Khớp với width navbar mở rộng */
+  width: 360px;
+  height: 100vh;
+  
+  transform: translateX(-100%); /* Ẩn sang trái (dưới navbar) */
+  transition: transform 0.35s ease, left 0.35s ease;
+  pointer-events: none;
+  z-index: 900; /* Thấp hơn navbar (999) */
+}
+
+/* Khi navbar thu nhỏ, panel dịch sang trái cho khớp */
+.um-tn-navbar.collapsed + .um-tn-panel-wrapper {
+  left: 60px; 
+}
+
+.um-tn-panel-wrapper.open {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Nội dung bên trong Panel */
+.um-tn-tab-content {
+  width: 100%;
+  height: 100%;
+  background-color: var(--theme-bg-primary);
+  border-left: 1px solid var(--theme-border-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ============================== */
+/* AVATAR               */
+/* ============================== */
+/* src/components/TopNavbarUniMarket.css */
+
+.um-tn-avatar {
+  width: 32px;        
+  height: 32px;       
+  border-radius: 50%; 
+  object-fit: cover;  
+  display: block;     
+  border: 1px solid #e0e0e0; 
+}
+
+.um-tn-icon-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+}
+/* ============================== */
+/* BADGE (NOTI)         */
+/* ============================== */
+.um-tn-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;       
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  background: linear-gradient(135deg, #FFC107 0%, #FF5722 100%); 
+  color: #ffffff;      
+  border-radius: 10px;
+  border: 2px solid var(--theme-bg-primary); 
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 10;
+  box-sizing: content-box;
+  box-shadow: 0 2px 4px rgba(255, 87, 34, 0.3); 
+}
+
+/* Hiệu ứng rung chuông */
+@keyframes shake-bell {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(0); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0); }
+}
+
+.um-tn-icon-btn:hover .um-tn-badge {
+  animation: shake-bell 0.5s ease-in-out;
+}
+
+/* Transition chung cho tất cả các phần tử con */
+.um-tn-navbar * {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.um-tn-footer {
+  padding: 16px 8px 24px 8px;
+  border-top: 1px solid rgba(136, 136, 136, 0.2);
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  /* Font & Màu sắc */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont,
+               'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;            /* ⬆️ to hơn nhẹ */
+  color: #888;
+}
+
+.um-tn-footer-link {
+  color: #888;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;            /* đồng bộ với footer */
+  transition: color 0.2s;
+  cursor: pointer;
+  display: inline-block;
+  width: fit-content;
+}
+
+.um-tn-footer-link:hover {
+  text-decoration: underline;
+  color: #333;
+}
+
+.um-tn-copyright {
+  margin-top: 12px;
+  font-size: 12.5px;          /* ⬆️ nhẹ, vẫn tinh tế */
+  color: #888;
+  font-weight: 400;
+}

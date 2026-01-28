@@ -1,0 +1,441 @@
+/* TopNavbarUserProfile.css - Updated with Scroll Effects and Avatar */
+.topnavbar-userprofile {
+    display: flex;
+    align-items: center;
+    padding: 4px 16px;
+    background: #ff9806; /* Màu cam ban đầu */
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 20px rgba(255, 153, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 44px;
+    min-height: 44px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển đổi mượt */
+}
+
+.topnavbar-userprofile-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.topnavbar-userprofile-left,
+.topnavbar-userprofile-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/*CSS1: Khi scroll - làm navbar trong suốt hoàn toàn */  
+.topnavbar-userprofile.topnavbar-userprofile-scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    border-bottom: none;
+    padding: 8px 16px;
+    height: 56px;
+    min-height: 56px;
+}
+/* Wrapper để sticky hoạt động */
+.topnavbar-userprofile-scrolled-wrapper {
+  position: relative;
+  height: 80px; /* tạo khoảng trống để khối trắng chiếm chỗ */
+  margin-top: 5px; /* cách nhẹ với header */
+}
+/* CSS2: Nội dung khi scroll - chỉ khối trắng bo tròn nổi với avatar */
+.topnavbar-userprofile-scrolled-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    min-width: 200px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 8px 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    gap: 10px; /* Khoảng cách giữa avatar và text */
+}
+
+/* CSS3: Avatar khi scroll */
+.topnavbar-userprofile-scrolled-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+}
+
+.topnavbar-userprofile-scrolled-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.topnavbar-userprofile-scrolled-avatar-default {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff9806, #ffb347);
+    color: white;
+    font-size: 14px;
+    border-radius: 50%;
+}
+
+/* CSS4: Text trong khối trắng */
+.topnavbar-userprofile-scrolled-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
+    text-align: center;
+    white-space: nowrap;
+    /* Loại bỏ max-width và overflow để tên hiển thị đầy đủ */
+}
+
+.topnavbar-userprofile-scrolled-loading {
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+    font-style: italic;
+}
+
+/* Back button */
+.topnavbar-userprofile-btn-back {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    width: 33px;
+    height: 33px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.topnavbar-userprofile-btn-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.topnavbar-userprofile-btn-back:hover::before {
+    left: 100%;
+}
+
+.topnavbar-userprofile-btn-back:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateX(-3px) scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.topnavbar-userprofile-btn-back:active {
+    transform: translateX(-2px) scale(0.98);
+}
+
+/* Logo */
+.topnavbar-userprofile-logo {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    font-size: 19px;
+    cursor: pointer;
+    gap: 8px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.topnavbar-userprofile-logo:hover {
+    transform: scale(1.05) translateY(-1px);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.topnavbar-userprofile-logo-img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
+.topnavbar-userprofile-logo-text {
+    color: #ffffff;
+}
+
+/* Center section */
+.topnavbar-userprofile-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 24px;
+}
+
+.topnavbar-userprofile-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    /* Loại bỏ overflow và text-overflow để hiển thị tên đầy đủ */
+    display: block;
+    text-align: center;
+    position: relative;
+    left: -70px; /* âm = sang trái, dương = sang phải */
+}
+
+.topnavbar-userprofile-title .prefix {
+    opacity: 0.9;
+    margin-right: 6px;
+}
+
+.topnavbar-userprofile-title .name {
+    color: #fff;
+    background: none;
+    -webkit-text-fill-color: #fff;
+}
+
+.topnavbar-userprofile-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.topnavbar-userprofile-loading .dots {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    position: relative;
+    animation: loadingDots 1.4s infinite ease-in-out both;
+}
+
+.topnavbar-userprofile-loading .dots::before,
+.topnavbar-userprofile-loading .dots::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ffffff;
+    position: absolute;
+    animation: loadingDots 1.4s infinite ease-in-out both;
+}
+
+.topnavbar-userprofile-loading .dots::before {
+    left: -8px;
+    animation-delay: -0.32s;
+}
+
+.topnavbar-userprofile-loading .dots::after {
+    left: 8px;
+    animation-delay: 0.32s;
+}
+
+@keyframes loadingDots {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* Home button */
+.topnavbar-userprofile-btn-home {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    width: 38px;
+    height: 38px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.topnavbar-userprofile-btn-home::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transition: all 0.4s ease;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.topnavbar-userprofile-btn-home:hover::before {
+    width: 100px;
+    height: 100px;
+}
+
+.topnavbar-userprofile-btn-home:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.topnavbar-userprofile-btn-home:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Hiệu ứng hover cho khối trắng khi scroll */
+.topnavbar-userprofile-scrolled .topnavbar-userprofile-scrolled-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .topnavbar-userprofile-scrolled-content {
+        padding: 6px 16px;
+        border-radius: 20px;
+        gap: 8px;
+    }
+    
+    .topnavbar-userprofile-scrolled-avatar {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .topnavbar-userprofile-scrolled-avatar-default {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .topnavbar-userprofile { 
+        padding: 6px 12px; 
+    }
+    
+    .topnavbar-userprofile.topnavbar-userprofile-scrolled {
+        padding: 6px 12px;
+    }
+    
+    .topnavbar-userprofile-logo { 
+        font-size: 16px; 
+        letter-spacing: 0.5px; 
+    }
+    
+    .topnavbar-userprofile-title { 
+        font-size: 13px; 
+        /* Tên hiển thị đầy đủ trên mobile nhỏ */
+        left: -30px;
+    }
+    
+    .topnavbar-userprofile-scrolled-title {
+        font-size: 13px;
+        /* Tên sẽ hiển thị đầy đủ trên mobile */
+    }
+    
+    .topnavbar-userprofile-left { 
+        gap: 8px; 
+    }
+    
+    .topnavbar-userprofile-scrolled-content {
+        padding: 5px 12px;
+        border-radius: 18px;
+        gap: 6px;
+    }
+    
+    .topnavbar-userprofile-scrolled-avatar {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .topnavbar-userprofile-scrolled-avatar-default {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .topnavbar-userprofile {
+        padding: 6px 15px;
+        height: 42px;
+        min-height: 42px;
+    }
+    
+    .topnavbar-userprofile.topnavbar-userprofile-scrolled {
+        height: 50px;
+        min-height: 50px;
+        padding: 6px 15px;
+    }
+    
+    .topnavbar-userprofile-logo { 
+        font-size: 18px; 
+    }
+    
+    .topnavbar-userprofile-title { 
+        font-size: 14px; 
+        /* Loại bỏ max-width để tên hiển thị đầy đủ trên mobile */
+        left: -50px;
+    }
+    
+    .topnavbar-userprofile-scrolled-title {
+        font-size: 14px;
+        /* Loại bỏ max-width để tên hiển thị đầy đủ trên mobile */
+    }
+    
+    .topnavbar-userprofile-center { 
+        margin: 0 10px; 
+    }
+    
+    .topnavbar-userprofile-btn-back,
+    .topnavbar-userprofile-btn-home { 
+        width: 30px; 
+        height: 30px; 
+        font-size: 13px; 
+    }
+}
+.um-tn-avatar {
+  width: 28px;              /* nhỏ gọn hơn */
+  height: 28px;
+  border-radius: 50%;        /* bo tròn */
+  object-fit: cover;         /* giữ tỷ lệ ảnh */
+  border: 1.5px solid #e5e7eb; /* viền xám nhạt (tông neutral) */
+  background-color: #f3f4f6; /* fallback nếu ảnh chưa load */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* bóng nhẹ, tinh tế */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  vertical-align: middle;
+}
+
+.um-tn-avatar:hover {
+  transform: scale(1.08);          /* phóng nhẹ khi hover */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* bóng đậm hơn chút */
+}

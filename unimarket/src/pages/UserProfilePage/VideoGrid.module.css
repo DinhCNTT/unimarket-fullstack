@@ -1,0 +1,149 @@
+.tabContent {
+  padding: 32px;
+  /* Thêm màu chữ mặc định để đảm bảo hiển thị đúng trong cả 2 chế độ */
+  color: var(--theme-text-primary, #111111);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -20px 0 14px 0;
+  padding: 0 32px;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  /* Thêm fallback #111 cho chế độ sáng */
+  color: var(--theme-text-primary, #111111);
+  margin: 0;
+}
+
+.sectionCount {
+  background: linear-gradient(135deg, #ff6600, #ff8533);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ✅ CHỈNH LƯỚI GRID THÀNH 6 CỘT */
+.videosGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 video 1 hàng */
+  gap: 10px;
+  margin-bottom: 24px;
+
+  /* --- CẬP NHẬT MỚI --- */
+  margin-top: -20px;   /* Đẩy lên cao (số càng nhỏ càng lên cao) */
+  margin-left: -15px;  /* Kéo sang trái (lấn ra ngoài lề trái) */
+  
+  /* Nếu kéo sang trái làm bên phải bị hụt, hãy thêm dòng dưới để bù lại độ rộng: */
+  width: calc(100% + 15px); 
+}
+/* Responsive: Màn hình nhỏ thì giảm cột xuống */
+@media (max-width: 1200px) {
+  .videosGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .videosGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.videoCard {
+  background: black; /* Giữ nguyên màu đen nền video cho cả 2 chế độ */
+  border-radius: 8px; /* Bo góc ít hơn cho giống TikTok/Reels */
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 3/4; /* Tỉ lệ dọc video */
+  position: relative;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.videoPlayer {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ✅ GRADIENT ĐEN Ở DƯỚI ĐỂ NỔI BẬT CHỮ TRẮNG */
+.videoOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 70%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Đẩy nội dung xuống đáy */
+  padding: 8px;
+  pointer-events: none;
+}
+
+/* ✅ STYLE CHO SỐ VIEW VÀ ICON PLAY */
+.viewCountBadge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  color: #ffffff; /* Giữ nguyên trắng vì nằm trên nền tối */
+  font-size: 13px;              
+  font-weight: 600;             
+  letter-spacing: 0.2px;        
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  line-height: 1.2;
+}
+
+
+.playIcon {
+  font-size: 16px;
+}
+
+/* Phần nút xem thêm giữ nguyên */
+.showMoreContainer {
+  text-align: center;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.showMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 24px;
+  /* Thêm fallback cho background */
+  background: var(--theme-bg-hover, #f1f1f1); 
+  /* Thêm fallback cho text */
+  color: var(--theme-text-primary, #111111);
+  /* Thêm fallback cho border */
+  border: 1px solid var(--theme-border-color, #e0e0e0);
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.showMoreBtn:hover {
+  /* Thêm fallback hover */
+  background: var(--theme-border-color, #e0e0e0);
+}

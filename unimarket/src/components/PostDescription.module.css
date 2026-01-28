@@ -1,0 +1,56 @@
+/* Import font Reddit Sans từ Google Fonts (nếu chưa có trong dự án) */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
+.moTaChiTiet {
+  /* Áp dụng font cho toàn bộ khối này */
+  font-family: 'Reddit Sans', sans-serif; 
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.moTaNdWrapper {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin-top: 8px;
+}
+
+.moTaNdClamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.moTaNdFull {
+  display: block;
+}
+
+.moTaNdToggle {
+  /* Nút bấm (button) thường không tự kế thừa font, nên cần khai báo lại */
+  font-family: 'Reddit Sans', sans-serif;
+  margin-top: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #fe9511;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  width: 100px;
+  text-align: left;
+}
+
+.moTaNdToggle:hover {
+  background-color: #e68410;
+}
+
+/* --- Responsive cho Mô tả --- */
+@media (max-width: 768px) {
+  .moTaChiTiet {
+    min-height: auto;
+    max-height: none;
+  }
+}

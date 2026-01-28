@@ -1,0 +1,180 @@
+/* src/components/ChatBanHang/ModuleChatCss/LocationPickerModal.module.css */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0; /* Thay cho top/left/right/bottom: 0 */
+  background-color: rgba(0, 0, 0, 0.4); /* Màu tối nhẹ hơn */
+  backdrop-filter: blur(4px); /* Hiệu ứng làm mờ nền phía sau modal (rất hiện đại) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+  transform: translateX(150px);
+}
+
+.modalContent {
+  background: white;
+  width: 100%;
+  max-width: 500px; /* Nhỏ gọn hơn */
+  height: 600px; /* Chiều cao cố định để giống app điện thoại */
+  border-radius: 24px; /* Bo góc mạnh */
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Header nằm đè lên map */
+.headerOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none; /* Để bấm xuyên qua vào map */
+}
+
+.headerOverlay h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  text-shadow: 0 1px 2px rgba(255,255,255,1);
+  pointer-events: auto;
+}
+
+.btnClose {
+  background: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.2s;
+  color: #64748b;
+}
+.btnClose:hover { transform: scale(1.05); color: #0f172a; }
+
+.mapWrapper {
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
+
+/* Pin cố định giữa màn hình */
+.centerPin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%); /* Căn chân pin vào đúng tâm */
+  z-index: 900;
+  pointer-events: none; /* Để không chặn sự kiện kéo map */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pinImage {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+  margin-bottom: 2px;
+  animation: bounce 0.3s ease-out; /* Hiệu ứng nhún khi thả */
+}
+
+/* Nút định vị GPS */
+.btnLocate {
+  position: absolute;
+  bottom: 140px; /* Nằm trên footer panel */
+  right: 20px;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  transition: transform 0.2s;
+}
+.btnLocate:active { transform: scale(0.95); }
+
+/* Footer Panel nổi phía dưới */
+.footerPanel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20px 24px 24px;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.coordInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.coordValue {
+  font-family: monospace;
+  font-weight: 600;
+  color: #334155;
+}
+
+.btnConfirm {
+  width: 100%;
+  padding: 14px;
+  background: #2563eb; /* Màu xanh hiện đại */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btnConfirm:hover {
+  background: #1d4ed8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(-10px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}

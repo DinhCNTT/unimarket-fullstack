@@ -1,0 +1,217 @@
+/* src/components/VideoCarousel/VideoCarousel.module.css */
+.carouselContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.header {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 5px 0;
+}
+
+.header p {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+}
+
+.viewMoreBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 6px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  color: #333;
+}
+
+/* CAROUSEL WRAPPER */
+.carouselWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.videoList {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  /* Ẩn scrollbar */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+.videoList::-webkit-scrollbar {
+  display: none;
+}
+
+/* NAVIGATION BUTTONS */
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: #333;
+  font-size: 14px;
+}
+
+.navBtn:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevBtn { left: -18px; }
+.nextBtn { right: -18px; }
+
+/* CARD STYLES (Giống VideoPage nhưng nhỏ hơn chút để vừa 4 cái) */
+.card {
+  min-width: 220px; /* Width cố định cho carousel */
+  width: 220px;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.thumbnail {
+  position: relative;
+  width: 100%;
+  height: 280px; /* Chiều cao ảnh */
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hoverVideo {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.playOverlay {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  background: rgba(0,0,0,0.3);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+}
+.card:hover .playOverlay { opacity: 1; }
+
+.photoCount {
+  position: absolute; bottom: 8px; right: 8px;
+  color: white; font-size: 12px; font-weight: 600;
+  display: flex; align-items: center;
+  z-index: 5;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.heartIcon {
+  position: absolute; top: 10px; right: 10px;
+  color: white; font-size: 18px;
+  z-index: 5;
+}
+
+.info {
+  padding: 10px 0;
+}
+
+.videoTitle {
+  font-size: 14px; margin: 0 0 4px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-weight: 500;
+  color: #333;
+}
+
+.subInfo { font-size: 12px; color: #777; margin-bottom: 4px; }
+.price { color: #d0021b; font-weight: 700; font-size: 15px; margin-bottom: 4px;}
+.location { font-size: 12px; color: #999; }
+
+.postTime {
+  position: absolute;
+  left: 8px; /* Căn trái */
+  bottom: 8px; /* Căn dưới */
+  color: #fff;
+  font-weight: 600;
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.4); /* Nền đen mờ cho dễ đọc */
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 5;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+/* Nút Tim */
+.saveHeartBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3); /* Nền mờ nhẹ */
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Màu trắng khi chưa lưu */
+  transition: all 0.2s ease;
+}
+
+.saveHeartBtn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #d0021b; /* Hover đổi màu đỏ */
+  transform: scale(1.1);
+}
+
+/* Khi đã lưu (Saved) */
+.saveHeartBtn.saved {
+  color: #d0021b; /* Màu đỏ */
+  background: rgba(255, 255, 255, 0.9); /* Nền trắng cho nổi bật */
+}

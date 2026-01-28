@@ -1,0 +1,68 @@
+/* Quick replies row shown above the input */
+.quickReplies {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  scrollbar-width: thin; /* Làm hẹp thanh cuộn */
+  
+  /* ✅ ĐỔI MÀU: Màu thanh cuộn Firefox (Thumb / Track) */
+  scrollbar-color: var(--theme-border-color) transparent;
+}
+
+.quickReplies::-webkit-scrollbar {
+  height: 4px;
+}
+
+.quickReplies::-webkit-scrollbar-track {
+  /* ✅ ĐỔI MÀU: Nền track thanh cuộn (để trong suốt cho đẹp hoặc dùng màu phụ) */
+  background: transparent; 
+}
+
+.quickReplies::-webkit-scrollbar-thumb {
+  /* ✅ ĐỔI MÀU: Thanh cuộn Chrome */
+  background: var(--theme-border-color);
+  border-radius: 6px;
+}
+
+/* Thêm hover để thanh cuộn rõ hơn khi cần */
+.quickReplies::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-secondary);
+}
+
+.quickReplyBtn {
+  flex: 0 0 auto;
+  /* ✅ ĐỔI MÀU: Nền nút gợi ý (Xám nhạt ở Light, Xám đậm ở Dark) */
+  background: var(--theme-bg-secondary);
+  /* ✅ ĐỔI MÀU: Chữ nút gợi ý */
+  color: var(--theme-text-primary);
+  
+  border: none;
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, transform 0.12s ease;
+  
+  /* Thêm viền nhẹ nếu muốn nổi bật hơn trong dark mode (tùy chọn) */
+  border: 1px solid transparent;
+}
+
+/* Dark mode specific adjustment (optional) */
+[data-theme="dark"] .quickReplyBtn {
+    border-color: var(--theme-border-color);
+}
+
+.quickReplyBtn:hover {
+  /* ✅ ĐỔI MÀU: Nền khi hover */
+  background: var(--theme-bg-hover);
+  transform: translateY(-1px);
+}
+
+.quickReplyBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none; /* Đảm bảo nút bị vô hiệu hóa không di chuyển khi hover */
+}

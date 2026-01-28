@@ -1,0 +1,421 @@
+/* --- src/components/SimilarPostsSection.module.css --- */
+.sectionContainer {
+  margin-top: 40px;
+  font-family: 'Reddit Sans', sans-serif;
+  width: 100%;
+  position: relative;
+}
+
+
+.sectionHeader {
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+
+/* ================== GRID MODE STYLES ================== */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+
+.actionButtonsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+
+.actionBtn {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #222;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-family: 'Reddit Sans', sans-serif;
+  min-width: 120px;
+}
+
+
+.actionBtn:hover {
+  background-color: #f9f9f9;
+  border-color: #999;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+
+.collapseBtn {
+  color: #d0021b;
+  border-color: #fad1d1;
+}
+
+
+.collapseBtn:hover {
+  background-color: #fff5f5;
+  border-color: #e5193b;
+}
+
+
+/* ================== CAROUSEL MODE STYLES ================== */
+.carouselWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+
+.postsTrack {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px 4px 20px 4px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.postsTrack::-webkit-scrollbar {
+  display: none;
+}
+
+
+.navBtn {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #eee;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #555;
+  transition: all 0.2s ease;
+  padding-bottom: 4px;
+  opacity: 0;
+}
+.carouselWrapper:hover .navBtn { opacity: 1; }
+.navBtn:hover {
+  background-color: #fff;
+  color: #d0021b;
+  transform: translateY(-50%) scale(1.1);
+}
+.prevBtn { left: -18px; }
+.nextBtn { right: -18px; }
+
+
+/* ================== SHARED CARD STYLES ================== */
+.postCard {
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.cardGridItem { width: 100%; }
+.cardCarouselItem {
+  flex: 0 0 auto;
+  width: 190px;
+  scroll-snap-align: start;
+}
+
+
+.postCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+}
+
+
+.cardImageWrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #f8f8f8;
+  overflow: hidden;
+  position: relative; /* QUAN TRỌNG: Để các overlay hoạt động */
+}
+
+
+.cardImageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+
+.postCard:hover .cardImageWrapper img {
+  transform: scale(1.05);
+}
+
+
+/* --- STYLE MỚI CHO THỜI GIAN & BADGE --- */
+.timeOverlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+
+.mediaBadgesContainer {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  gap: 4px;
+}
+
+
+.badgeItem {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 5px;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+
+.videoBadge {
+    /* Có thể thêm màu khác nếu muốn badge video nổi hơn */
+}
+/* --------------------------------------- */
+
+
+.cardContent {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+
+.postTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  margin: 0;
+  line-height: 1.4;
+  min-height: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+.postPrice {
+  font-size: 16px;
+  font-weight: 700;
+  color: #d0021b;
+  margin-top: 2px;
+}
+
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: #999;
+  margin-top: auto;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+.metaLocation {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .gridContainer { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .gridContainer { grid-template-columns: repeat(3, 1fr); }
+  .navBtn { display: none !important; }
+  .cardCarouselItem { width: 160px; }
+}
+@media (max-width: 480px) {
+  .gridContainer { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .postTitle { font-size: 13px; min-height: 36px; }
+}
+.viewShopBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  padding-bottom: 10px;
+}
+
+
+.viewShopBtn {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  color: #333;
+  padding: 9px 32px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Reddit Sans', sans-serif;
+  min-width: 120px;
+  outline: none;
+}
+
+
+.viewShopBtn:hover {
+  background-color: #f7f7f7;
+  border-color: #d0d0d0;
+  text-decoration: none;
+}
+.previewVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo video full khung hình như ảnh */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Nằm trên ảnh nền (ảnh nền mặc định z-index 0) */
+  background-color: #000; /* Màu nền đen trong lúc load video */
+}
+
+
+/* Cập nhật lại container chứa ảnh để hỗ trợ video absolute */
+.cardImageWrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #f8f8f8;
+  overflow: hidden;
+  position: relative;
+}
+
+
+/* Cập nhật z-index cho Badge và Time để nó luôn nổi trên video */
+.timeOverlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 10; /* ⭐ Quan trọng: Cao hơn video */
+}
+
+
+.mediaBadgesContainer {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  gap: 6px; /* Tăng khoảng cách giữa icon video và số lượng ảnh */
+  z-index: 10; /* ⭐ Quan trọng: Cao hơn video */
+}
+
+
+.badgeItem {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 4px;
+  padding: 2px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  height: 20px; /* Cố định chiều cao cho đều */
+  min-width: 24px;
+}
+
+
+/* Style riêng cho badge Video để giống thiết kế */
+.videoBadge {
+    /* Có thể thêm màu đỏ hoặc giữ đen tùy thích */
+    background-color: rgba(0, 0, 0, 0.7);
+}
+/* Nút trái tim lưu tin */
+.saveHeartBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 20; /* Cao hơn video và ảnh */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+
+.saveHeartBtn:hover {
+  transform: scale(1.2);
+}
+
+
+.heartIcon {
+  font-size: 18px;
+}
+
+
+/* Khi chưa lưu: màu trắng đục có đổ bóng để nổi bật trên nền ảnh */
+.notSaved {
+  color: rgba(255, 255, 255, 0.8);
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+
+/* Khi đã lưu: màu đỏ */
+.saved {
+  color: #e5193b;
+}
+

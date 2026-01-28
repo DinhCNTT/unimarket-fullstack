@@ -1,0 +1,198 @@
+/* AllMediaModal.module.css */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Overlay giữ màu tối bán trong suốt để tập trung sự chú ý */
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Cao hơn sidebar */
+}
+
+.modalContent {
+  /* ✅ ĐỔI MÀU: Nền modal */
+  background: var(--theme-bg-primary);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  /* Giữ nguyên vị trí của bạn */
+  margin-left: 300px; 
+  margin-top: 70px;   /* 👈 đẩy xuống dưới */
+  
+  /* Thêm transition để đổi màu mượt */
+  transition: background-color 0.3s ease;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  /* ✅ ĐỔI MÀU: Viền dưới header */
+  border-bottom: 1px solid var(--theme-border-color);
+  flex-shrink: 0;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 700;
+  /* ✅ ĐỔI MÀU: Tiêu đề modal */
+  color: var(--theme-text-primary);
+  margin: 0;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  /* ✅ ĐỔI MÀU: Nút đóng */
+  color: var(--theme-text-secondary);
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  transition: background-color 0.2s ease;
+}
+.closeButton:hover {
+  /* ✅ ĐỔI MÀU: Hover nút đóng */
+  background-color: var(--theme-bg-hover);
+}
+
+.modalBody {
+  flex: 1; /* Lấp đầy không gian */
+  overflow-y: auto; /* Cho phép cuộn */
+  padding: 24px;
+  
+  /* Tùy chỉnh thanh cuộn cho đẹp trên nền tối */
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-border-color) transparent;
+}
+
+/* Scrollbar style */
+.modalBody::-webkit-scrollbar {
+  width: 6px;
+}
+.modalBody::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modalBody::-webkit-scrollbar-thumb {
+  background-color: var(--theme-border-color);
+  border-radius: 10px;
+}
+
+.dateGroup {
+  margin-bottom: 24px;
+}
+
+.dateHeader {
+  font-size: 16px;
+  font-weight: 600;
+  /* ✅ ĐỔI MÀU: Tiêu đề ngày tháng */
+  color: var(--theme-text-primary);
+  margin: 0 0 16px 0;
+}
+
+/* Lưới media - Responsive */
+.mediaGrid {
+  display: grid;
+  /* Hiển thị 3 cột trên màn nhỏ */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* Tăng số cột trên màn hình lớn hơn */
+@media (min-width: 640px) {
+  .mediaGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media (min-width: 768px) {
+  .mediaGrid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+
+.mediaItem {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* Tỷ lệ vuông */
+  border-radius: 8px;
+  overflow: hidden;
+  /* ✅ ĐỔI MÀU: Nền placeholder khi ảnh chưa load */
+  background-color: var(--theme-bg-secondary);
+  cursor: pointer;
+}
+
+.mediaItemImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+.mediaItem:hover .mediaItemImage {
+  transform: scale(1.05);
+}
+
+.mediaItemVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.videoIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  /* Icon video giữ màu trắng vì nó nằm trên hình ảnh/video */
+  color: rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+/* Loading và Empty state */
+.mediaLoading {
+  font-size: 14px;
+  /* ✅ ĐỔI MÀU: Text loading */
+  color: var(--theme-text-secondary);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.mediaEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 16px;
+  /* ✅ ĐỔI MÀU: Text empty */
+  color: var(--theme-text-secondary);
+}
+.mediaEmpty svg {
+  font-size: 48px;
+  margin-bottom: 16px;
+  /* ✅ ĐỔI MÀU: Icon empty */
+  color: var(--theme-icon-color);
+  opacity: 0.5;
+}
+.mediaEmpty p {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}

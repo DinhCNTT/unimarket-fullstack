@@ -1,0 +1,21 @@
+.marketplace-page {
+  background-color: #FAFAFB; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Variant cho trang Nhà Trọ */
+.marketplace-page.nhaTroVariant {
+  background: linear-gradient(180deg, #f9bb88 0%, #f8a57b 100%);
+}
+.login-prompt {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f9f5ff 100%);
+  border-radius: 12px;
+  color: #667eea;
+  font-weight: 600;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+

@@ -1,0 +1,456 @@
+/* src/pages/VideoStandalone/components/SidebarHeader.module.css */
+
+/* =========================================
+   1. WRAPPER TỔNG
+   ========================================= */
+.userHeaderWrapper {
+  width: 100%;
+  padding: 10px 12px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
+  position: relative;
+  z-index: 50;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* =========================================
+   2. CONTAINER CHÍNH (VIÊN THUỐC)
+   ========================================= */
+.userHeaderContainer {
+  display: flex;
+  align-items: center;
+
+  /* MẶC ĐỊNH (SÁNG): Trắng mờ */
+  background-color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  
+  /* Hiệu ứng mờ kính */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border-radius: 999px;
+  padding: 4px 8px;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05),
+              0 1px 2px rgba(0, 0, 0, 0.03);
+
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- CHỈNH RIÊNG CHO DARK MODE (KHÔNG ĐEN QUÁ) --- */
+:global([data-theme='dark']) .userHeaderContainer {
+  /* Dùng màu xám đậm (#1e1e1e) thay vì đen thui (#000) */
+  background-color: rgba(30, 30, 30, 0.9); 
+  border-color: rgba(255, 255, 255, 0.1); /* Viền sáng nhẹ */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.userHeaderContainer:hover {
+  background-color: #ffffff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Hover ở chế độ tối */
+:global([data-theme='dark']) .userHeaderContainer:hover {
+  background-color: #2a2a2a; /* Sáng hơn nền một chút khi hover */
+}
+
+/* =========================================
+   3. LOGO CHỮ U
+   ========================================= */
+.customULogoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 6px;
+  background-color: rgba(0,0,0,0.03);
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+:global([data-theme='dark']) .customULogoWrapper {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.customULogoWrapper:hover {
+  background-color: rgba(0,0,0,0.06);
+}
+
+:global([data-theme='dark']) .customULogoWrapper:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.uLogo {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  background: linear-gradient(90deg, #121212 50%, #fca728 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Chỉnh logo ở Dark Mode: Phần màu đen chuyển sang trắng */
+:global([data-theme='dark']) .uLogo {
+  background: linear-gradient(90deg, #ffffff 50%, #fca728 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================================
+   4. CÁC ICONS
+   ========================================= */
+.headerIcons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 8px;
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  color: #161823;
+  transition: all 0.2s ease;
+}
+
+:global([data-theme='dark']) .iconBtn {
+  color: #e0e0e0; /* Trắng xám */
+}
+
+.iconBtn:hover {
+  background-color: rgba(22, 24, 35, 0.06);
+  color: #000;
+}
+
+:global([data-theme='dark']) .iconBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Đường gạch dọc */
+.headerSeparator {
+  width: 1px;
+  height: 18px;
+  background-color: rgba(22, 24, 35, 0.12);
+  margin: 0 4px;
+}
+
+:global([data-theme='dark']) .headerSeparator {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================
+   5. KHU VỰC AVATAR USER
+   ========================================= */
+.userInfoArea {
+  position: relative;
+  padding: 2px;
+  cursor: pointer;
+  margin-left: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.currentUserAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:global([data-theme='dark']) .currentUserAvatar {
+  border-color: #2a2a2a; /* Viền trùng màu nền tối */
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.userInfoArea:hover .currentUserAvatar {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 2px #fca728;
+}
+
+/* =========================================
+   6. MENU DROPDOWN (QUAN TRỌNG: NỀN XÁM ĐẬM)
+   ========================================= */
+.userDropdown {
+  position: absolute;
+  top: 135%;
+  right: 0;
+  width: 220px;
+
+  /* Sáng: Trắng */
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1),
+              0 2px 4px rgba(0, 0, 0, 0.03);
+  z-index: 1000;
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top right;
+}
+
+/* DARK MODE CHO DROPDOWN: XÁM ĐẬM */
+:global([data-theme='dark']) .userDropdown {
+  background: #1e1e1e; /* Màu xám than (Soft Dark) */
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.userDropdown::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  height: 25px;
+  background: transparent;
+}
+
+/* Mũi tên tam giác */
+.userDropdown::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 14px;
+  width: 10px;
+  height: 10px;
+  background: white;
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-left: 1px solid rgba(0,0,0,0.06);
+}
+
+:global([data-theme='dark']) .userDropdown::after {
+  background: #1e1e1e; /* Trùng màu nền dropdown */
+  border-color: rgba(255,255,255,0.1);
+}
+
+.dropdownHeader {
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(22, 24, 35, 0.06);
+  margin-bottom: 4px;
+}
+
+:global([data-theme='dark']) .dropdownHeader {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdownUserName {
+  font-weight: 700;
+  font-size: 15px;
+  color: #161823;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:global([data-theme='dark']) .dropdownUserName {
+  color: #ffffff;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #161823;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+:global([data-theme='dark']) .dropdownItem {
+  color: #e0e0e0;
+}
+
+.dropdownItem:hover {
+  background-color: rgba(22, 24, 35, 0.04);
+  transform: translateX(2px);
+}
+
+:global([data-theme='dark']) .dropdownItem:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Hover màu sáng nhẹ */
+}
+
+.dropdownItem svg {
+  font-size: 18px;
+  color: #161823;
+}
+
+:global([data-theme='dark']) .dropdownItem svg {
+  color: #e0e0e0;
+}
+
+/* Logout Item */
+.dropdownItem:last-child:hover {
+  background-color: rgba(254, 44, 85, 0.06);
+  color: #fca728;
+}
+.dropdownItem:last-child:hover svg {
+  color: #fca728;
+}
+
+/* =========================================
+   7. BUTTON ĐĂNG NHẬP
+   ========================================= */
+.authButtons {
+  padding-left: 6px;
+}
+
+.loginBtnSmall {
+  background-color: #fca728;
+  color: white;
+  border: none;
+  border-radius: 4px; 
+  padding: 6px 20px; 
+  font-size: 16px; 
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: none; 
+  transition: background-color 0.2s ease;
+  min-width: 100px; 
+}
+
+.loginBtnSmall:hover {
+  filter: brightness(0.9);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =========================================
+   8. MODAL XÁC NHẬN ĐĂNG XUẤT
+   ========================================= */
+.logoutModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeInModal 0.2s ease-out;
+}
+
+.logoutModalContent {
+  /* Sáng: Trắng */
+  background-color: #fff;
+  width: 310px;
+  border-radius: 8px;
+  padding: 32px 24px 24px 24px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* DARK MODE CHO MODAL: XÁM ĐẬM */
+:global([data-theme='dark']) .logoutModalContent {
+  background-color: #1e1e1e; /* Soft Dark */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.logoutModalTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #161823;
+  margin: 0 0 24px 0;
+  line-height: 1.3;
+}
+
+:global([data-theme='dark']) .logoutModalTitle {
+  color: #ffffff;
+}
+
+.logoutModalActions {
+  display: flex;
+  justify-content: center;
+  gap: 8px; 
+}
+
+.modalBtn {
+  flex: 1;
+  height: 40px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+/* Nút Hủy */
+.btnCancel {
+  background-color: #fff;
+  border: 1px solid rgba(22, 24, 35, 0.12);
+  color: #161823;
+}
+
+:global([data-theme='dark']) .btnCancel {
+  background-color: #1e1e1e;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e0e0e0;
+}
+
+.btnCancel:hover {
+  background-color: rgba(22, 24, 35, 0.03);
+  border-color: rgba(22, 24, 35, 0.2);
+}
+
+:global([data-theme='dark']) .btnCancel:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Nút Đăng xuất */
+.btnLogout {
+  background-color: #fff;
+  border: 1px solid rgba(22, 24, 35, 0.12);
+  color: #fca728;
+}
+
+:global([data-theme='dark']) .btnLogout {
+  background-color: #1e1e1e;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btnLogout:hover {
+  background-color: rgba(254, 44, 85, 0.04);
+  border-color: #fca728;
+}
+
+:global([data-theme='dark']) .btnLogout:hover {
+  background-color: rgba(252, 167, 40, 0.1);
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}

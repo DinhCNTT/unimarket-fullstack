@@ -1,0 +1,386 @@
+.page {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  overflow: visible !important;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow: visible !important;
+}
+
+.navContainer {
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header {
+  padding: 30px 20px;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  margin-left: -10px; /* Dịch sang trái 10px */
+  margin-bottom: -10px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.title span {
+  color: #ff6b35;
+  background: linear-gradient(45deg, #ff6b35, #f7931e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+.loading,
+.noContent {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.loading p,
+.noContent p {
+  font-size: 18px;
+  color: #666;
+  margin: 0;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 20px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #ff6b35;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Grid layout: 5 cột mỗi hàng = 15 video trên 3 hàng */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+  min-height: calc(3 * 300px);
+}
+
+.saveBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.saveBtn:hover {
+  transform: scale(1.2);
+}
+
+.iconTraiTim {
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  color: #ccc;
+}
+
+.iconTraiTim.saved {
+  color: #e74c3c;
+}
+
+.iconTraiTim.notSaved {
+  color: #ccc;
+}
+
+/* Card thiết kế giống Chợ Tốt */
+.card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: none;
+  width: 210px;
+  height: 450px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: none;
+  border: none;
+}
+
+.iconViTri {
+  font-size: 15px;
+  color: #e74c3c;
+  margin-right: 5px;
+}
+
+.thumbnail {
+  position: relative;
+  width: 100%;
+  height: 290px;
+  overflow: hidden;
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.hoverVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.playOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.card:hover .playOverlay {
+  opacity: 1;
+}
+
+.playButton {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.playButton:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.info {
+  padding: 12px;
+}
+
+.videoTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 36px;
+}
+
+.condition {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #d0021b;
+  margin-bottom: 7px;
+}
+
+.postTime {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  color: #fff;
+  font-weight: 550;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 5;
+}
+
+.photoCount {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 5;
+  font-weight: 550;
+  display: flex;
+  align-items: center;
+}
+
+.location {
+  font-size: 12px;
+  color: #8e8e93;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.footer {
+  display: block;
+  margin-top: auto;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e5e5;
+}
+
+.username {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+/* Pagination Styles */
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paginationBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #e5e5e5;
+  background: white;
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.paginationBtn:hover {
+  border-color: #ff6b35;
+  color: #ff6b35;
+}
+
+.paginationBtn.active {
+  background: #ff6b35;
+  border-color: #ff6b35;
+  color: white;
+  font-weight: 600;
+}
+
+.paginationNumber {
+  font-weight: 500;
+}
+
+.paginationPrev,
+.paginationNext {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.paginationPrev:hover,
+.paginationNext:hover {
+  background: #f8f9fa;
+}
+.filterContainer {
+/* 1. Kích hoạt dính */
+  position: -webkit-sticky;
+  position: sticky;
+  
+  /* 2. Vị trí: Nằm ngay dưới TopNavbar (cách đỉnh 85px) */
+  top: 67px; 
+  
+  /* 3. Thứ tự lớp: Đè lên video */
+  z-index: 999;
+  
+  /* 4. MÀU NỀN: Bắt buộc đục (#f5f5f5) để che nội dung bên dưới */
+  background-color: #f5f5f5; 
+  
+  /* 5. Giao diện */
+  margin-bottom: 5px;
+  padding-top: 5px;    
+  padding-bottom: 5px; 
+  box-shadow: none;
+}

@@ -1,0 +1,435 @@
+/* Container chính */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f4f5f7;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Reddit Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Form */
+.form {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 30px;
+  padding-bottom: 100px;
+  position: relative;
+}
+
+/* Layout 2 cột */
+.layoutWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+}
+
+.leftColumn {
+  width: 360px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 90px;
+}
+
+.rightColumn {
+  flex: 1;
+  width: 100%;
+}
+
+/* Inputs & Labels */
+.formGroup {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #f76c0d;
+  box-shadow: 0 0 0 3px rgba(247, 108, 13, 0.1);
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Media Box */
+.mediaBox {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mediaHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed #eee;
+  padding-bottom: 8px;
+}
+
+.iconCamera, .iconVideo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.iconCamera { background-image: url('https://img.icons8.com/ios-filled/50/ffa500/camera--v1.png'); }
+.iconVideo { background-image: url('https://img.icons8.com/ios-filled/50/ffa500/video-call.png'); }
+
+.mediaTitle { font-weight: 600; font-size: 14px; color: #333; }
+.mediaNote { font-weight: normal; font-size: 12px; color: #888; margin-left: 5px; }
+
+/* Upload Area */
+.uploadArea {
+  position: relative;
+  border: 2px dashed #f76c0d;
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+  background-color: #fff9f5;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.uploadArea:hover { background-color: #fff0e0; }
+
+.fileInput {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;
+}
+
+.uploadText { font-size: 14px; color: #555; margin-bottom: 4px; }
+.highlight { color: #f76c0d; font-weight: 600; }
+.subNote { font-size: 12px; color: #999; }
+
+/* Preview Grid */
+.previewList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.previewItem {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+.previewItem img,
+.previewItem video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badges & Buttons */
+.badge {
+  position: absolute;
+  top: 4px; left: 4px;
+  background-color: rgba(247, 108, 13, 0.9);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.removeBtn {
+  position: absolute;
+  top: 4px; right: 4px;
+  background-color: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 22px; height: 22px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+}
+.removeBtn:hover { background-color: #ff4d4f; }
+
+.moveControls {
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  display: flex; justify-content: center; gap: 5px;
+  z-index: 2;
+}
+
+.moveBtn {
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: none;
+  width: 20px; height: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+}
+.moveBtn:hover:not(:disabled) { background: #f76c0d; }
+.moveBtn:disabled { opacity: 0; }
+
+.counter { font-size: 12px; color: #666; text-align: center; margin-top: 10px; }
+
+/* Dynamic Spec Box */
+.dynamicBox {
+  width: 100%;
+  margin-bottom: 24px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.dynamicTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f76c0d;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #ddd;
+  display: block;
+  text-transform: uppercase;
+}
+
+.dynamicGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Submit Button */
+.buttonGroup {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.submitBtn {
+  background-color: #f76c0d;
+  color: white;
+  padding: 12px 48px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(247, 108, 13, 0.3);
+}
+.submitBtn:hover { background-color: #e06000; }
+
+.statusMessage {
+  width: 100%;
+  max-width: 1100px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  text-align: center;
+}
+.statusMessage.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .layoutWrapper { flex-direction: column; }
+  .leftColumn { width: 100%; position: static; flex-direction: row; }
+  .mediaBox { flex: 1; }
+}
+
+@media (max-width: 600px) {
+  .leftColumn { flex-direction: column; }
+  .dynamicGrid { grid-template-columns: 1fr; }
+  .form { padding: 20px; }
+}
+/* 1. Loading Skeleton */
+.skeleton {
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: 6px;
+  background-size: 200% 100%;
+  animation: shine 1.5s linear infinite;
+}
+@keyframes shine { to { background-position-x: -200%; } }
+
+.skeletonInput { height: 45px; width: 100%; margin-bottom: 20px; }
+.skeletonBox { height: 200px; width: 100%; margin-bottom: 20px; }
+/*2*/
+.floatingToast {
+  position: fixed;
+  top: 30px;                /* Cách mép trên 30px */
+  left: 50%;                /* Căn giữa chiều ngang */
+  transform: translateX(-50%); /* Căn chính giữa chuẩn xác */
+  
+  display: flex;
+  align-items: center;
+  gap: 12px;                /* Khoảng cách giữa icon và chữ */
+  
+  min-width: 300px;         /* Độ rộng tối thiểu gọn gàng */
+  padding: 10px 20px;       /* Padding nhỏ gọn */
+  
+  background-color: white;
+  border-radius: 50px;      /* Bo tròn dạng viên thuốc (Pill shape) */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); /* Đổ bóng mềm, sâu */
+  
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  z-index: 9999;
+  
+  opacity: 0;
+  animation: slideDownFade 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Hiệu ứng xuất hiện: Trượt từ trên xuống + Fade in */
+@keyframes slideDownFade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Style cho Success (Thành công) */
+.successToast {
+  border-left: none; /* Bỏ viền cũ */
+}
+.successToast::before {
+  content: "✓";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; height: 20px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* Style cho Error (Lỗi) */
+.errorToast {
+  border-left: none;
+}
+.errorToast::before {
+  content: "!";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; height: 20px;
+  background-color: #dc3545;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* 3. Spinner Loading */
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid #ffffff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* 4. Validation Errors */
+.inputError {
+  border-color: #dc3545 !important;
+  background-color: #fff8f8 !important;
+}
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15) !important;
+}
+.errorText {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* 5. Utility Layouts */
+.gridRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.suffix {
+  position: absolute;
+  right: 15px;
+  top: 40px; /* Căn chỉnh tùy thuộc vào label height */
+  color: #666;
+  font-weight: 600;
+  pointer-events: none;
+}
+.submitBtn:disabled {
+  background-color: #ffbca8;
+  cursor: not-allowed;
+  transform: none;
+}

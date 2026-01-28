@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ======================================================= */
+/* 1. KHAI BÁO BIẾN MÀU (THEME)               */
+/* ======================================================= */
+
+/* Mặc định (Light Mode) */
+:root {
+  /* Nền */
+  --bg-overlay: rgba(0, 0, 0, 0.4);
+  --bg-primary: #ffffff;       /* Nền chính (Drawer, Header) */
+  --bg-secondary: #f1f1f2;     /* Nền phụ (Ô input, hover) */
+  --bg-tertiary: #ffffff;      /* Nền cho textarea inline */
+  
+  /* Chữ */
+  --text-primary: #161823;     /* Chữ chính (đen đậm) */
+  --text-secondary: #8a8b91;   /* Chữ phụ (xám) */
+  --text-tertiary: #757575;    /* Chữ 'trả lời...' */
+  
+  /* Viền & Divider */
+  --border-color: #e3e3e4;
+  
+  /* Brand (TikTok Red - Giữ nguyên cho cả 2 mode) */
+  --brand-color: #ff8416;
+  --brand-hover: #ff8416;
+  
+  /* Scrollbar */
+  --scroll-track: transparent;
+  --scroll-thumb: #c1c1c1;
+}
+
+/* Chế độ Tối (Dark Mode) - Kích hoạt khi cha có data-theme="dark" */
+[data-theme='dark'] {
+  /* Nền */
+  --bg-overlay: rgba(0, 0, 0, 0.6);
+  --bg-primary: #000000;       /* Nền tối (TikTok Dark) */
+  --bg-secondary: #2f3035;     /* Ô input tối hơn */
+  --bg-tertiary: #161823;
+  
+  /* Chữ */
+  --text-primary: #ffffff;     /* Chữ trắng */
+  --text-secondary: #a7a7ab;   /* Xám sáng hơn chút */
+  --text-tertiary: #909090;
+  
+  /* Viền */
+  --border-color: #2f3035;     /* Viền tối */
+  
+  /* Scrollbar */
+  --scroll-thumb: #4a4a4c;
+}
+
+/* ======================================================= */
+/* 2. LAYOUT CHÍNH                        */
+/* ======================================================= */
+
+.overlay {
+  position: fixed; 
+  inset: 0;
+  background-color: transparent; /* Trong suốt */
+  z-index: 9999;
+  display: flex; 
+  justify-content: flex-end;
+  font-family: 'Inter', sans-serif;
+  opacity: 0; 
+  animation: fadeIn 0.2s forwards;
+  pointer-events: none; /* Click xuyên qua */
+}
+@keyframes fadeIn { to { opacity: 1; } }
+
+.drawer {
+  width: 100%; 
+  max-width: 390px; /* TikTok Web chuẩn thường khoảng 356px-360px */
+  height: 100%;
+  
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  
+  display: flex; 
+  flex-direction: column;
+  
+  transform: translateX(100%);
+  animation: slideIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards; /* Easing mượt hơn */
+  transition: background-color 0.3s, color 0.3s;
+
+  pointer-events: auto; /* Bật lại click cho vùng này */
+
+  /* 🔥 THAY ĐỔI QUAN TRỌNG: VIỀN TIKTOK STYLE */
+  /* Bỏ box-shadow cũ: box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15); */
+  box-shadow: none; 
+  
+  /* Thêm đường viền trái mảnh, màu tự động theo theme */
+  border-left: 1px solid var(--border-color); 
+}
+
+@keyframes slideIn { to { transform: translateX(0); } }
+
+/* ======================================================= */
+/* 3. HEADER                          */
+/* ======================================================= */
+.header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color); /* Dùng biến */
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--bg-primary); /* Dùng biến */
+}
+
+.headerTitle {
+  font-weight: 700; font-size: 16px;
+  color: var(--text-primary); /* Dùng biến */
+}
+
+.countBadge {
+  font-weight: 400; 
+  color: var(--text-secondary); /* Dùng biến */
+  font-size: 14px; margin-left: 4px;
+}
+
+.closeBtn {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-primary); /* Dùng biến */
+  padding: 4px; display: flex; align-items: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+.closeBtn:hover {
+  background-color: var(--bg-secondary); /* Hiệu ứng hover */
+}
+
+/* ======================================================= */
+/* 4. COMMENT LIST                        */
+/* ======================================================= */
+.commentList {
+  flex: 1; overflow-y: auto;
+  padding: 16px;
+  
+  /* Custom Scrollbar cho đẹp */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+.commentList::-webkit-scrollbar { width: 6px; }
+.commentList::-webkit-scrollbar-track { background: var(--scroll-track); }
+.commentList::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border-radius: 10px;
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--text-secondary); /* Dùng biến */
+  margin-top: 60px; font-size: 14px;
+}
+
+/* ======================================================= */
+/* 5. COMMENT ITEM (TIKTOK STYLE)                */
+/* ======================================================= */
+.itemContainer {
+  display: flex; flex-direction: column; width: 100%;
+}
+
+.commentItem {
+  display: flex; gap: 12px;
+  margin-bottom: 4px;
+}
+
+.avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; cursor: pointer;
+  background-color: var(--bg-secondary); /* Placeholder khi chưa load ảnh */
+}
+
+.contentWrapper {
+  flex: 1; display: flex; flex-direction: column;
+}
+
+/* Hàng tên */
+.nameRow {
+  display: flex; align-items: baseline; flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+
+.userName {
+  font-weight: 600; font-size: 13px;
+  color: var(--text-primary); /* Dùng biến */
+  cursor: pointer; margin-right: 6px;
+}
+.userName:hover { text-decoration: underline; }
+
+/* Style chữ "trả lời..." */
+.replyLabel {
+  font-size: 13px; 
+  color: var(--text-tertiary); /* Dùng biến */
+  margin-right: 4px;
+}
+
+.replyTargetName {
+  font-weight: 600; 
+  color: var(--text-primary); /* Dùng biến */
+}
+
+.authorBadge {
+  background: var(--brand-color);
+  color: #fff; font-size: 10px; padding: 1px 4px;
+  border-radius: 2px; font-weight: 600; margin-left: 4px;
+  display: inline-block;
+}
+
+/* Nội dung comment */
+.textContent {
+  font-size: 14px; 
+  color: var(--text-primary); /* Dùng biến */
+  line-height: 1.4; word-break: break-word;
+}
+
+/* Actions footer */
+.actions {
+  display: flex; gap: 16px; margin-top: 6px;
+  font-size: 12px; 
+  color: var(--text-secondary); /* Dùng biến */
+  align-items: center;
+}
+.time { font-weight: 400; }
+
+.actionBtn {
+  background: none; border: none; padding: 0;
+  font-weight: 600; 
+  color: var(--text-secondary); /* Dùng biến */
+  cursor: pointer; font-size: 12px;
+}
+.actionBtn:hover { 
+  color: var(--text-primary); /* Hover sáng lên */
+}
+
+.deleteBtn:hover { 
+  color: #e04a4a;; 
+}
+
+/* ======================================================= */
+/* 6. REPLIES & INDENT                      */
+/* ======================================================= */
+.repliesContainerIndent {
+  margin-left: 44px;
+  margin-top: 8px;
+}
+.repliesContainerFlat {
+  margin-left: 0; margin-top: 8px;
+}
+
+.toggleRepliesBtn {
+  background: none; border: none;
+  color: var(--text-secondary); /* Dùng biến */
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  padding: 0; margin-bottom: 12px;
+}
+.toggleRepliesBtn:hover { 
+  color: var(--text-primary); 
+}
+
+.lineIndicator {
+  width: 24px; height: 1px; 
+  background: var(--text-secondary); opacity: 0.5;
+}
+
+/* ======================================================= */
+/* 7. INLINE REPLY INPUT                     */
+/* ======================================================= */
+.inlineReplyBox { margin-top: 10px; }
+
+.inlineInputWrap {
+  display: flex; align-items: flex-end; gap: 8px;
+}
+
+.inlineTextarea {
+  flex: 1; 
+  border: 1px solid var(--border-color); /* Dùng biến */
+  background: var(--bg-tertiary);        /* Dùng biến */
+  color: var(--text-primary);            /* Dùng biến */
+  
+  border-radius: 18px; padding: 8px 12px;
+  font-size: 13px; outline: none; resize: none;
+  font-family: inherit;
+}
+
+.inlineTextarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.inlineSendBtn {
+  background: none; border: none; 
+  color: var(--brand-color);
+  cursor: pointer; padding: 6px; display: flex;
+}
+
+/* ======================================================= */
+/* 8. BOTTOM STICKY INPUT                     */
+/* ======================================================= */
+.inputArea {
+  border-top: 1px solid var(--border-color); /* Dùng biến */
+  padding: 12px 16px; 
+  background: var(--bg-primary); /* Dùng biến */
+}
+
+.inputContainer {
+  display: flex; gap: 12px; align-items: flex-end;
+}
+
+.myAvatarSmall {
+  width: 30px; height: 30px; border-radius: 50%;
+  background-color: var(--bg-secondary);
+}
+
+.inputFieldWrap {
+  flex: 1; 
+  background: var(--bg-secondary); /* Dùng biến (xám nhạt ở Light, xám đậm ở Dark) */
+  border-radius: 20px; padding: 2px 12px;
+  display: flex; align-items: center; gap: 8px;
+  border: 1px solid transparent; /* Để tránh nhảy layout khi focus */
+}
+
+.inputFieldWrap:focus-within {
+  border-color: var(--text-secondary); /* Viền nhẹ khi focus */
+}
+
+.mainInput {
+  flex: 1; background: transparent; border: none;
+  padding: 10px 0; outline: none; resize: none;
+  font-size: 14px; max-height: 80px; font-family: inherit;
+  color: var(--text-primary); /* Dùng biến */
+}
+
+.mainInput::placeholder {
+  color: var(--text-secondary);
+}
+
+.mainSendBtn {
+  border: none; background: none; 
+  color: var(--brand-color);
+  font-weight: 600; font-size: 14px; cursor: pointer;
+  padding: 8px 0;
+}
+.mainSendBtn:disabled { 
+  color: var(--text-secondary); 
+  opacity: 0.5;
+  cursor: not-allowed; 
+}
+
+.loginPrompt {
+  background: var(--brand-color); 
+  color: #fff; text-align: center;
+  padding: 10px; border-radius: 4px; font-weight: 600; cursor: pointer;
+}
+.loginPrompt:hover {
+  background-color: var(--brand-hover);
+}
+
+/* ======================================================= */
+/* 9. TOAST                           */
+/* ======================================================= */
+.toastContainer { 
+  font-family: 'Inter', sans-serif;
+  color: #fff; /* Toast thường giữ nền đen chữ trắng ở cả 2 mode */
+}
+.toastTitle {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+  color: #111; /* màu đen */
+}
+
+.toastActions { display: flex; gap: 8px; justify-content: flex-end; padding-right: 14px; }
+
+.toastBtn { 
+  padding: 4px 10px; border-radius: 4px; 
+  border:none; cursor: pointer; 
+  font-size: 12px; font-weight: 600;
+}
+.toastBtnCancel { 
+  background: #4a4b4c; 
+  color: #e4e6eb;
+}
+.toastBtnDelete { 
+  background: #e04a4a;
+  color: #fff; 
+}

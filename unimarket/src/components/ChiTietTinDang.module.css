@@ -1,0 +1,141 @@
+/* src/pages/ChiTietTinDang.module.css */
+
+/* --- 1. CONTAINER TỔNG: CHUYỂN VỀ DẠNG TRONG SUỐT/NỀN XÁM --- */
+.chiTietTinDang {
+  width: 1150px; 
+  margin: 120px auto 40px; /* Cách top 120px, bottom 40px */
+  background-color: transparent; /* Bỏ màu trắng tổng */
+  box-shadow: none; /* Bỏ bóng tổng */
+  padding: 0; /* Bỏ padding tổng để các khối con tự lo */
+  box-sizing: border-box;
+}
+
+/* --- 2. KHỐI HEADER (ẢNH + THÔNG TIN): LÀM THÀNH 1 CARD --- */
+.tinDangHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+
+  /* Card Style */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Khoảng cách với khối bên dưới */
+}
+
+.imageContainer {
+  width: 38%;
+  min-width: 320px;
+  max-width: 600px;
+}
+
+.chiTietTinDangInfoWrapper {
+  flex: 1;
+}
+
+/* --- 3. LAYOUT MÔ TẢ & BÌNH LUẬN --- */
+.descriptionAndCommentsWrapper {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+/* --- 4. KHỐI MÔ TẢ (BÊN TRÁI): LÀM THÀNH 1 CARD --- */
+.descriptionContainer {
+  flex: 7;
+  
+  /* Card Style */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  min-height: 200px; /* Chiều cao tối thiểu cho đẹp */
+}
+
+/* --- 5. KHỐI BÌNH LUẬN (BÊN PHẢI) --- */
+.commentsContainer {
+  flex: 4;
+  position: sticky;
+  top: 100px;
+  
+  /* Lưu ý: Component <PostComments /> bên trong đã có style Card (nền trắng, bóng) 
+     từ bước trước rồi, nên ở đây ta KHÔNG cần thêm background-color nữa 
+     để tránh bị 2 lớp viền. */
+}
+
+/* --- 6. CÁC KHỐI TIN LIÊN QUAN: LÀM THÀNH CARD RIÊNG --- */
+#cac-tin-dang-khac,
+#tin-dang-tuong-tu {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* --- STYLE CHUNG --- */
+.loading,
+.notFound {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  background: #fff;
+  border-radius: 8px;
+  margin-top: 120px;
+}
+
+/* --- RESPONSIVE --- */
+
+/* Tablet & Mobile: Rớt dòng */
+@media (max-width: 992px) {
+  .descriptionAndCommentsWrapper {
+    flex-direction: column;
+  }
+  
+  .descriptionContainer, 
+  .commentsContainer {
+    width: 100%;
+    flex: none;
+    position: static; /* Bỏ sticky trên mobile */
+  }
+
+  /* Trên mobile, khối bình luận cần margin top để tách khỏi mô tả */
+  .commentsContainer {
+    margin-top: 0; 
+  }
+}
+
+/* Mobile nhỏ */
+@media (max-width: 768px) {
+  .chiTietTinDang {
+    width: 100%;
+    margin-top: 80px;
+    padding: 0 10px; /* Thêm chút padding lề cho mobile */
+  }
+
+  .imageContainer {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .tinDangHeader {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* --- Scroll Anchors (Để khi click menu không bị che khuất) --- */
+#tong-quan,
+#mo-ta-chi-tiet,
+#binh-luan {
+  scroll-margin-top: 140px;
+}
+
+#tin-dang-tuong-tu,
+#cac-tin-dang-khac {
+  scroll-margin-top: 140px;
+}

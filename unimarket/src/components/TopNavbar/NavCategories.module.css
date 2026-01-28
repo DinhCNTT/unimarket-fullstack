@@ -1,0 +1,209 @@
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: auto; 
+  margin-top: 1px; 
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.logoImg {
+  height: 44px;
+  width: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logoImg:hover {
+  transform: scale(1.05);
+}
+
+/* Main Menu Container */
+.mainMenu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* --- BUTTON STYLE CHUNG --- */
+.dropdown, .sellerDropdown {
+  position: relative;
+  cursor: pointer;
+}
+
+.dropdownTitle, .sellerTitle {
+  font-family: "Inter", "Poppins", "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+/* Màu riêng cho Danh mục */
+.dropdownTitle {
+  color: #FFB800;
+  background: #fff;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.1);
+}
+.dropdownTitle:hover {
+  background: #f8f8f8;
+  transform: translateY(-1px);
+}
+
+/* Màu riêng cho Người bán */
+.sellerTitle {
+  color: #111;
+  background: transparent;
+}
+.sellerTitle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #000;
+}
+
+/* Scrolled State */
+.scrolledText {
+  color: #333 !important;
+  background: #f5f5f5 !important;
+  border: 1px solid #eee;
+}
+
+/* --- PORTAL CONTENT (DÙNG CHUNG LOGIC STYLE) --- */
+.dropdownContent, .sellerContent {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  border: 1px solid #eee;
+  padding: 8px 0;
+  animation: fadeInMenu 0.2s ease-out;
+  /* Đảm bảo menu nằm trong khung nhìn */
+  max-height: 80vh; 
+  overflow-y: auto;
+}
+
+/* Animation */
+@keyframes fadeInMenu {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Riêng cho Dropdown Content (Danh mục) rộng hơn chút */
+.dropdownContent {
+  width: 260px;
+  overflow: visible; /* Để hiển thị submenu */
+}
+
+.sellerContent {
+  width: 220px;
+}
+
+/* --- ITEMS TRONG DANH MỤC --- */
+.parentCategory {
+  padding: 10px 15px;
+  font-weight: 600;
+  color: #333333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f9f9f9;
+  position: relative; /* Quan trọng để neo Submenu */
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.parentCategory:hover {
+  background-color: #fff7ed;
+  color: #ff9900;
+}
+
+.categoryIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+
+/* --- SUBMENU (HIỆN RA KHI HOVER VÀO PARENT) --- */
+.subMenu {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Hiện bên phải */
+  background: white;
+  width: 220px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: none; /* Mặc định ẩn */
+  z-index: 2001;
+  border-radius: 8px;
+  white-space: nowrap;
+  padding: 5px 0;
+  border: 1px solid #eee;
+  margin-left: 5px; /* Cách parent 1 chút */
+}
+
+/* Submenu hiện khi hover vào parent (vẫn hoạt động tốt trong Portal) */
+.parentCategory:hover .subMenu {
+  display: block;
+  animation: fadeInMenu 0.2s ease-out;
+}
+
+.subLink {
+  padding: 10px 15px;
+  text-decoration: none;
+  display: block;
+  color: #555;
+  font-weight: 400;
+  font-size: 14px;
+  border-bottom: 1px solid #f9f9f9;
+  transition: background 0.2s;
+}
+
+.subLink:last-child {
+  border-bottom: none;
+}
+
+.subLink:hover {
+  background-color: #f4f4f4;
+  color: #ff9900;
+}
+
+/* --- ITEMS TRONG NGƯỜI BÁN --- */
+.sellerItem {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #222;
+  font-weight: 600;           
+  font-size: 15px;
+  letter-spacing: -0.2px;      
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+
+.sellerItem:hover {
+  background-color: #fff7ed;
+  color: #ff8800;
+}
+
+.itemIcon {
+  font-size: 18px;
+  color: #666;                 
+  transition: color 0.18s ease;
+}
+
+.sellerItem:hover .itemIcon {
+  color: #ff8800;
+}

@@ -1,0 +1,173 @@
+/* 1. IMPORT FONT (Giữ nguyên) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+.container {
+    width: 100%;
+    /* Gradient vàng sang trọng */
+    background: linear-gradient(90deg, #ffe08a 0%, #ffd35a 50%, #ffbf2b 100%);
+    display: flex;
+    justify-content: center;
+    margin-top: -10px;
+    margin-bottom: -5px;
+    padding: 10px 0;
+    font-family: 'Roboto', sans-serif; 
+}
+
+/* Variant cho trang Nhà Trọ */
+.container.nhaTroVariant {
+  background: linear-gradient(90deg, #fca259 0%, #f26622 100%);
+}
+
+.innerContent {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Căn giữa dọc đảm bảo chữ và ảnh cân đối */
+}
+
+.leftSection {
+    flex: 1;
+    padding-right: 20px;
+    text-align: left;
+    
+    /* Thêm chút padding để đẩy nội dung vào giữa đẹp hơn */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* --- PHẦN CHỮ ĐÃ ĐƯỢC PHÓNG TO & TINH CHỈNH --- */
+
+.heading {
+    /* Tăng kích thước cực đại để tạo ấn tượng mạnh */
+    font-size: 52px; 
+    
+    font-weight: 900; 
+    color: #1a1a1a; /* Đen đậm hơn chút nữa để tương phản tốt trên nền vàng */
+    
+    margin: 0 0 12px 0; /* Tăng khoảng cách dưới chân chữ */
+    
+    /* Line-height thấp (1.05) giúp khối chữ to trông chắc chắn, không bị rời rạc */
+    line-height: 1.05; 
+    
+    /* Thu hẹp khoảng cách chữ giúp tiêu đề trông "đắt tiền" hơn */
+    letter-spacing: -1.5px; 
+}
+
+.subText {
+    /* Tăng kích thước phụ đề */
+    font-size: 26px; 
+    
+    font-weight: 500;
+    color: #333333;
+    margin: 0 0 32px 0; /* Khoảng cách rộng hơn để tách biệt với nút bấm */
+    letter-spacing: -0.5px;
+}
+
+/* --- NÚT BẤM --- */
+.btnGroup {
+    display: flex;
+    gap: 18px; /* Tăng khoảng cách giữa 2 nút ra xíu cho thoáng */
+}
+
+.storeLink img {
+    /* Tăng nhẹ kích thước nút bấm để cân xứng với bộ chữ to khổng lồ ở trên */
+    height: 50px; 
+    
+    width: auto;
+    transition: transform 0.2s;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15)); /* Bóng đậm hơn chút */
+}
+
+.storeLink img:hover {
+    transform: translateY(-3px);
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+}
+
+.rightSection {
+    /* Giữ nguyên */
+}
+
+/* --- ẢNH GIỮ NGUYÊN KÍCH THƯỚC NHƯ YÊU CẦU --- */
+.bannerImage {
+    width: 460px; /* Giữ nguyên kích thước */
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+
+    /* 1. Kích hoạt hiệu ứng chuyển động */
+    /* Tên animation: floating | Thời gian: 4s | Kiểu: mượt mà vô tận */
+    animation: floating 4s ease-in-out infinite;
+    
+    /* Bóng đổ mặc định */
+    filter: drop-shadow(5px 15px 15px rgba(0, 0, 0, 0.15));
+    
+    /* Giúp trình duyệt render mượt hơn, không bị răng cưa khi chuyển động */
+    will-change: transform;
+}
+.bannerImage:hover {
+    filter: drop-shadow(5px 20px 20px rgba(0, 0, 0, 0.25)) brightness(1.05);
+}
+@keyframes floating {
+    0% {
+        /* Vị trí ban đầu */
+        transform: translateY(0px);
+    }
+    50% {
+        /* Bay lên 12px */
+        transform: translateY(-12px);
+    }
+    100% {
+        /* Trở về vị trí cũ */
+        transform: translateY(0px);
+    }
+}
+/* --- RESPONSIVE (QUAN TRỌNG VÌ CHỮ GIỜ RẤT TO) --- */
+@media (max-width: 900px) {
+    /* Khi màn hình ipad/tablet dọc */
+    .heading {
+        font-size: 40px; /* Giảm xuống chút */
+    }
+    .bannerImage {
+        width: 380px; /* Thu ảnh lại chút để khỏi đè chữ */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile */
+    .innerContent {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+    .leftSection {
+        text-align: center;
+        margin-top: 20px;
+        padding-right: 0;
+    }
+    .btnGroup {
+        justify-content: center;
+    }
+    
+    /* Chữ trên mobile phải nhỏ lại không sẽ vỡ giao diện */
+    .heading {
+        font-size: 32px; 
+        letter-spacing: -0.5px;
+    }
+    .subText {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .storeLink img {
+        height: 40px;
+    }
+    .bannerImage {
+        width: 320px; /* Mobile ảnh nhỏ lại */
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,211 @@
+/* Animations */
+@keyframes UserProfile-ShareButton-dropdownOpen {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes UserProfile-ShareButton-overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Main Container */
+.UserProfile-ShareButton-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Main Trigger Button (Giữ nguyên style nút kích hoạt) */
+.UserProfile-ShareButton-mainButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #ff6600, #ff8533);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
+  outline: none;
+  position: relative;
+  top: -25px; /* Giữ vị trí cũ của bạn */
+}
+
+.UserProfile-ShareButton-mainButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.4);
+}
+
+/* Overlay */
+.UserProfile-ShareButton-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999998;
+  background: rgba(0, 0, 0, 0.4); /* Tối hơn một chút để nổi bật modal */
+  backdrop-filter: blur(2px);
+  animation: UserProfile-ShareButton-overlayFadeIn 0.2s ease;
+}
+
+/* Dropdown Modal */
+.UserProfile-ShareButton-dropdown {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px; /* Rộng hơn chút để chứa icon ngang */
+  max-width: calc(100vw - 32px);
+  background: var(--theme-bg-primary, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 999999;
+  overflow: hidden;
+  animation: UserProfile-ShareButton-dropdownOpen 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header */
+.UserProfile-ShareButton-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Căn giữa tiêu đề như trong ảnh */
+  position: relative;
+}
+
+.UserProfile-ShareButton-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--theme-text-primary, #1a1a1a);
+}
+
+.UserProfile-ShareButton-closeBtn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  color: var(--theme-text-secondary, #666);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.UserProfile-ShareButton-closeBtn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+/* Grid Layout cho các icon */
+.UserProfile-ShareButton-grid {
+  padding: 10px 20px 30px;
+  display: flex;
+  justify-content: space-around; /* Căn đều khoảng cách */
+  align-items: flex-start;
+  gap: 12px;
+  overflow-x: auto; /* Cho phép scroll ngang nếu màn hình quá bé */
+}
+
+/* Từng item (Icon + Label) */
+.UserProfile-ShareButton-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  min-width: 60px;
+}
+
+.UserProfile-ShareButton-item:hover .UserProfile-ShareButton-iconCircle {
+  transform: scale(1.05);
+}
+
+/* Vòng tròn chứa Icon */
+.UserProfile-ShareButton-iconCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Màu sắc các nút */
+.UserProfile-ShareButton-iconCircle.copy {
+  background-color: #3b82f6; /* Xanh dương giống icon Copy/Link */
+}
+.UserProfile-ShareButton-iconCircle.copy.success {
+  background-color: #22c55e; /* Xanh lá khi copy thành công */
+}
+
+.UserProfile-ShareButton-iconCircle.facebook {
+  background-color: #1877f2;
+}
+
+.UserProfile-ShareButton-iconCircle.twitter {
+  background-color: #000000; /* X/Twitter màu đen */
+}
+
+.UserProfile-ShareButton-iconCircle.telegram {
+  background-color: #29b6f6; /* Xanh nhạt Telegram */
+}
+
+/* Label text dưới icon */
+.UserProfile-ShareButton-label {
+  font-size: 12px;
+  color: var(--theme-text-secondary, #4b5563);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .UserProfile-ShareButton-dropdown {
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+    animation: slideUp 0.3s ease-out;
+    max-width: 100vw;
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .UserProfile-ShareButton-header {
+    justify-content: flex-start; /* Mobile thì để tiêu đề bên trái cho đẹp */
+  }
+  
+  .UserProfile-ShareButton-title {
+    margin-left: 8px;
+  }
+}

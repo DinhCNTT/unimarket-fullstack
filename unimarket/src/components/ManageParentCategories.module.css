@@ -1,0 +1,231 @@
+/* ManageParentCategories.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+  --primary-color: #ffca00;
+  --text-color: #333;
+  --bg-color: #f9f9f9;
+  --white: #ffffff;
+  --gray-light: #e0e0e0;
+  --gray-medium: #888;
+  --danger: #ff4d4f;
+  --success: #28a745;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.container {
+font-family: 'Reddit Sans', sans-serif;
+  width: 100%; 
+  padding: 0; /* Padding đã được set 20px ở AdminLayout cha, set 0 ở đây cho gọn */
+  background-color: transparent; /* Để màu nền của layout cha xuyên qua */
+  min-height: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-color);
+  position: relative;
+  padding-left: 15px;
+}
+
+.title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 24px;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+}
+
+/* Card style cho bảng */
+.tableWrapper {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden; /* Bo tròn góc bảng */
+  border: 1px solid var(--gray-light);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table thead {
+  background-color: #fafafa;
+  border-bottom: 2px solid var(--gray-light);
+}
+
+.table th {
+  padding: 16px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid #f0f0f0;
+  color: var(--text-color);
+  font-size: 15px;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover {
+  background-color: #fffdf5; /* Màu vàng rất nhạt khi hover */
+}
+
+/* Hình ảnh hiển thị */
+.imgThumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--gray-light);
+  background-color: #f0f0f0;
+}
+
+.iconThumbnail {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Input Styles trong chế độ Edit */
+.inputInfo {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--gray-light);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.inputInfo:focus {
+  border-color: var(--primary-color);
+}
+
+.uploadGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.uploadLabel {
+  font-size: 12px;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border: 1px dashed var(--primary-color);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.uploadLabel:hover {
+  background-color: #fff8cc;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.previewImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnEdit {
+  background-color: var(--white);
+  border: 1px solid var(--gray-light);
+  color: var(--text-color);
+}
+
+.btnEdit:hover {
+  border-color: var(--primary-color);
+  color: #000;
+}
+
+.btnDelete {
+  background-color: #fff0f0;
+  color: var(--danger);
+  border: 1px solid transparent;
+}
+
+.btnDelete:hover {
+  background-color: var(--danger);
+  color: white;
+}
+
+.btnSave {
+  background-color: var(--primary-color);
+  color: #000; /* Màu chữ đen trên nền vàng chuẩn thiết kế */
+  box-shadow: 0 2px 5px rgba(255, 202, 0, 0.4);
+}
+
+.btnSave:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 202, 0, 0.5);
+}
+
+.btnCancel {
+  background-color: transparent;
+  color: var(--gray-medium);
+}
+
+.btnCancel:hover {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--gray-medium);
+  font-style: italic;
+}

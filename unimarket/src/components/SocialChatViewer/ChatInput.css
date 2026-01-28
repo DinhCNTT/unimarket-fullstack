@@ -1,0 +1,197 @@
+/* ========================================= */
+/* --- KHUNG CHỨA INPUT (CONTAINER) --- */
+/* ========================================= */
+.chat-input-container {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04); 
+  display: flex;
+  gap: 12px;
+  align-items: flex-end; 
+  background-color: var(--theme-bg-primary);
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+
+.chat-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--theme-bg-primary);
+}
+
+.chat-input-form-container {
+  padding: 10px 16px;
+  border-top: 1px solid var(--theme-border-color);
+  display: flex;
+  gap: 10px;
+  align-items: flex-end; 
+  background-color: var(--theme-bg-primary);
+}
+
+.chat-input-field-wrapper {
+  flex-grow: 1; 
+  position: relative; 
+}
+
+/* ========================================= */
+/* --- Ô NHẬP LIỆU (INPUT FIELD) --- */
+/* ========================================= */
+.chat-input-field { 
+  flex-grow: 1;
+  background-color: var(--theme-bg-secondary);
+  border: 1px solid rgba(0, 132, 255, 0.5); 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  padding: 12px 18px; 
+  padding-right: 50px; 
+  border-radius: 24px; 
+  color: var(--theme-text-primary);
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: none; 
+  overflow-y: hidden;
+  max-height: 140px; 
+  min-height: 24px; 
+  line-height: 1.5; 
+  box-sizing: border-box;
+  width: 100%;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.chat-input-field:focus {
+  outline: none;
+  background-color: var(--theme-bg-primary); 
+  border-color: var(--chat-bubble-sent-bg); 
+  box-shadow: 0 4px 12px rgba(0, 132, 255, 0.2); 
+}
+.chat-input-field::placeholder {
+  color: var(--theme-text-secondary);
+  opacity: 0.8;
+}
+
+/* Bộ đếm ký tự */
+.chat-input-counter {
+  position: absolute;
+  bottom: 26px; 
+  right: 80px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--theme-text-secondary);
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.chat-input-field:placeholder-shown + .chat-input-counter {
+  opacity: 0;
+}
+
+/* Nút gửi */
+.chat-send-btn {
+  background-color: var(--chat-bubble-sent-bg);
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  border: none; 
+  color: white; 
+  border-radius: 50%;
+  width: 44px; 
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 6px rgba(0, 132, 255, 0.3);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.chat-send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 132, 255, 0.4);
+}
+
+.chat-send-btn:active {
+  transform: scale(0.95) translateY(0);
+}
+.chat-send-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  margin-left: 2px; 
+}
+
+/* ========================================= */
+/* --- TRẠNG THÁI BỊ CHẶN / SPAM --- */
+/* ========================================= */
+.chat-input-blocked-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  min-height: 72px;
+  background: var(--theme-bg-secondary);
+  border-top: 1px solid var(--theme-border-color);
+  box-sizing: border-box;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.chat-input-blocked-wrapper:hover {
+  filter: brightness(0.98); 
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.chat-input-blocked-text {
+  max-width: 80%;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--theme-text-secondary);
+  text-align: center;
+  font-style: italic;
+  background: var(--theme-bg-primary);
+  border: 1px solid var(--theme-border-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  letter-spacing: 0.2px;
+  animation: fadeIn 0.35s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-input-blocked-wrapper.spam-limit {
+  background-color: var(--theme-bg-secondary);
+  border-top: 1px solid var(--theme-border-color);
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spam-limit-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.chat-input-blocked-wrapper.spam-limit .chat-input-blocked-text {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--theme-text-primary);
+  font-weight: 500;
+  padding: 0;
+}
+
+.spam-limit-subtext {
+  font-size: 0.8rem;
+  color: var(--theme-text-secondary);
+}

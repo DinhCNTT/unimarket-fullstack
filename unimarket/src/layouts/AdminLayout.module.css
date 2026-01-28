@@ -1,0 +1,26 @@
+/* src/layouts/AdminLayout.module.css */
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9f9f9;
+  overflow: hidden; /* Chặn scroll body */
+}
+
+.sidebarWrapper {
+  width: 250px; /* Khớp với width trong Sidebar.css của bạn */
+  flex-shrink: 0;
+  height: 100%;
+  background-color: #fff;
+  border-right: 1px solid #e0e0e0;
+  overflow-y: auto; /* Scroll riêng cho sidebar nếu menu quá dài */
+}
+
+.contentWrapper {
+  flex-grow: 1; /* Tự động lấp đầy khoảng trắng còn lại */
+  height: 100%;
+  overflow-y: auto; /* Scroll riêng cho nội dung chính */
+  padding: 0px;
+  position: relative;
+}

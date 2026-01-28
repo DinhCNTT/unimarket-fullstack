@@ -1,0 +1,430 @@
+/* --- MAIN CONTAINER --- */
+.SearchBarContainer {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 700px;      
+  max-width: 100%;
+  
+  position: relative; 
+  left: -10px; 
+  z-index: 100; /* 100 là đủ để thắng các nút bấm (z-index: 0), nhưng thua Menu (z-index: 9999) */
+  
+  height: 40px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.SearchBarContainer:focus-within {
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
+}
+
+/* --- LOCATION BUTTON --- */
+.SearchBarLocationWrapper {
+  position: relative;
+  height: 100%;
+}
+
+.SearchBarLocationBtn {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 12px;
+  cursor: pointer;
+  background: #f5f5f5;
+  border-radius: 6px;
+  margin-right: 4px;
+  transition: background 0.2s;
+}
+
+.SearchBarLocationBtn:hover {
+  background: #e0e0e0;
+}
+
+.SearchBarLocationIcon {
+  color: #ff9900;
+  font-size: 16px;
+  margin-right: 6px;
+}
+
+.SearchBarLocationText {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  margin-right: 6px;
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.SearchBarChevron {
+  color: #666;
+}
+
+.SearchBarDivider {
+  width: 1px;
+  height: 20px;
+  background: #eee;
+  margin: 0 8px;
+  display: none; /* Ẩn divider vì đã có background location */
+}
+
+/* --- LOCATION MODAL / DROPDOWN --- */
+.LocationModalDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 300px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1002; /* Cao hơn Suggestions */
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  animation: fadeIn 0.2s ease-out;
+  z-index: 1002;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Main View */
+.LocModalMain {
+  padding: 16px;
+}
+
+.LocModalHeader {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.LocModalInputGroup {
+  margin-bottom: 12px;
+}
+
+.LocModalInputGroup label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #555;
+  font-weight: 500;
+}
+
+.LocRequired {
+  color: red;
+  margin-left: 2px;
+}
+
+.LocModalSelectBox {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.LocModalSelectBox:hover {
+  border-color: #ffcc00;
+}
+
+.LocModalSelectBox span {
+  font-size: 13px;
+  color: #333;
+}
+
+.LocDisabled {
+  background: #f9f9f9;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.LocModalApplyBtn {
+  width: 100%;
+  background: #ffd400;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.LocModalApplyBtn:hover {
+  background: #ffcc00;
+}
+
+/* Modal List View (Province/District) */
+.LocModalListContainer {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}
+
+.LocModalListHeader {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.LocBackBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+  margin-right: 10px;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.LocListTitle {
+  font-weight: 700;
+  font-size: 15px;
+  flex: 1;
+  text-align: center;
+  margin-right: 20px; /* Balance back btn */
+}
+
+.LocSearchInputWrapper {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  margin: 10px 16px 0;
+  border-radius: 20px;
+}
+
+.LocSearchIcon {
+  color: #999;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.LocSearchInputWrapper input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 13px;
+  outline: none;
+  color: #333;
+}
+
+.LocListScroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+.LocListItem {
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.1s;
+  font-size: 13px;
+  color: #333;
+}
+
+.LocListItem:hover {
+  background: #f9f9f9;
+}
+
+.LocRadioCircle {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LocRadioCircle.LocSelected {
+  background: #ffcc00;
+  border-color: #ffcc00;
+  color: white;
+  font-size: 10px;
+}
+
+.LocCheckIcon {
+  color: #ffcc00;
+  font-size: 14px;
+}
+
+.LocEmptyResult {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-size: 13px;
+}
+
+/* --- SEARCH INPUT MAIN --- */
+.SearchBarInputContainer {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.SearchBarInputContainer input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+}
+
+/* --- SUGGESTIONS DROPDOWN (Giữ style cũ nhưng tinh chỉnh nhẹ) --- */
+.SearchBarSuggestionsDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: -90px; /* Canh chỉnh lại do input bị đẩy sang phải */
+  right: -50px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+  z-index: 1001;
+}
+
+.SearchBarSuggestionsHeader {
+  padding: 10px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+  font-weight: 600;
+  font-size: 13px;
+  color: #666;
+}
+
+.SearchBarSuggestionItem {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f9f9f9;
+  transition: background 0.2s;
+}
+
+.SearchBarSuggestionItem:hover {
+  background: #f5f5f5;
+}
+
+.SearchBarSuggestionIcon {
+  color: #999;
+  margin-top: 3px;
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+.SearchBarSuggestionContent {
+  flex: 1;
+}
+
+.SearchBarSuggestionTitle {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.SearchBarSuggestionCategory {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.SearchBarHistoryDelete {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 8px;
+}
+
+.SearchBarHistoryDelete:hover {
+  color: #ff4444;
+}
+
+.SearchBarSuggestionHighlight {
+  font-weight: bold;
+  color: #ff9900;
+}
+
+/* --- SEARCH BTN --- */
+.SearchBarBtn {
+  background: #ffd400;
+  color: #333;
+  border: none;
+  width: 48px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.SearchBarBtn:hover {
+  background: #ffcc00;
+}
+
+.SearchBarBtn svg {
+  font-size: 16px;
+}
+
+/* Scrollbar đẹp cho list */
+.LocListScroll::-webkit-scrollbar,
+.SearchBarSuggestionsDropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.LocListScroll::-webkit-scrollbar-thumb,
+.SearchBarSuggestionsDropdown::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .SearchBarContainer {
+    width: 100%;
+  }
+  .SearchBarLocationText {
+    display: none; /* Ẩn text trên mobile, chỉ hiện icon */
+  }
+  .SearchBarLocationBtn {
+    padding: 0 8px;
+  }
+  .SearchBarSuggestionsDropdown {
+    left: -50px;
+    right: 0;
+  }
+}

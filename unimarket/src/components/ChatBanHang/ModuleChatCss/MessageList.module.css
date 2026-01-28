@@ -1,0 +1,298 @@
+/* ===== CHATBOX CONTAINER ===== */
+.chatboxContainer {
+  -webkit-locale: "vi";
+  box-sizing: border-box;
+  scrollbar-color: silver transparent;
+  scrollbar-width: thin;
+  font-family: 'Reddit Sans', sans-serif;
+  font-size: 100%;
+  --app-wrapper-height: 66px;
+  overflow-y: hidden;
+
+  /* === SỬA Ở ĐÂY === */
+  margin: 0;           /* BỎ margin cũ (86px) */
+  width: 100%;
+  max-width: 100%;      /* BỎ max-width (1500px) */
+  /* === HẾT SỬA === */
+
+  height: 100%;         /* Giữ nguyên, nó sẽ lấy 100% của 100vh */
+  
+  /* ✅ ĐỔI MÀU: Nền container chính */
+  background: var(--theme-bg-primary);
+
+  /* === SỬA Ở ĐÂY === */
+  border-radius: 0;     /* BỎ border-radius (16px) */
+  /* === HẾT SỬA === */
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  
+  /* Thêm transition để đổi màu mượt */
+  transition: background-color 0.3s ease;
+}
+
+/* FIX BƯỚC 1: THÊM CLASS CHA MỚI NÀY */
+.chatWindowWrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Ngăn chặn bất kỳ tràn nào không mong muốn */
+}
+
+.chatboxMessages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--theme-bg-secondary);
+  /* 🔥 GIẢM PADDING NÀY: Chỉnh xuống 20px hoặc vừa đủ với chiều cao thanh input của bạn */
+  padding-bottom: 15px; 
+  
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-border-color) transparent;
+  
+  /* Giữ nguyên cái này */
+  overflow-anchor: none;
+  position: relative;
+}
+
+/* Webkit Scrollbar */
+.chatboxMessages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chatboxMessages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatboxMessages::-webkit-scrollbar-thumb {
+  /* ✅ ĐỔI MÀU: Thanh cuộn Chrome */
+  background: var(--theme-border-color);
+  border-radius: 3px;
+}
+
+.chatboxMessages::-webkit-scrollbar-thumb:hover {
+  /* ✅ ĐỔI MÀU: Thanh cuộn khi hover */
+  background: var(--theme-text-secondary);
+}
+
+/* Empty Chat State */
+.chatboxEmptyChat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* ✅ ĐỔI MÀU: Chữ khi trống */
+  color: var(--theme-text-secondary);
+  text-align: center;
+}
+
+.chatboxEmptyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  width: 96px;
+  height: 96px;
+  margin: 140px auto 16px auto;
+  border-radius: 50%;
+  /* ✅ ĐỔI MÀU: Nền icon trống (Cam nhạt) */
+  background: rgba(255, 165, 0, 0.15); 
+  /* ✅ ĐỔI MÀU: Icon trống (Cam) */
+  color: #ff9800;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.emptyText {
+  margin: 6px 0;
+  font-size: 14px;
+  font-family: "Inter", "Segoe UI", "Roboto", sans-serif;
+  font-weight: 500;
+  /* ✅ ĐỔI MÀU: Chữ text trống */
+  color: var(--theme-text-secondary);
+  letter-spacing: 0.2px;
+  line-height: 1.6;
+}
+
+/* FIX BƯỚC 3: THAY ĐỔI HOÀN TOÀN ĐỊNH VỊ CỦA .blockedNotice */
+.blockedNotice {
+  /* --- Giữ nguyên các thuộc tính giao diện --- */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  /* Giữ nguyên màu đỏ gradient để cảnh báo */
+  background: linear-gradient(135deg, #ff4d4f, #e63946);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(255, 77, 79, 0.3);
+  animation: slideIn 0.3s ease;
+
+  /* --- Thay đổi định vị --- */
+  position: absolute; /* Đổi sang absolute */
+  bottom: 20px;       /* Ghim cách đáy 20px */
+  left: 20px;         /* Ghim cách trái 20px */
+  right: 20px;        /* Ghim cách phải 20px */
+  margin: 0;          /* Bỏ margin cũ */
+  z-index: 10;        /* Đảm bảo nó nổi lên trên */
+}
+
+.blockedNotice svg {
+  color: #ffebee;
+  transform: scale(1.1);
+}
+
+.blockedNotice p {
+  margin: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (min-width: 1700px) {
+  .container {
+    max-width: 1700px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .container {
+    position: relative;
+    width: 100vw;
+    max-width: none;
+    left: 0;
+    right: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100vw;
+    border-radius: 0;
+    margin: 0;
+    height: 100vh;
+  }
+  
+  /* FIX BƯỚC 4: Cập nhật responsive cho .blockedNotice */
+  .blockedNotice {
+    left: 16px;
+    right: 16px;
+    bottom: 10px; /* Gần đáy hơn 1 chút trên mobile */
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 100vw;
+    margin: 0;
+    height: 100vh;
+  }
+
+  /* FIX BƯỚC 5: Cập nhật responsive cho .blockedNotice */
+  .blockedNotice {
+    left: 12px;
+    right: 12px;
+    bottom: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+/* ===== CSS CHO LOADING SPINNER ===== */
+.loadingMore {
+  position: absolute;
+  top: 10px;  /* Cách đỉnh 10px */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Đảm bảo nổi lên trên tin nhắn */
+  height: 40px; /* Chiều cao khu vực loading */
+  background: transparent; /* Nền trong suốt hoặc mờ nhẹ nếu thích */
+  pointer-events: none; /* Để chuột vẫn cuộn được khi đang load */
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3b82f6; /* Màu xanh dương */
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite; /* Quay nhanh hơn chút cho mượt */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== NEW LAYOUT STYLES ===== */
+.chatPageWrapper {
+  position: relative; /* Ngữ cảnh cho modal */
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Không cuộn ngang */
+}
+
+/* Modal Loading Overlay */
+.modalLoadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998; /* Đảm bảo nó hiện trên cùng */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  /* ✅ ĐỔI MÀU: Nền loading overlay (bán trong suốt) */
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.modalLoadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db; /* Màu spinner */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

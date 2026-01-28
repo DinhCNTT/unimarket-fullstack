@@ -1,0 +1,315 @@
+/* LocMoRong.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@300;400;500;700&display=swap');
+
+/* --- TẠO KHỐI TRẮNG BAO QUANH --- */
+.filterContainer {
+  background-color: #fff;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'Reddit Sans', sans-serif;
+  margin-top: 10px;
+}
+
+/* --- PHẦN HEADER TEXT --- */
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.breadcrumb {
+  font-size: 13px;
+  color: #888;
+}
+
+.slogan {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin: 0; 
+  line-height: 1.4;
+}
+
+/* --- Dòng chứa các nút Dropdown --- */
+.controlsRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* --- [MỚI] KHỐI CHỨA NÚT GỢI Ý --- */
+.suggestionBlock {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed #eee;
+}
+
+/* --- [MỚI] NÚT ICON ĐƠN GIẢN --- */
+.categoryTileBtn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  min-width: 80px;
+  transition: all 0.2s ease;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.categoryTileBtn span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.categoryTileBtn:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Các nút thường --- */
+.filterItem {
+  position: relative;
+}
+
+.filterBtn {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s;
+  font-family: 'Reddit Sans', sans-serif; 
+}
+
+.filterBtn:hover {
+  border-color: #999;
+  color: #333;            
+  background-color: #f2f2f2;
+}
+
+/* --- Active Filters Tags --- */
+.activeFilters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px dashed #eee;
+  margin-top: 4px;
+}
+
+.tag {
+  background-color: #fff5e0;
+  border: 1px solid #ffba00;
+  color: #d35400;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d35400;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 0;
+  display: flex;
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+/* --- Dropdown Styles Cơ Bản (Dùng cho Khu vực) --- */
+.dropdownBase {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  padding: 8px;
+  border-radius: 8px;
+  min-width: 200px;
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.listDropdown {
+  composes: dropdownBase;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  border-radius: 4px;
+}
+
+.option:hover {
+  background-color: #f2f2f2;
+}
+
+/* =========================================
+   🔥 [NEW] MENU DANH MỤC 2 CỘT (FLYOUT)
+   ========================================= */
+.categoryDropdownWrapper {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  z-index: 200;
+  border: 1px solid #eee;
+  display: flex; /* Xếp 2 cột ngang hàng */
+  overflow: hidden;
+  font-family: 'Reddit Sans', sans-serif;
+  min-width: 480px; /* Đủ rộng cho 2 cột */
+  min-height: 320px;
+}
+
+/* CỘT TRÁI: DANH MỤC CHA */
+.leftColumn {
+  width: 200px;
+  background-color: #f8f9fa; /* Màu nền xám nhẹ */
+  border-right: 1px solid #eee;
+  overflow-y: auto;
+  max-height: 450px;
+  padding: 4px 0;
+}
+
+.parentItem {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.parentItem:hover, .parentItem.active {
+  background-color: #fff;
+  color: #d35400; /* Màu cam đậm */
+  font-weight: 500;
+  /* Hiệu ứng chìmm vào cột phải */
+  box-shadow: -2px 0 0 #d35400 inset; 
+}
+
+/* CỘT PHẢI: DANH MỤC CON */
+.rightColumn {
+  flex: 1; /* Chiếm hết phần còn lại */
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 450px;
+  background-color: #fff;
+}
+
+.subHeader {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  padding-left: 8px;
+  color: #222;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+
+.subItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #555;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  transition: background 0.2s;
+}
+
+.subItem:hover {
+  background-color: #fff5e0; /* Nền cam rất nhạt */
+  color: #d35400;
+}
+
+/* ========================================= */
+
+.priceDropdown {
+  composes: dropdownBase;
+  width: 320px;
+  padding: 16px;
+}
+
+.priceInputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.applyBtn {
+  background-color: #ffba00;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: 'Reddit Sans', sans-serif;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  color: #777;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'Reddit Sans', sans-serif;
+}

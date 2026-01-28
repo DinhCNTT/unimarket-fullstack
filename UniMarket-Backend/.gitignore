@@ -1,0 +1,33 @@
+﻿# Bỏ qua các tệp do người dùng Visual Studio tự định nghĩa
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Bỏ qua các tệp .vs (Đây chính là thư mục bạn muốn!)
+.vs/
+
+# Bỏ qua các thư mục build
+[Bb]in/
+[Oo]bj/
+[Rr]elease/
+[Dd]ebug/
+
+# Bỏ qua các tệp tạm thời khác
+*.cache
+*.exe
+*.dll
+*.pdb
+*.obj
+*.o
+*.a
+*.lib
+
+# .gitignore
+appsettings*.json
+
+# Ignore uploaded images and temporary uploads under wwwroot
+/UniMarket/wwwroot/images/temp-uploads/
+/UniMarket/wwwroot/images/categories/*_download.*
+# Bỏ qua file AI Model
+UniMarket/wwwroot/AIModels/video_recommender.zip

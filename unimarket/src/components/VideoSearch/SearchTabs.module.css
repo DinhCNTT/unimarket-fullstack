@@ -1,0 +1,58 @@
+/* Menu Container */
+.menu {
+  margin-top: 30px;
+  position: relative; 
+  display: flex;
+  justify-content: flex-start; 
+  gap: 30px; 
+  width: 100%; 
+  margin-bottom: 20px; 
+  padding: 0 10px 10px 10px;
+  
+  /* Đã sửa: Dùng biến border-color */
+  border-bottom: 1px solid var(--theme-border-color); 
+  
+  background-color: transparent; 
+  box-shadow: none; 
+  border-radius: 0; 
+  border: none; /* Lưu ý: dòng này đang ghi đè border-bottom ở trên, bạn nên bỏ dòng này hoặc sửa lại */
+  /* Sửa lại cho đúng logic border dưới đây */
+  border-bottom: 1px solid var(--theme-border-color);
+
+  font-size: 18px;
+  font-weight: 600;
+  z-index: 10;
+}
+
+/* Menu Item (Trạng thái bình thường) */
+.menuItem {
+  cursor: pointer;
+  position: relative;
+  padding: 8px 0; 
+  
+  /* Đã sửa: Dùng màu chữ phụ (màu xám) */
+  color: var(--theme-text-secondary); 
+  
+  transition: color 0.3s ease;
+}
+
+/* Menu Item (Hover hoặc đang chọn) */
+.menuItem:hover, .active {
+  /* Đã sửa: Dùng màu chữ chính (Đen ở sáng, Trắng ở tối) */
+  color: var(--theme-text-primary); 
+}
+
+/* Thanh gạch chân (Underline) */
+.underline {
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  height: 3px; 
+  
+  /* Đã sửa: Dùng màu chữ chính (hoặc bạn có thể dùng var(--theme-accent-color) nếu muốn màu cam) */
+  background: var(--theme-text-primary); 
+  
+  border-radius: 2px;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none;
+}

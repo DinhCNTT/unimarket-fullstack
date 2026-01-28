@@ -1,0 +1,185 @@
+/* Container chính của trang */
+.container {
+    padding: 30px;
+    background-color: #f8f9fa; /* Màu nền xám nhẹ hiện đại */
+    min-height: 100vh;
+    font-family: 'Reddit Sans', sans-serif;
+    color: #333;
+}
+
+/* Phần Header tiêu đề */
+.header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #ffca00; /* Gạch chân màu vàng */
+    margin: 8px auto 0;
+    border-radius: 2px;
+}
+
+/* Card chứa Form */
+.card {
+    background: #ffffff;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Đổ bóng mềm */
+    border: 1px solid #eaeaea;
+}
+
+/* Grid Layout cho Form */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Chia làm 2 cột bằng nhau */
+    gap: 20px 25px; /* Khoảng cách hàng và cột */
+}
+
+/* Class tiện ích để input chiếm hết chiều ngang (ví dụ: nút submit, search box) */
+.fullWidth {
+    grid-column: span 2;
+}
+
+/* Nhóm Input */
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa icon và chữ label */
+}
+
+/* Wrapper để chứa Input và Icon bên trong */
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Icon nằm bên trái trong Input */
+.inputIcon {
+    position: absolute;
+    left: 14px;
+    color: #999;
+    font-size: 16px;
+    z-index: 1;
+    transition: color 0.3s;
+}
+
+/* Style chung cho Input và Select HTML chuẩn */
+.input {
+    width: 100%;
+    padding: 12px 14px 12px 42px; /* Padding trái lớn để tránh đè lên icon */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    outline: none;
+    color: #333;
+}
+
+/* Hiệu ứng khi focus vào input */
+.input:focus {
+    border-color: #ffca00;
+    box-shadow: 0 0 0 4px rgba(255, 202, 0, 0.15); /* Hiệu ứng glow vàng */
+}
+
+/* Khi focus vào input thì icon bên trong cũng sáng lên */
+.input:focus + .inputIcon,
+.inputWrapper:focus-within .inputIcon {
+    color: #ffca00;
+}
+
+/* Nút ẩn hiện mật khẩu */
+.togglePass {
+    position: absolute;
+    right: 14px;
+    cursor: pointer;
+    color: #999;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.togglePass:hover {
+    color: #ffca00;
+}
+
+/* Nút Submit */
+.btnSubmit {
+    margin-top: 15px;
+    width: 100%;
+    padding: 15px;
+    background-color: #ffca00;
+    color: #222; /* Chữ đen trên nền vàng cho dễ đọc */
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 202, 0, 0.3);
+}
+
+.btnSubmit:hover {
+    background-color: #e6b600; /* Vàng đậm hơn khi hover */
+    transform: translateY(-2px); /* Nổi lên nhẹ */
+    box-shadow: 0 6px 20px rgba(255, 202, 0, 0.4);
+}
+
+.btnSubmit:active {
+    transform: translateY(0);
+}
+
+/* --- Responsive Mobile --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    /* Trên mobile chuyển về 1 cột */
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .fullWidth {
+        grid-column: span 1;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+}

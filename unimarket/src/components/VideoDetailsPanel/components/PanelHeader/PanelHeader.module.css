@@ -1,0 +1,14 @@
+.header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 12px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--theme-border-color);
+}
+.header h3 {
+  font-size: 20px; font-weight: 700; color: var(--theme-text-primary);
+  margin: 0; letter-spacing: -0.025em;
+}
+.closeBtn {
+  cursor: pointer; color: var(--theme-text-secondary);
+  transition: color 0.2s ease; display: flex; align-items: center; justify-content: center;
+}
+.closeBtn:hover { color: var(--theme-text-primary); }

@@ -1,0 +1,296 @@
+/* Container chính: Giới hạn khung nhìn và chia layout dọc */
+.container {
+  width: 358px;           /* GIỮ NGUYÊN */
+  height: 100vh;          /* GIỮ NGUYÊN */
+  background: #ffffff;    /* GIỮ NGUYÊN */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;       /* GIỮ NGUYÊN */
+  
+  /* --- THÊM MỚI: Font chữ hệ thống chuẩn đẹp --- */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased; /* Giúp chữ mượt hơn trên Mac */
+}
+
+/* --- Phần Header & Bộ lọc --- */
+.header {
+  padding: 16px 16px 8px 16px; /* GIỮ NGUYÊN */
+  flex-shrink: 0;        
+  border-bottom: 1px solid #eee;
+}
+
+.title {
+  font-size: 20px;       /* GIỮ NGUYÊN */
+  font-weight: 600;      /* SỬA: Giảm từ 700 xuống 600 cho thanh thoát */
+  margin: 0 0 12px 0;
+  color: #161823;        /* Màu đen chuẩn TikTok */
+  letter-spacing: -0.5px; /* Thu hẹp khoảng cách chữ một chút cho gọn */
+}
+
+/* Container chứa các nút lọc (Scroll ngang) */
+.filterScroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;      
+  white-space: nowrap;   
+  padding-bottom: 4px;   
+  
+  /* Ẩn thanh scrollbar */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;  
+}
+.filterScroll::-webkit-scrollbar {
+  display: none; 
+}
+
+/* Container chứa các nút lọc (Dạng wrap nếu cần) */
+.filters {
+  display: flex;
+  gap: 10px;        
+  row-gap: 10px;    
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+}
+
+/* Nút lọc (Hình viên thuốc) */
+.pill {
+  border: none;
+  padding: 6px 16px;      /* GIỮ NGUYÊN */
+  border-radius: 99px;    /* GIỮ NGUYÊN */
+  
+  /* SỬA: Font chữ nhỏ gọn hơn */
+  font-size: 13px;        /* Giảm từ 14px xuống 13px */
+  font-weight: 600;       /* Chữ đậm vừa phải */
+  
+  cursor: pointer;
+  flex-shrink: 0;        
+  
+  background: #f1f1f2;
+  color: #161823;
+  transition: all 0.2s;
+  font-family: inherit;   /* Kế thừa font đẹp từ container */
+}
+
+.pill.active {
+  background: #161823;
+  color: #ffffff;
+}
+
+/* --- Phần Danh sách Thông báo --- */
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 8px;
+  min-height: 0;
+  overscroll-behavior: contain; 
+}
+
+.list::-webkit-scrollbar {
+  width: 6px; 
+}
+
+/* Nền của thanh cuộn */
+.list::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+/* Thanh trượt */
+.list::-webkit-scrollbar-thumb {
+  background-color: rgba(22, 24, 35, 0.2); 
+  border-radius: 3px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(22, 24, 35, 0.4); 
+}
+
+/* Item từng thông báo */
+.item {
+  display: flex;
+  align-items: flex-start; 
+  padding: 12px 16px;     /* GIỮ NGUYÊN */
+  gap: 12px;              /* GIỮ NGUYÊN */
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.item:hover {
+  background-color: #f8f8f8;
+}
+
+/* Item chưa đọc (Nếu bạn dùng class này) */
+.item.unread {
+  background-color: rgba(22, 24, 35, 0.03); /* Nền hơi xám nhẹ để phân biệt */
+}
+
+/* Avatar */
+.avatar {
+  width: 48px;            /* GIỮ NGUYÊN */
+  height: 48px;           /* GIỮ NGUYÊN */
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;         
+  border: 1px solid rgba(0,0,0,0.05); /* Thêm viền mờ cực nhẹ cho ảnh đẹp hơn */
+}
+
+/* Nội dung Text */
+.contentWrapper {
+  flex: 1;                
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  /* SỬA: Tinh chỉnh chữ nội dung */
+  font-size: 14px;        /* Giữ 14px chuẩn, nhưng đổi font-family sẽ thấy gọn hơn */
+  line-height: 1.4;       /* Khoảng cách dòng thoáng dễ đọc */
+  padding-right: 8px;     /* GIỮ NGUYÊN */
+  color: #333;            /* Màu chữ đen dịu (không đen kịt) */
+}
+
+.username {
+  font-weight: 600;       /* SỬA: 600 (Semibold) thay vì 700 (Bold) */
+  margin-right: 4px;
+  color: #161823;         /* Đen đậm cho tên */
+}
+
+.time {
+  font-size: 12px;        /* GIỮ NGUYÊN */
+  color: #8a8b91;         /* Màu xám chuẩn */
+  margin-top: 4px;
+}
+
+/* Phần bên phải */
+.rightSection {
+  flex-shrink: 0;        
+  display: flex;
+  align-items: center;
+  height: 48px;           /* GIỮ NGUYÊN */
+}
+
+.postThumb {
+  width: 42px;            /* GIỮ NGUYÊN */
+  height: 56px;           /* GIỮ NGUYÊN */
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.btnFollow {
+  padding: 6px 16px;      /* GIỮ NGUYÊN */
+  border-radius: 4px;
+  
+  /* SỬA: Font chữ nút */
+  font-weight: 600;
+  font-size: 13px;        /* Nhỏ gọn hơn 14px một chút */
+  
+  border: none;
+  background: #fe2c55; 
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Trạng thái chưa đọc */
+.unreadDot {
+  width: 8px;             /* GIỮ NGUYÊN */
+  height: 8px;            /* GIỮ NGUYÊN */
+  background-color: #fe2c55;
+  border-radius: 50%;
+  margin-left: auto;      
+  flex-shrink: 0;
+}
+/* --- Cập nhật Nút Follow Back (Vàng cam - Nhỏ gọn) --- */
+
+.followBtn {
+  padding: 5px 12px;         
+  min-width: 80px;          
+  font-size: 12px;           
+  border-radius: 6px;        
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  background: linear-gradient(90deg, #FFC107 0%, #FF9800 100%);
+  color: #ffffff;            
+  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.25); 
+  transition: all 0.2s ease;
+}
+
+.followBtn:hover {
+  background: linear-gradient(90deg, #FFCA28 0%, #FFA726 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.35);
+}
+
+.followBtn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* --- Cập nhật Nút Friends (Cho đồng bộ kích thước) --- */
+.friendBtn {
+  padding: 5px 12px;         
+  min-width: 80px;         
+  font-size: 12px;           
+  border-radius: 6px;
+  font-weight: 600;
+  border: 1px solid #e3e3e4;
+  background: #f1f1f2;
+  color: #161823;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: background 0.2s;
+}
+
+.friendBtn:hover {
+  background: #e8e8e8;
+}
+
+.friendIcon {
+  width: 12px; 
+  height: 12px;
+  fill: currentColor;
+}
+.actionButtons {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.confirmBtn {
+  background-color: #0095f6; /* Màu xanh Facebook/Instagram */
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.confirmBtn:hover {
+  background-color: #0082d6;
+}
+
+.deleteBtn {
+  background-color: #efefef; /* Màu xám nhạt */
+  color: black;
+  border: 1px solid #dbdbdb;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.deleteBtn:hover {
+  background-color: #e0e0e0;
+}

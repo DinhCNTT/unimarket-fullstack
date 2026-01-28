@@ -1,0 +1,273 @@
+/* Tổng thể trang */
+.page {
+    font-family: 'Reddit Sans', sans-serif;
+    padding: 30px;
+    background-color: #f8f9fa; /* Nền xám nhạt cực nhẹ cho sang */
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    color: #333;
+}
+
+/* Tiêu đề chính */
+.title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.titleIcon {
+    color: #ffca00;
+}
+
+/* Layout chia 2 cột: Trái (Form) - Phải (Bảng) */
+.content {
+    display: grid;
+    grid-template-columns: 400px 1fr; /* Cột form rộng 400px, cột bảng chiếm hết phần còn lại */
+    gap: 30px;
+    align-items: start;
+}
+
+/* Khung Card trắng */
+.card {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); /* Đổ bóng nhẹ hiện đại */
+    border: 1px solid #eee;
+}
+
+.cardHeader {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #444;
+}
+
+/* Group nhập liệu */
+.formGroup {
+    margin-bottom: 20px;
+}
+
+.formGroup label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Input text */
+.input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #ffca00;
+    box-shadow: 0 0 0 4px rgba(255, 202, 0, 0.1);
+}
+
+/* Input file */
+.fileInput {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    color: #666;
+    border: 1px dashed #ccc; /* Đường viền đứt đoạn cho file */
+    border-radius: 10px;
+    background: #fafafa;
+    cursor: pointer;
+}
+
+/* Nút Submit chính */
+.submitBtn {
+    width: 100%;
+    padding: 14px;
+    background-color: #ffca00;
+    color: #333;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+
+.submitBtn:hover {
+    background-color: #e6b600;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 182, 0, 0.3);
+}
+
+.submitBtn:active {
+    transform: translateY(0);
+}
+
+/* Bảng danh sách */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table th {
+    text-align: left;
+    padding: 16px;
+    background: #fdfdfd;
+    border-bottom: 2px solid #ffca00; /* Điểm nhấn màu vàng ở header */
+    color: #888;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+    font-size: 15px;
+    vertical-align: middle;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover td {
+    background-color: #fffdf5; /* Highlight hàng khi hover */
+}
+
+/* Khu vực nút xem trước */
+.previewActions {
+    display: flex;
+    gap: 8px;
+}
+
+.btnPreview {
+    background: #f1f3f5;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    transition: all 0.2s;
+}
+
+.btnPreview:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* --- MODAL PREVIEW --- */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px); /* Làm mờ nền cực đẹp */
+    animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+    background: white;
+    padding: 30px;
+    border-radius: 24px;
+    position: relative;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease;
+}
+
+.modalContent h4 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    color: #222;
+}
+
+.previewImg {
+    max-width: 100%;
+    max-height: 350px;
+    border-radius: 12px;
+    object-fit: contain;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f1f3f5;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.closeBtn:hover {
+    background: #ff4d4f;
+    color: white;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 1100px) {
+    .content {
+        grid-template-columns: 1fr; /* Chuyển thành 1 cột nếu màn hình hẹp */
+    }
+    
+    .card {
+        max-width: 100%;
+    }
+}

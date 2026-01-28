@@ -1,0 +1,36 @@
+# Build artifacts
+bin/
+obj/
+
+# IDE / Editor
+.vs/
+.vscode/
+.idea/
+
+# User / OS files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Logs & temp
+*.log
+*.tmp
+
+# Test results
+TestResults/
+
+# Certificates
+*.pfx
+*.crt
+*.key

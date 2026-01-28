@@ -1,0 +1,359 @@
+/* ProductItem.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@300;400;500;700&display=swap');
+
+
+/* === STYLE CHUNG === */
+.item {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  font-family: 'Reddit Sans', sans-serif;
+  position: relative;
+}
+
+
+.item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+
+.content {
+  display: flex;
+}
+
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.noImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  color: #999;
+  font-size: 12px;
+}
+/* Tìm đến lớp .time (khoảng dòng 46) và cập nhật như sau: */
+.time {
+  position: absolute;
+  z-index: 10;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  line-height: normal;
+  pointer-events: none;
+
+
+  /* --- THÊM/SỬA CÁC DÒNG NÀY --- */
+  bottom: 0;             /* Sát mép dưới */
+  left: 0;               /* Sát mép trái */
+  border-top-right-radius: 8px; /* Bo góc trên bên phải để tạo hình nhãn */
+}
+
+
+/* Info Section */
+.info {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+/* Container cho phần trên (Title, Specs, Price) */
+.infoTop {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.itemTitle {
+  font-weight: 500;
+  color: #222;
+  margin: 0 0 2px 0; /* Giảm margin bottom để gần dòng specs hơn */
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 15px; /* Điều chỉnh font size tiêu chuẩn */
+}
+
+
+/* --- [MỚI] Style cho dòng thông số (Ram, Dòng máy, Bảo hành) --- */
+.itemSpecs {
+  font-size: 13px;       /* Font nhỏ hơn title */
+  color: #888;           /* Màu xám nhạt giống hình mẫu */
+  margin-bottom: 4px;
+  margin-top: 3px;   /* Cách giá tiền một chút */
+  white-space: nowrap;   /* Giữ trên 1 dòng */
+  overflow: hidden;      /* Ẩn nếu quá dài */
+  text-overflow: ellipsis; /* Hiện dấu ... nếu dài quá khung */
+  line-height: 1.5;
+}
+
+
+.price {
+  font-weight: 700;
+  color: #d0021b; /* Màu đỏ đậm hơn chút cho nổi bật giá */
+  margin: 2px 0 6px 0;
+  font-size: 16px;
+}
+
+
+/* Footer Section */
+.bottomFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+
+.locationRow {
+  display: flex;
+  align-items: center;
+  color: #9b9b9b;
+  font-size: 12px;
+}
+
+
+.locationIcon {
+  margin-right: 4px;
+  color: #9b9b9b;
+  min-width: 14px;
+}
+
+
+.locationText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+
+.userAvatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.userName {
+  font-size: 12px;
+  color: #666;
+  font-weight: 400;
+}
+
+
+/* =========================================
+   MODE 1: LIST MODE (Dạng danh sách ngang)
+   ========================================= */
+.listMode {
+  border: 1px solid #f0f0f0;
+}
+
+
+.listMode .content {
+  flex-direction: row;
+  height: 190px;
+}
+
+
+.listMode .imageContainer {
+  flex: 0 0 165px;
+  height: 165px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+
+.listMode .time {
+  bottom: 0;
+  left: 0;
+  border-top-right-radius: 8px;
+}
+
+
+.listMode .info {
+  padding: 10px 16px 12px 16px; /* Padding bạn đã chỉnh ở bước trước */
+  justify-content: flex-start;
+}
+
+
+.listMode .itemTitle {
+  font-size: 16px;
+  -webkit-line-clamp: 1; /* Ở list mode tiêu đề thường 1 dòng cho gọn */
+}
+.listMode .bottomFooter {
+  margin-top: 20px;
+  gap: 15px
+}
+
+
+.listMode .price {
+  font-size: 17px;
+  margin-bottom: auto;
+}
+
+
+/* =========================================
+   MODE 2: GRID MODE (Dạng lưới dọc)
+   ========================================= */
+.gridMode {
+  border: 1px solid transparent; /* Tránh giật layout khi hover border */
+  height: 100%;
+}
+
+
+.gridMode:hover {
+    border-color: #f0f0f0;
+}
+
+
+.gridMode .content {
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.gridMode .imageContainer {
+  width: 100%;
+  height: 217px;
+  margin-right: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  flex: none;
+  position: relative;
+}
+
+
+.gridMode .time {
+  top: auto;    /* Hủy bỏ giá trị top */
+  right: auto;  /* Hủy bỏ giá trị right */
+  bottom: 0;
+  left: 0;
+  border-radius: 0 8px 0 0; /* Chỉ bo góc trên bên phải */
+}
+
+
+.gridMode .bottomFooter {
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+
+/* Ẩn User Row khi ở Grid Mode (theo code cũ của bạn) */
+.gridMode .userRow {
+  display: none;
+}
+/* Thêm vào ProductItem.module.css */
+
+
+.saveHeartBtn {
+  position: absolute;
+  z-index: 25; /* Cao hơn ảnh và nhãn thời gian */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.saveHeartBtn:hover {
+  transform: scale(1.2);
+}
+
+
+.heartIcon {
+  font-size: 20px;
+}
+
+
+/* Màu khi chưa lưu */
+.notSaved {
+  color: rgba(255, 255, 255, 0.8);
+  /* Đổ bóng để thấy được tim trắng trên nền ảnh sáng */
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+
+/* Màu khi đã lưu */
+.saved {
+  color: #e5193b;
+}
+
+
+/* =========================================
+   VỊ TRÍ THEO CHẾ ĐỘ
+   ========================================= */
+
+
+/* 1. GRID MODE: Góc trên bên phải của ảnh (Hình 1) */
+.gridMode .saveHeartBtn {
+  top: 10px;
+  right: 10px;
+}
+
+
+/* 2. LIST MODE: Góc dưới sát bên phải (Hình 2 & 3) */
+.listMode .saveHeartBtn {
+  bottom: 15px;
+  right: 15px;
+}
+
+
+/* Điều chỉnh màu tim ở List Mode nếu nền trắng khó thấy */
+.listMode .notSaved {
+  color: #ccc;
+  filter: none; /* Bỏ đổ bóng nếu nền đã sáng rõ */
+}
+.listMode .notSaved:hover {
+  color: #999;
+}
+/* --- Hiệu ứng Tim Đập khi Click --- */
+.saved .heartIcon {
+  animation: heartbeat 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
