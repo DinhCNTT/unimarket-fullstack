@@ -1060,7 +1060,7 @@ Nếu bạn thấy dự án này hữu ích hoặc ấn tượng, hãy cho mình
 
 <div align="center">
 
-**Made with ❤️ and lots of ☕ by Đoàn Tuệ Định**
+**Made with ❤️ and lots of ☕ by My Team**
 
 *UniMarket - Where Social Meets Commerce* 🛒🎥💬
 
