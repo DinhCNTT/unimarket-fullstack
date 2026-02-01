@@ -1029,38 +1029,56 @@ Nếu bạn muốn đóng góp cho dự án:
 
 ---
 
+## � Contributors
+
+Dự án **UniMarket** được phát triển bởi nhóm sinh viên với kinh nghiệm **Full-Stack Development** toàn diện - từ thiết kế database, UI/UX, backend API đến tích hợp AI/ML:
+
+### Core Team
+
+<div align="center">
+
+| Thành viên | GitHub | Vai trò & Đóng góp chính |
+|------------|--------|--------------------------|
+| **Cao Hoàng Lâm** | [@caolam23](https://github.com/caolam23) | **Full-Stack Developer &amp; AI/ML Engineer**<br/>🤖 ML.NET Implementation - Matrix Factorization cho collaborative filtering<br/>🎥 AI Recommendation System - Gợi ý video/tin đăng dựa trên user behavior<br/>📊 User Behavior Analytics - Phân tích hành vi người dùng với MongoDB |
+| **Đoàn Tuệ Định** | [@DinhCNTT](https://github.com/DinhCNTT) | **Full-Stack Developer &amp; DevOps Lead**<br/>💹 AI Price Analysis - Phân tích xu hướng giá thị trường &amp; gợi ý khoảng giá (IQR algorithm)<br/>📈 Data Visualization - Biểu đồ phân tích giá &amp; histogram insights<br/>🐳 Docker Integration - Multi-stage containerization &amp; orchestration |
+| **Phan Sỹ Thanh** | [@PhanSyThanh](https://github.com/PhanSyThanh) | **Full-Stack Developer &amp; AI Integration Specialist**<br/>💬 External AI API Integration - Tích hợp APIs AI bên ngoài vào hệ thống chat<br/>🧠 Chatbot &amp; NLP - Natural Language Processing cho chat features<br/>🔌 Third-party Services - Integration patterns &amp; API orchestration |
+
+</div>
+
+### Team Expertise
+
+Cả 3 thành viên đều có kinh nghiệm **end-to-end development**:
+
+- ✅ **Database Design**: SQL Server + MongoDB schema design &amp; optimization
+- ✅ **Backend Development**: ASP.NET Core, RESTful APIs, SignalR real-time
+- ✅ **Frontend Development**: React 19, responsive UI/UX, modern design patterns
+- ✅ **AI/ML Implementation**: ML.NET recommendation engine, behavior analytics, price prediction algorithms
+
+---
+
 ## 📄 License
 
 Dự án này được phát hành dưới giấy phép **MIT License**.
 
 ---
 
-## 👨‍💻 Author
-
-**Đoàn Tuệ Định**  
-📧 Email: dinhcm123321@gmail.com  
-🔗 GitHub: [@DinhCNTT](https://github.com/DinhCNTT)  
-💼 LinkedIn: [linkedin.com/in/dinh-doan](#) *(Cập nhật link LinkedIn của bạn)*
-
----
-
 ## ⭐ Support
 
-Nếu bạn thấy dự án này hữu ích hoặc ấn tượng, hãy cho mình 1 ⭐ trên GitHub nhé! 🙏
+Nếu bạn thấy dự án này hữu ích hoặc ấn tượng, hãy cho chúng mình 1 ⭐ trên GitHub nhé! 🙏
 
 **Dự án này thể hiện:**
 - Kỹ năng Full-Stack Development chuyên sâu
 - Khả năng xây dựng ứng dụng real-time phức tạp
 - Hiểu biết về AI/ML integration
 - DevOps và containerization
-- Database design & optimization
-- Clean code & architecture
+- Database design &amp; optimization
+- Clean code &amp; architecture
 
 ---
 
 <div align="center">
 
-**Made with ❤️ and lots of ☕ by Đoàn Tuệ Định**
+**Made with ❤️ and lots of ☕ by UniMarket Team**
 
 *UniMarket - Where Social Meets Commerce* 🛒🎥💬
 
