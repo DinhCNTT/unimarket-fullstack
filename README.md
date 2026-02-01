@@ -1053,7 +1053,6 @@ Cả 3 thành viên đều có kinh nghiệm **end-to-end development**:
 - ✅ **Backend Development**: ASP.NET Core, RESTful APIs, SignalR real-time
 - ✅ **Frontend Development**: React 19, responsive UI/UX, modern design patterns
 - ✅ **AI/ML Implementation**: ML.NET recommendation engine, behavior analytics, price prediction algorithms
-- ✅ **DevOps**: Docker, containerization, CI/CD workflows
 
 ---
 
