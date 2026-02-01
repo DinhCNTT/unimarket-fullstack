@@ -1031,7 +1031,7 @@ Nếu bạn muốn đóng góp cho dự án:
 
 ## � Contributors
 
-Dự án **UniMarket** được phát triển bởi nhóm sinh viên với kinh nghiệm **Full-Stack Development** toàn diện - từ thiết kế database, UI/UX, backend API đến tích hợp AI/ML:
+**UniMarket** là dự án được phát triển bởi nhóm sinh viên, tập trung áp dụng kiến thức **Full-Stack Development** vào thực tế, bao gồm thiết kế cơ sở dữ liệu, UI/UX, xây dựng backend API và thử nghiệm tích hợp các tính năng AI/ML cơ bản
 
 ### Core Team
 
