@@ -1039,9 +1039,9 @@ Dự án **UniMarket** được phát triển bởi nhóm sinh viên với kinh 
 
 | Thành viên | GitHub | Vai trò & Đóng góp chính |
 |------------|--------|--------------------------|
-| **Cao Hoàng Lâm** | [@caolam23](https://github.com/caolam23) | **Full-Stack Developer &amp; AI/ML Engineer**<br/>🤖 ML.NET Implementation - Matrix Factorization cho collaborative filtering<br/>🎥 AI Recommendation System - Gợi ý video/tin đăng dựa trên user behavior<br/>📊 User Behavior Analytics - Phân tích hành vi người dùng với MongoDB |
-| **Đoàn Tuệ Định** | [@DinhCNTT](https://github.com/DinhCNTT) | **Full-Stack Developer &amp; DevOps Lead**<br/>💹 AI Price Analysis - Phân tích xu hướng giá thị trường &amp; gợi ý khoảng giá (IQR algorithm)<br/>📈 Data Visualization - Biểu đồ phân tích giá &amp; histogram insights<br/>🐳 Docker Integration - Multi-stage containerization &amp; orchestration |
-| **Phan Sỹ Thanh** | [@PhanSyThanh](https://github.com/PhanSyThanh) | **Full-Stack Developer &amp; AI Integration Specialist**<br/>💬 External AI API Integration - Tích hợp APIs AI bên ngoài vào hệ thống chat<br/>🧠 Chatbot &amp; NLP - Natural Language Processing cho chat features<br/>🔌 Third-party Services - Integration patterns &amp; API orchestration |
+| **Cao Hoàng Lâm** | [@caolam23](https://github.com/caolam23) | **Full-Stack Developer & AI/ML Engineer**<br/>🤖 ML.NET Implementation - Matrix Factorization cho collaborative filtering<br/>🎥 AI Recommendation System - Gợi ý video/tin đăng dựa trên user behavior<br/>📊 User Behavior Analytics - Phân tích hành vi người dùng với MongoDB |
+| **Đoàn Tuệ Định** | [@DinhCNTT](https://github.com/DinhCNTT) | **Full-Stack Developer & DevOps Lead**<br/>💹 AI Price Analysis - Phân tích xu hướng giá thị trường & gợi ý khoảng giá (IQR algorithm)<br/>📈 Data Visualization - Biểu đồ phân tích giá & histogram insights<br/>🐳 Docker Integration - Multi-stage containerization & orchestration |
+| **Phan Sỹ Thanh** | [@PhanSyThanh](https://github.com/PhanSyThanh) | **Full-Stack Developer & AI Integration Specialist**<br/>💬 External AI API Integration - Tích hợp APIs AI bên ngoài vào hệ thống chat<br/>🧠 Chatbot & NLP - Natural Language Processing cho chat features<br/>🔌 Third-party Services - Integration patterns & API orchestration |
 
 </div>
 
@@ -1049,10 +1049,11 @@ Dự án **UniMarket** được phát triển bởi nhóm sinh viên với kinh 
 
 Cả 3 thành viên đều có kinh nghiệm **end-to-end development**:
 
-- ✅ **Database Design**: SQL Server + MongoDB schema design &amp; optimization
+- ✅ **Database Design**: SQL Server + MongoDB schema design & optimization
 - ✅ **Backend Development**: ASP.NET Core, RESTful APIs, SignalR real-time
 - ✅ **Frontend Development**: React 19, responsive UI/UX, modern design patterns
 - ✅ **AI/ML Implementation**: ML.NET recommendation engine, behavior analytics, price prediction algorithms
+- ✅ **DevOps**: Docker, containerization, CI/CD workflows
 
 ---
 
@@ -1071,8 +1072,8 @@ Nếu bạn thấy dự án này hữu ích hoặc ấn tượng, hãy cho chún
 - Khả năng xây dựng ứng dụng real-time phức tạp
 - Hiểu biết về AI/ML integration
 - DevOps và containerization
-- Database design &amp; optimization
-- Clean code &amp; architecture
+- Database design & optimization
+- Clean code & architecture
 
 ---
 
