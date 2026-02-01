@@ -1029,7 +1029,35 @@ Nếu bạn muốn đóng góp cho dự án:
 
 ---
 
-## 📄 License
+## � Contributors
+
+Dự án **UniMarket** được phát triển bởi nhóm sinh viên với kinh nghiệm **Full-Stack Development** toàn diện - từ thiết kế database, UI/UX, backend API đến tích hợp AI/ML:
+
+### Core Team
+
+<div align="center">
+
+| Thành viên | GitHub | Vai trò & Đóng góp chính |
+|------------|--------|--------------------------|
+| **Cao Hoàng Lâm** | [@caolam23](https://github.com/caolam23) | **Full-Stack Developer & AI/ML Engineer**<br/>🤖 Machine Learning - Thuật toán phân tích hành vi người dùng<br/>🎥 AI Recommendation System - Gợi ý video/tin đăng dựa trên user behavior<br/>📊 Deep Learning - Neural network cho content recommendation |
+| **Đoàn Tuệ Định** | [@DinhCNTT](https://github.com/DinhCNTT) | **Full-Stack Developer & DevOps Lead**<br/>💹 AI Price Analysis - Phân tích xu hướng giá thị trường & gợi ý khoảng giá<br/>📈 Data Visualization - Biểu đồ phân tích giá & insights<br/>🐳 Docker Integration - Containerization & deployment automation |
+| **Phan Sỹ Thanh** | [@PhanSyThanh](https://github.com/PhanSyThanh) | **Full-Stack Developer & AI Integration Specialist**<br/>💬 External AI API Integration - Tích hợp APIs AI bên ngoài vào hệ thống chat<br/>🧠 Chatbot & NLP - Natural Language Processing cho chat features<br/>🔌 Third-party Services - Integration patterns & API orchestration |
+
+</div>
+
+### Team Expertise
+
+Cả 3 thành viên đều có kinh nghiệm **end-to-end development**:
+
+- ✅ **Database Design**: SQL Server + MongoDB schema design & optimization
+- ✅ **Backend Development**: ASP.NET Core, RESTful APIs, SignalR real-time
+- ✅ **Frontend Development**: React 19, responsive UI/UX, modern design patterns
+- ✅ **AI/ML Implementation**: Recommendation engines, behavior analytics, price prediction
+- ✅ **DevOps**: Docker, containerization, CI/CD workflows
+
+---
+
+## �📄 License
 
 Dự án này được phát hành dưới giấy phép **MIT License**.
 
@@ -1060,7 +1088,7 @@ Nếu bạn thấy dự án này hữu ích hoặc ấn tượng, hãy cho mình
 
 <div align="center">
 
-**Made with ❤️ and lots of ☕ by My Team**
+**Made with ❤️ and lots of ☕ by Đoàn Tuệ Định**
 
 *UniMarket - Where Social Meets Commerce* 🛒🎥💬
 
