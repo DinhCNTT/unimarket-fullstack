@@ -1,0 +1,201 @@
+/* src/components/NhaTroPostGrid/NhaTroPostGrid.module.css */
+
+.wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+/* ── Toolbar ── */
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 4px;
+    margin-bottom: 12px;
+}
+
+.resultCount {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.viewToggle {
+    display: flex;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.toggleBtn {
+    background: #fff;
+    border: none;
+    padding: 7px 11px;
+    cursor: pointer;
+    color: #888;
+    display: flex;
+    align-items: center;
+    transition: all 0.15s;
+}
+
+.toggleBtn:hover {
+    background: #f9f9f9;
+    color: #f87d14;
+}
+
+.toggleActive {
+    background: #fff3e8 !important;
+    color: #f87d14 !important;
+}
+
+/* ── Grid layout ── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+/* ── List layout ── */
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ── Empty state ── */
+.empty {
+    text-align: center;
+    padding: 56px 20px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.emptyIcon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.emptyText {
+    font-size: 16px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.emptyHint {
+    font-size: 13px;
+    color: #999;
+}
+
+/* ── Load More ── */
+.loadMoreBtn {
+    display: block;
+    width: 220px;
+    margin: 24px auto 0;
+    padding: 11px;
+    background: transparent;
+    border: 2px solid #f87d14;
+    border-radius: 8px;
+    color: #f87d14;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Reddit Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.loadMoreBtn:hover {
+    background: #f87d14;
+    color: #fff;
+}
+
+/* ── Skeleton Grid ── */
+.skeletonCard {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.skeletonImg {
+    width: 100%;
+    padding-top: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite linear;
+}
+
+/* ── Skeleton List ── */
+.skeletonListCard {
+    display: flex;
+    gap: 12px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 12px;
+}
+
+.skeletonListImg {
+    width: 160px;
+    height: 120px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite linear;
+}
+
+.skeletonListBody {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+}
+
+.skeletonLine {
+    height: 13px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite linear;
+}
+
+@keyframes shimmer {
+    from {
+        background-position: 200% 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

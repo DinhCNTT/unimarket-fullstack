@@ -8,8 +8,8 @@
 }
 
 .container {
-  width: 95%;
-  max-width: 1300px;
+  width: 100%;
+  max-width: 1200px;
   margin: 30px auto;
   display: flex;
   gap: 20px;

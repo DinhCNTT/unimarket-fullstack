@@ -25,21 +25,21 @@ const NhaTroCategories = () => {
 
         // Tìm danh mục cha "Bất động sản"
         const batDongSanParent = allCategories.find(
-          (cat) => cat.tenDanhMucCha && 
-          (cat.tenDanhMucCha.toLowerCase().trim() === "bất động sản" ||
-           cat.tenDanhMucCha.toLowerCase().trim() === "nhà trọ")
+          (cat) => cat.tenDanhMucCha &&
+            (cat.tenDanhMucCha.toLowerCase().trim() === "bất động sản" ||
+              cat.tenDanhMucCha.toLowerCase().trim() === "nhà trọ")
         );
 
         if (batDongSanParent && batDongSanParent.danhMucCon) {
           // Tìm 2 danh mục con chính: "Mua bán" và "Cho Thuê"
           const muaBanCat = batDongSanParent.danhMucCon.find(
-            (sub) => sub.tenDanhMucCon.toLowerCase().includes("mua") || 
-                     sub.tenDanhMucCon.toLowerCase().includes("bán")
+            (sub) => sub.tenDanhMucCon.toLowerCase().includes("mua") ||
+              sub.tenDanhMucCon.toLowerCase().includes("bán")
           );
 
           const choThuesCat = batDongSanParent.danhMucCon.find(
             (sub) => sub.tenDanhMucCon.toLowerCase().includes("cho thuê") ||
-                     sub.tenDanhMucCon.toLowerCase().includes("thuê")
+              sub.tenDanhMucCon.toLowerCase().includes("thuê")
           );
 
           // Nếu không tìm được, lấy 2 cái đầu tiên
@@ -66,7 +66,7 @@ const NhaTroCategories = () => {
   }, []);
 
   const handleSubCategoryClick = (subCategoryName) => {
-    setSelectedCategory("Bất động sản");
+    setSelectedCategory("Nhà trọ");
     setSelectedSubCategory(subCategoryName);
     navigate("/loc-tin-dang");
   };

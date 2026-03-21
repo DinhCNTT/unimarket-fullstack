@@ -1,0 +1,235 @@
+/* src/components/NhaTroPostCard/NhaTroPostCardList.module.css */
+
+.card {
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.link {
+    display: flex;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+/* ── Ảnh trái ── */
+.imageWrap {
+    position: relative;
+    width: 200px;
+    min-width: 200px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 10px 0 0 10px;
+    background: #f0f0f0;
+    flex-shrink: 0;
+}
+
+.media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.card:hover .media {
+    transform: scale(1.04);
+}
+
+.timeTag {
+    position: absolute;
+    bottom: 6px;
+    left: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 2px 6px;
+    border-radius: 4px;
+    backdrop-filter: blur(2px);
+}
+
+.playBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.noImage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #bbb;
+}
+
+/* ── Info phải ── */
+.info {
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.priceRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ff2c45;
+    font-family: 'Reddit Sans', sans-serif;
+    letter-spacing: -0.3px;
+}
+
+.tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    background: #f5f5f5;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #777;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.amenities {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+}
+
+.amenityTag {
+    font-size: 11px;
+    background: #fff3e8;
+    color: #f87d14;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.desc {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+/* HOT badge */
+.hotBadge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 5;
+    background: linear-gradient(90deg, #ff9800, #ff3d00);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 2px 6px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    text-transform: uppercase;
+}
+
+/* Heart btn */
+.heartBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.85);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.heartBtn:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.saved {
+    color: #ff3b3b !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .imageWrap {
+        width: 130px;
+        min-width: 130px;
+        height: 120px;
+    }
+
+    .title {
+        font-size: 13px;
+    }
+
+    .price {
+        font-size: 15px;
+    }
+
+    .desc {
+        display: none;
+    }
+}

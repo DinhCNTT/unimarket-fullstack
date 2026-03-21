@@ -11,7 +11,7 @@ namespace UniMarket.Models
         public DateTime ThoiGianTao { get; set; } = DateTime.UtcNow;
         //cuộc trò chuyện có trống (chưa có tin nhắn nào) hay không
         public bool IsEmpty { get; set; } = true;
-        public int MaTinDang { get; set; }  // lưu mã tin đăng
+        public int? MaTinDang { get; set; }  // lưu mã tin đăng (nullable: cho phép xóa tin đăng mà không ảnh hưởng cuộc trò chuyện)
 
         public string? TieuDeTinDang { get; set; }  // lưu tạm tiêu đề
 

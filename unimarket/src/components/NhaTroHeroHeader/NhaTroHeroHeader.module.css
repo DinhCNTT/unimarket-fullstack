@@ -1,62 +1,29 @@
 /* src/components/NhaTroHeroHeader/NhaTroHeroHeader.module.css */
-
-/* Import font Reddit Sans */
 @import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@300;400;500;600;700&display=swap');
 
 * {
   font-family: 'Reddit Sans', sans-serif;
 }
 
-/* ===== HERO CONTAINER ===== */
-.heroContainer {
+/* =====================================================================
+   HERO WRAPPER
+   NhaTroTopNavbar là position:absolute, height:320px
+   → padding-top: 286px để search card nhô ra 34px (nửa 68px) vào navbar
+   ===================================================================== */
+.heroWrapper {
   position: relative;
   width: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  padding: 12px 24px 5px;
-  margin: 0;
-  margin-top: 170px;
-  min-height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: visible;
+  padding-top: 286px;
+  /* 320px navbar - 34px (nửa card) = 286px */
   z-index: 2200;
-  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.heroOverlay {
-  display: none;
-}
-
-.heroContent {
-  position: relative;
-  z-index: 2;
-  max-width: 1200px;
-  width: 100%;
-  padding: 0 24px 0;
-}
-
-.heroTitle {
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  margin: 0 0 8px 0;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.heroSubtitle {
-  font-size: 28px;
-  color: #ffffff;
-  margin: 0 0 24px 0;
-  font-weight: 600;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
-  letter-spacing: 0.5px;
-}
-
-/* --- SEARCH BAR CONTAINER (CHỢ TỐT STYLE) --- */
+/* =====================================================================
+   SEARCH BAR CARD — floating, nằm ngay mép dưới navbar
+   ===================================================================== */
 .searchBar {
   display: flex;
   align-items: center;
@@ -66,18 +33,18 @@
   background-color: #ffffff;
   border-radius: 16px;
   padding: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
   position: relative;
   transition: all 0.2s ease;
-  margin: 0 auto;
+  margin: 0 24px;
 }
 
 .searchBar:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+  transform: translateY(-2px);
 }
 
-/* --- 1. INPUT WRAPPER (Ô NHẬP TỪ KHÓA) --- */
+/* --- Input wrapper --- */
 .inputWrapper {
   flex: 1;
   display: flex;
@@ -129,7 +96,7 @@
   color: #999;
 }
 
-/* --- SUGGESTIONS DROPDOWN --- */
+/* --- Suggestions --- */
 .suggestionsDropdown {
   position: absolute;
   top: 100%;
@@ -186,7 +153,7 @@
   margin-top: 2px;
 }
 
-/* --- 2. FILTERS CONTAINER (CHỨA NÚT LOCATION & CATEGORY) --- */
+/* --- Filters --- */
 .filtersContainer {
   display: flex;
   align-items: center;
@@ -200,7 +167,6 @@
   align-items: center;
 }
 
-/* --- NÚT CHỌN KHU VỰC (LOCATION) --- */
 .locationBtn {
   display: flex;
   align-items: center;
@@ -229,7 +195,6 @@
   white-space: nowrap;
 }
 
-/* --- NÚT CHỌN LOẠI HÌNH (CATEGORY) --- */
 .filterDropdown {
   display: flex;
   align-items: center;
@@ -272,16 +237,15 @@
   margin-top: 2px;
 }
 
-/* --- DROPDOWN MENUS --- */
 .dropdownMenu {
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
   background: white;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid #eee;
-  z-index: 1000;
+  z-index: 3000;
   min-width: 250px;
   overflow: hidden;
   padding: 8px 0;
@@ -320,10 +284,9 @@
 
 .backOption:hover {
   background-color: #fffbf0;
-  color: #f87d14;
 }
 
-/* --- 3. NÚT TÌM KIẾM (SEARCH BUTTON) --- */
+/* --- Search button --- */
 .searchBtn {
   background-color: #f87d14;
   color: #fff;
@@ -347,17 +310,105 @@
   font-size: 16px;
 }
 
-.scrollBtn {
-  display: none !important;
+.searchBtn:hover {
+  background-color: #e06b08;
 }
 
-/* --- RESPONSIVE MOBILE --- */
+/* =====================================================================
+   BELOW SEARCH (stats + pills) — nằm dưới search card với khoảng thở
+   ===================================================================== */
+.belowBanner {
+  padding-top: 14px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.quickStats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.statItem {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.statIcon {
+  font-size: 13px;
+  color: #f87d14;
+  flex-shrink: 0;
+}
+
+.statDot {
+  color: #ccc;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.quickFilters {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.quickPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Reddit Sans', sans-serif;
+  white-space: nowrap;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.quickPill:hover {
+  background: #f87d14;
+  border-color: #f87d14;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(248, 125, 20, 0.35);
+}
+
+.pillIcon {
+  display: contents;
+}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
 @media (max-width: 768px) {
+  .heroWrapper {
+    padding-top: 240px;
+  }
+
   .searchBar {
     flex-wrap: wrap;
     height: auto;
     padding: 8px;
     gap: 8px;
+    margin: 0 12px;
   }
 
   .inputWrapper {
@@ -398,5 +449,19 @@
     width: 100%;
     margin: 4px 0 0 0;
     justify-content: center;
+  }
+
+  .quickStats {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .quickFilters {
+    gap: 6px;
+  }
+
+  .quickPill {
+    font-size: 11px;
+    padding: 4px 12px;
   }
 }

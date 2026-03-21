@@ -1,0 +1,301 @@
+/* src/components/NhaTroFilters/NhaTroFilters.module.css */
+
+.wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 4px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.09);
+    font-family: 'Reddit Sans', sans-serif;
+    overflow: hidden;
+}
+
+/* ── Hàng filter chính ── */
+.filtersBar {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #f3f3f3;
+    min-height: 52px;
+}
+
+/* Sort dropdown */
+.sortWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.sortSelect {
+    appearance: none;
+    border: 1px solid #e8e8e8;
+    border-radius: 6px;
+    padding: 6px 30px 6px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    background: #fafafa;
+    cursor: pointer;
+    outline: none;
+    font-family: 'Reddit Sans', sans-serif;
+    transition: border-color 0.2s;
+}
+
+.sortSelect:hover {
+    border-color: #f87d14;
+}
+
+.sortArrow {
+    position: absolute;
+    right: 8px;
+    color: #999;
+    font-size: 11px;
+    pointer-events: none;
+}
+
+/* Divider */
+.divider {
+    width: 1px;
+    height: 24px;
+    background: #eee;
+    flex-shrink: 0;
+}
+
+/* Filter Group (label + pills) */
+.filterGroup {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.filterLabel {
+    font-size: 12px;
+    color: #888;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Pills */
+.pills {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.pill {
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #444;
+    background: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.18s ease;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.pill:hover {
+    border-color: #f87d14;
+    color: #f87d14;
+}
+
+.pillActive {
+    background: #fff3e8 !important;
+    border-color: #f87d14 !important;
+    color: #f87d14 !important;
+    font-weight: 600 !important;
+}
+
+/* Amenities toggle btn */
+.amenitiesToggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'Reddit Sans', sans-serif;
+    white-space: nowrap;
+}
+
+.amenitiesToggle:hover,
+.amenitiesActive {
+    border-color: #f87d14;
+    color: #f87d14;
+}
+
+.amenityBadge {
+    background: #f87d14;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 6px;
+    line-height: 1.4;
+}
+
+.arrow {
+    transition: transform 0.2s ease;
+    color: #999;
+}
+
+.arrowUp {
+    transform: rotate(180deg);
+}
+
+/* Reset btn */
+.resetBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #888;
+    background: #fafafa;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-family: 'Reddit Sans', sans-serif;
+    margin-left: auto;
+}
+
+.resetBtn:hover {
+    border-color: #d0021b;
+    color: #d0021b;
+    background: #fff5f5;
+}
+
+/* ── Hàng loại phòng ── */
+.roomTypesRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.roomPill {
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #555;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font-family: 'Reddit Sans', sans-serif;
+}
+
+.roomPill:hover {
+    border-color: #f87d14;
+    color: #f87d14;
+}
+
+.roomPillActive {
+    background: #f87d14 !important;
+    border-color: #f87d14 !important;
+    color: #fff !important;
+    font-weight: 600 !important;
+}
+
+/* ── Panel tiện ích ── */
+.amenitiesPanel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #fafafa;
+    animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.amenityItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #555;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Reddit Sans', sans-serif;
+    user-select: none;
+}
+
+.amenityItem:hover {
+    border-color: #f87d14;
+    color: #f87d14;
+}
+
+.amenityChecked {
+    background: #fff3e8 !important;
+    border-color: #f87d14 !important;
+    color: #f87d14 !important;
+}
+
+.amenityCheckbox {
+    accent-color: #f87d14;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+/* ── Responsive ── */
+@media (max-width: 992px) {
+    .filtersBar {
+        gap: 6px;
+        padding: 8px 12px;
+    }
+
+    .filterLabel {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .divider {
+        display: none;
+    }
+
+    .filtersBar {
+        padding: 8px;
+    }
+
+    .pill,
+    .roomPill {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+}

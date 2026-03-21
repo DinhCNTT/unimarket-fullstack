@@ -5,7 +5,7 @@ import { IoFlameSharp } from "react-icons/io5";
 import styles from "./NhaTroPostCard.module.css";
 import { formatRelativeTime } from "../../utils/dateUtils";
 
-const NhaTroPostCard = ({ post, isSaved, onToggleSave, isLoggedIn }) => {
+const NhaTroPostCard = ({ post, isSaved, onToggleSave, isLoggedIn, listView = false }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -33,7 +33,7 @@ const NhaTroPostCard = ({ post, isSaved, onToggleSave, isLoggedIn }) => {
     const details = post.chiTietObj || post.ChiTietObj || {};
     const foundKey = Object.keys(details).find(k => k.toLowerCase().includes(key.toLowerCase()));
     if (foundKey) return details[foundKey];
-    
+
     // 2. Fallback: Tìm trực tiếp trong post object (dữ liệu cũ/từ SQL)
     if (key.toLowerCase().includes('dientich') || key.toLowerCase().includes('dt')) {
       return post.dienTichPhong || post.DienTichPhong || null;
@@ -41,7 +41,7 @@ const NhaTroPostCard = ({ post, isSaved, onToggleSave, isLoggedIn }) => {
     if (key.toLowerCase().includes('succhua') || key.toLowerCase().includes('nguoi')) {
       return post.sucChua || post.SucChua || null;
     }
-    
+
     return null;
   };
 
@@ -64,7 +64,7 @@ const NhaTroPostCard = ({ post, isSaved, onToggleSave, isLoggedIn }) => {
       if (playPromise !== undefined) {
         playPromise
           .then(() => setIsPlaying(true))
-          .catch(() => {});
+          .catch(() => { });
       }
     }
   };
@@ -95,9 +95,8 @@ const NhaTroPostCard = ({ post, isSaved, onToggleSave, isLoggedIn }) => {
 
       {isLoggedIn && (
         <div
-          className={`${styles.saveHeartBtn} ${
-            isSaved ? styles.saved : styles.notSaved
-          }`}
+          className={`${styles.saveHeartBtn} ${isSaved ? styles.saved : styles.notSaved
+            }`}
           onClick={handleSaveClick}
           title={isSaved ? "Bỏ lưu" : "Lưu tin"}
         >
@@ -162,16 +161,19 @@ const NhaTroPostCard = ({ post, isSaved, onToggleSave, isLoggedIn }) => {
 
           <div className={styles.priceRow}>
             <span className={styles.price}>{formatPriceNhaTro(post.gia)}</span>
-            {dienTich && (
-              <span className={styles.priceExtra}>
-                {dienTich}m²
-              </span>
-            )}
+            <div className={styles.specTags}>
+              {dienTich && (
+                <span className={styles.priceExtra}>{dienTich}m²</span>
+              )}
+              {sucChua && (
+                <span className={styles.priceExtra}>{sucChua} người</span>
+              )}
+            </div>
           </div>
 
           <div className={styles.location}>
             <span>
-              {post.quanHuyen}, {post.tinhThanh}
+              {post.quanHuyen}{post.quanHuyen && post.tinhThanh ? ', ' : ''}{post.tinhThanh}
             </span>
           </div>
         </div>
