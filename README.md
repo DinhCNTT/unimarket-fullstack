@@ -1,4 +1,4 @@
-# 🏪 UniMarket - Nền Tảng Thương Mại Xã Hội Toàn Diện
+# 🏪 UniMarket - Nền Tảng Thương Mại Xã Hội 
 
 > **Nền tảng mạng xã hội kết hợp marketplace, video ngắn, và AI - Giải pháp hoàn chỉnh cho cộng đồng mua bán và kết nối**
 
