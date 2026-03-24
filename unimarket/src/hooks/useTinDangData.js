@@ -34,33 +34,56 @@ export const useTinDangData = (activeTab, categoryGroup, filters = {}) => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        let url = "http://localhost:5133/api/tindang/get-posts";
-        const params = {};
-
-        if (categoryGroup) {
-          params.categoryGroup = categoryGroup;
-        }
+        let url;
+        let queryParams = new URLSearchParams();
 
         if (activeTab === "danhchoban") {
           url = "http://localhost:5133/api/tindang/get-recommended-posts";
-        }
+          const params = { limit: 20 };
+          if (categoryGroup) params.categoryGroup = categoryGroup;
 
-        params.limit = 20;
+          if (filters.priceMin != null) params.priceMin = filters.priceMin;
+          if (filters.priceMax != null) params.priceMax = filters.priceMax;
+          if (filters.areaMin != null) params.areaMin = filters.areaMin;
+          if (filters.areaMax != null) params.areaMax = filters.areaMax;
+          if (filters.sortBy) params.sortBy = filters.sortBy;
 
-        // ── Bộ lọc nâng cao (Phase 2) ──────────────────────────────────
-        if (filters.priceMin != null) params.priceMin = filters.priceMin;
-        if (filters.priceMax != null) params.priceMax = filters.priceMax;
-        if (filters.areaMin != null) params.areaMin = filters.areaMin;
-        if (filters.areaMax != null) params.areaMax = filters.areaMax;
-        if (filters.sortBy) params.sortBy = filters.sortBy;
+          Object.keys(params).forEach(k => queryParams.append(k, params[k]));
 
-        // Mảng roomTypes / amenities -> gửi multi-value params
-        const queryParams = new URLSearchParams(params);
-        if (Array.isArray(filters.roomTypes) && filters.roomTypes.length > 0) {
-          filters.roomTypes.forEach(t => queryParams.append("roomType", t));
-        }
-        if (Array.isArray(filters.amenities) && filters.amenities.length > 0) {
-          filters.amenities.forEach(a => queryParams.append("amenity", a));
+          // Mảng roomTypes / amenities -> gửi multi-value params
+          if (Array.isArray(filters.roomTypes) && filters.roomTypes.length > 0) {
+            filters.roomTypes.forEach(t => queryParams.append("roomType", t));
+          }
+          if (Array.isArray(filters.amenities) && filters.amenities.length > 0) {
+            filters.amenities.forEach(a => queryParams.append("amenity", a));
+          }
+        } else {
+          // get-posts (Mới nhất)
+          url = "http://localhost:5133/api/tindang/get-posts";
+          const params = { Limit: 20 };
+          if (categoryGroup) params.CategoryGroup = categoryGroup;
+
+          if (filters.priceMin != null) params.MinPrice = filters.priceMin;
+          if (filters.priceMax != null) params.MaxPrice = filters.priceMax;
+          if (filters.sortBy) params.SortOrder = filters.sortBy;
+
+          // Bộ lọc nâng cao gom vào AdvancedFilters (JSON string) cho Backend C#
+          const mongoFilters = {};
+          if (filters.areaMin != null) mongoFilters.dienTichMin = String(filters.areaMin);
+          if (filters.areaMax != null) mongoFilters.dienTichMax = String(filters.areaMax);
+
+          if (Array.isArray(filters.roomTypes) && filters.roomTypes.length > 0) {
+            params.SubCategory = filters.roomTypes.join(",");
+          }
+          if (Array.isArray(filters.amenities) && filters.amenities.length > 0) {
+            mongoFilters.tienIch = filters.amenities.join(",");
+          }
+
+          if (Object.keys(mongoFilters).length > 0) {
+            params.AdvancedFilters = JSON.stringify(mongoFilters);
+          }
+
+          Object.keys(params).forEach(k => queryParams.append(k, params[k]));
         }
 
         const fullUrl = `${url}?${queryParams.toString()}`;

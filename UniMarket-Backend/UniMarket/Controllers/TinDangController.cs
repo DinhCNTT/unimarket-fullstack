@@ -144,11 +144,11 @@ namespace UniMarket.Controllers
                 }
 
                 // Lọc theo SubCategory (Danh mục con: Điện thoại, Laptop...)
-                // Logic Contains giúp "Điện thoại di động" vẫn khớp với từ khóa "Điện thoại"
+                // Hỗ trợ truyền nhiều giá trị phân cách bằng dấu phẩy (VD: "Phòng trọ, Ký túc xá")
                 if (!string.IsNullOrEmpty(request.SubCategory))
                 {
-                    var sub = request.SubCategory.Trim().ToLower();
-                    query = query.Where(p => p.DanhMuc.TenDanhMuc.ToLower().Contains(sub));
+                    var subCategories = request.SubCategory.Split(',').Select(s => s.Trim().ToLower()).ToList();
+                    query = query.Where(p => subCategories.Any(s => p.DanhMuc.TenDanhMuc.ToLower().Contains(s)));
                 }
 
                 if (request.MinPrice.HasValue) query = query.Where(p => p.Gia >= request.MinPrice.Value);

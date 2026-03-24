@@ -1,14 +1,16 @@
 // src/components/NhaTroHeroHeader/NhaTroHeroHeader.jsx
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {
-  FaSearch, FaTimes, FaChevronDown,
-  FaTag, FaGraduationCap, FaSnowflake, FaClock, FaHome, FaWifi,
+  FaSearch, FaTimes, FaChevronDown, FaClock,
+  FaTag, FaGraduationCap, FaSnowflake, FaHome, FaWifi,
   FaBuilding, FaMapMarkerAlt, FaBolt
 } from "react-icons/fa";
 import { MdApartment } from "react-icons/md";
 import styles from './NhaTroHeroHeader.module.css';
+import { useProductSearch } from '../../hooks/useProductSearch';
+import { CategoryContext } from '../../context/CategoryContext';
 
 /**
  * NhaTroHeroHeader
@@ -21,18 +23,39 @@ import styles from './NhaTroHeroHeader.module.css';
  * để search card floating đè lên 34px mép dưới navbar.
  */
 const NhaTroHeroHeader = ({ onQuickFilter }) => {
-  const navigate = useNavigate();
   const location = useLocation();
+  const { setSelectedCategory, setSelectedSubCategory } = useContext(CategoryContext);
+
+  // ── Dùng đúng hook search giống MarketHeroHeader ──────────────────────────
+  const {
+    inputValue, setInputValue,
+    suggestions,
+    searchHistory,
+    showSuggestions, setShowSuggestions,
+    loadingSuggestions, loadingHistory,
+    user,
+    handleSearch: hookHandleSearch,
+    deleteSearchHistoryItem,
+    highlightText,
+    formatDate,
+  } = useProductSearch();
+
+  // Wrapper: set category "Nhà trọ" rồi search — giống onTriggerSearch trong MarketHeroHeader
+  const handleSearch = (keyword) => {
+    const finalKeyword = keyword ?? inputValue;
+    if (!finalKeyword.trim()) return;
+    setSelectedCategory("Nhà trọ");
+    setSelectedSubCategory("");
+    hookHandleSearch(finalKeyword);
+  };
+
+  // ── Refs ────────────────────────────────────────────────────────────────────
   const inputRef = useRef(null);
   const suggestionsRef = useRef(null);
   const wrapperRef = useRef(null);
 
-  const [searchText, setSearchText] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
-
-  const [selectedLocation, setSelectedLocation] = useState("");
+  // ── Location state (riêng của trang này) ───────────────────────────────────
+  const [locationDisplay, setLocationDisplay] = useState("");
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -63,7 +86,7 @@ const NhaTroHeroHeader = ({ onQuickFilter }) => {
       document.removeEventListener("mousedown", onClickOutside);
       window.removeEventListener("scroll", onScroll, true);
     };
-  }, []);
+  }, [setShowSuggestions]);
 
   // Load tỉnh thành
   useEffect(() => {
@@ -90,29 +113,12 @@ const NhaTroHeroHeader = ({ onQuickFilter }) => {
       .catch(() => { });
   }, []);
 
-  // Gợi ý tìm kiếm
-  useEffect(() => {
-    if (!searchText.trim()) { setSuggestions([]); setShowSuggestions(false); return; }
-    setLoadingSuggestions(true);
-    const t = setTimeout(async () => {
-      try {
-        const r = await axios.get(
-          `http://localhost:5133/api/tindang/suggestions?query=${encodeURIComponent(searchText)}&limit=8`
-        );
-        setSuggestions(r.data || []);
-        setShowSuggestions(true);
-      } catch { }
-      finally { setLoadingSuggestions(false); }
-    }, 300);
-    return () => clearTimeout(t);
-  }, [searchText]);
-
   // Cập nhật hiển thị vị trí
   useEffect(() => {
     const parts = [];
     if (selectedDistrict) parts.push(selectedDistrict.tenQuanHuyen);
     if (selectedProvince) parts.push(selectedProvince.tenTinhThanh);
-    setSelectedLocation(parts.join(", "));
+    setLocationDisplay(parts.join(", "));
   }, [selectedProvince, selectedDistrict]);
 
   const filteredProvinces = provinces.filter(p =>
@@ -122,17 +128,8 @@ const NhaTroHeroHeader = ({ onQuickFilter }) => {
     d.tenQuanHuyen?.toLowerCase().includes(locationSearchText.toLowerCase())
   );
 
-  const handleSearch = () => {
-    if (!searchText.trim()) return;
-    const p = new URLSearchParams();
-    p.append('q', searchText);
-    if (selectedProvince?.maTinhThanh) p.append('province', selectedProvince.maTinhThanh);
-    if (selectedDistrict?.maQuanHuyen) p.append('district', selectedDistrict.maQuanHuyen);
-    navigate(`/loc-tin-dang?${p.toString()}`);
-    setShowSuggestions(false);
-  };
-
   const isNhaTroPage = location.pathname === '/market/nha-tro';
+
 
   return (
     <div className={styles.heroWrapper} ref={wrapperRef}>
@@ -147,34 +144,72 @@ const NhaTroHeroHeader = ({ onQuickFilter }) => {
             ref={inputRef}
             type="text"
             placeholder="Tìm bất động sản..."
-            value={searchText}
-            onChange={e => setSearchText(e.target.value)}
-            onKeyPress={e => e.key === 'Enter' && handleSearch()}
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleSearch()}
+            onFocus={() => { if (inputValue.trim() || (user && searchHistory.length > 0)) setShowSuggestions(true); }}
             className={styles.searchInput}
           />
-          {searchText && (
-            <button className={styles.clearBtn} onClick={() => { setSearchText(""); setSuggestions([]); }}>
+          {inputValue && (
+            <button className={styles.clearBtn} onClick={() => { setInputValue(""); setShowSuggestions(false); }}>
               <FaTimes />
             </button>
           )}
           {showSuggestions && (
             <div className={styles.suggestionsDropdown} ref={suggestionsRef}>
-              {loadingSuggestions ? (
-                <div className={styles.suggestionItem}>Đang tải...</div>
-              ) : suggestions.length > 0 ? (
-                suggestions.map((s, i) => (
-                  <div key={i} className={styles.suggestionItem}
-                    onClick={() => { navigate(`/chi-tiet-tin-dang-nha-tro/${s.maTinDang}`); setShowSuggestions(false); }}>
-                    <FaSearch className={styles.searchIcon} style={{ fontSize: 14, flexShrink: 0 }} />
-                    <div className={styles.suggestionText}>
-                      <div className={styles.suggestionTitle}>{s.tieuDe}</div>
-                      <div className={styles.suggestionCategory}>{s.danhMucCha}</div>
+
+              {/* Lịch sử tìm kiếm — hiện khi chưa gõ gì */}
+              {!inputValue.trim() && user && searchHistory.length > 0 && (
+                <>
+                  <div className={styles.historyHeader}>Lịch sử tìm kiếm</div>
+                  {searchHistory.map(item => (
+                    <div key={item.id} className={`${styles.suggestionItem} ${styles.historyItem}`}
+                      onClick={() => { setInputValue(item.keyword); handleSearch(item.keyword); }}>
+                      <FaClock style={{ fontSize: 13, color: '#bbb', flexShrink: 0 }} />
+                      <div className={styles.suggestionText}>
+                        <div className={styles.suggestionTitle}>{item.keyword}</div>
+                        <div className={styles.suggestionCategory}>{formatDate(item.createdAt)}</div>
+                      </div>
+                      <button className={styles.historyDeleteBtn}
+                        onClick={e => deleteSearchHistoryItem(item.id, e)}
+                        title="Xóa">
+                        <FaTimes />
+                      </button>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <div className={styles.suggestionItem}>Không tìm thấy kết quả</div>
+                  ))}
+                </>
               )}
+
+              {!inputValue.trim() && user && searchHistory.length === 0 && !loadingHistory && (
+                <div className={styles.suggestionItem} style={{ color: '#aaa', fontSize: 13 }}>Chưa có lịch sử tìm kiếm</div>
+              )}
+              {!inputValue.trim() && !user && (
+                <div className={styles.suggestionItem} style={{ color: '#aaa', fontSize: 13 }}>Đăng nhập để xem lịch sử tìm kiếm</div>
+              )}
+
+              {/* Gợi ý API — hiện khi đang gõ */}
+              {inputValue.trim() && (
+                <>
+                  <div className={styles.historyHeader}>Tìm kiếm "{inputValue}"</div>
+                  {loadingSuggestions ? (
+                    <div className={styles.suggestionItem}>Đang tìm kiếm...</div>
+                  ) : suggestions.length > 0 ? (
+                    suggestions.map((s, i) => (
+                      <div key={i} className={styles.suggestionItem}
+                        onClick={() => { setInputValue(s.tieuDe); handleSearch(s.tieuDe); }}>
+                        <FaSearch style={{ fontSize: 13, color: '#bbb', flexShrink: 0 }} />
+                        <div className={styles.suggestionText}>
+                          <div className={styles.suggestionTitle}>{highlightText(s.tieuDe, inputValue)}</div>
+                          <div className={styles.suggestionCategory}>trong {s.danhMucCha}</div>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className={styles.suggestionItem} style={{ color: '#aaa', fontSize: 13 }}>Không tìm thấy gợi ý nào</div>
+                  )}
+                </>
+              )}
+
             </div>
           )}
         </div>
@@ -189,7 +224,7 @@ const NhaTroHeroHeader = ({ onQuickFilter }) => {
                 <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2Z" fill="#FFC107" />
                 <circle cx="12" cy="9" r="2.5" fill="#fff" />
               </svg>
-              <span className={styles.locText}>{selectedLocation || "Chọn khu vực"}</span>
+              <span className={styles.locText}>{locationDisplay || "Chọn khu vực"}</span>
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
                 <path d="M1 1L5 5L9 1" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -236,7 +271,7 @@ const NhaTroHeroHeader = ({ onQuickFilter }) => {
                 <div className={styles.optionsContainer}>
                   {selectedSubCategories.map(s => (
                     <div key={s.id} className={styles.option}
-                      onClick={() => { setSearchText(s.tenDanhMucCon); setShowCategoryDropdown(false); }}>
+                      onClick={() => { setInputValue(s.tenDanhMucCon); setShowCategoryDropdown(false); }}>
                       {s.tenDanhMucCon}
                     </div>
                   ))}
@@ -246,7 +281,7 @@ const NhaTroHeroHeader = ({ onQuickFilter }) => {
           </div>
 
           {/* Search button */}
-          <button className={styles.searchBtn} onClick={handleSearch}>
+          <button className={styles.searchBtn} onClick={() => handleSearch()}>
             <FaSearch /><span>Tìm nhà</span>
           </button>
         </div>

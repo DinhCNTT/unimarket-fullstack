@@ -48,3 +48,16 @@
 .loginPrompt a:hover {
     text-decoration: underline;
 }
+
+/* ── Tabs Container ── */
+.navContainer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 16px auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+    background-color: transparent;
+}

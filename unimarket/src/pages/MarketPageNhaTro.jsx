@@ -6,6 +6,7 @@ import NhaTroHeroHeader from "../components/NhaTroHeroHeader/NhaTroHeroHeader";
 import CategoryListNhaTro from "../components/CategoryListNhaTro/CategoryListNhaTro";
 import NhaTroFilters from "../components/NhaTroFilters/NhaTroFilters";
 import NhaTroPostGrid from "../components/NhaTroPostGrid/NhaTroPostGrid";
+import TrangChuNav from "../components/TrangChuNav";
 import NhaTroCategories from "../components/NhaTroCategories/NhaTroCategories";
 import UniMarketIntro from "../components/UniMarketIntro";
 import FloatingAiButton from "../components/AI/FloatingAiButton";
@@ -17,6 +18,9 @@ import styles from "./MarketPageNhaTro.module.css";
 
 const MarketPageNhaTro = () => {
   const { user } = useContext(AuthContext);
+
+  // ── Tabs state ──────────────
+  const [activeTab, setActiveTab] = useState("moinhat");
 
   // ── Filter state (được NhaTroFilters emit lên) ─────────────
   const [filters, setFilters] = useState({
@@ -31,7 +35,7 @@ const MarketPageNhaTro = () => {
 
   // ── Fetch data trực tiếp tại page để truyền xuống PostGrid ──
   const { posts, savedIds, isLoggedIn, handleToggleSave, loading } =
-    useTinDangData("danhchoban", "nhà trọ", filters);
+    useTinDangData(activeTab, "nhà trọ", filters);
 
   // ── Callback khi NhaTroFilters thay đổi ────────────
   const handleFilterChange = useCallback((newFilters) => {
@@ -60,6 +64,15 @@ const MarketPageNhaTro = () => {
         {/* Bộ lọc nâng cao */}
         <div id="nha-tro-filters">
           <NhaTroFilters onFilterChange={handleFilterChange} />
+        </div>
+
+        {/* Tabs: Mới nhất & Dành cho bạn */}
+        <div className={styles.navContainer}>
+          <TrangChuNav
+            onTabChange={setActiveTab}
+            activeTab={activeTab}
+            showVideoTab={false}
+          />
         </div>
 
         {/* Grid / List tin đăng */}

@@ -1,4 +1,4 @@
-/* src/components/NhaTroHeroHeader/NhaTroHeroHeader.module.css */
+﻿/* src/components/NhaTroHeroHeader/NhaTroHeroHeader.module.css */
 @import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@300;400;500;600;700&display=swap');
 
 * {
@@ -7,22 +7,25 @@
 
 /* =====================================================================
    HERO WRAPPER
-   NhaTroTopNavbar là position:absolute, height:320px
-   → padding-top: 286px để search card nhô ra 34px (nửa 68px) vào navbar
+   NhaTroTopNavbar lÃ  position:absolute, height:320px
+   â†’ padding-top: 286px Ä‘á»ƒ search card nhÃ´ ra 34px (ná»­a 68px) vÃ o navbar
    ===================================================================== */
 .heroWrapper {
   position: relative;
   width: 100%;
   padding-top: 286px;
-  /* 320px navbar - 34px (nửa card) = 286px */
+  /* 320px navbar - 34px (ná»­a card) = 286px */
+  /* z-index cao hÆ¡n navbar (2100) Ä‘á»ƒ search card hiá»ƒn thá»‹ Ä‘Ã¨ lÃªn banner */
   z-index: 2200;
+  pointer-events: none;
+  /* vÃ¹ng trong suá»‘t khÃ´ng cháº·n click */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 /* =====================================================================
-   SEARCH BAR CARD — floating, nằm ngay mép dưới navbar
+   SEARCH BAR CARD â€” floating, náº±m ngay mÃ©p dÆ°á»›i navbar
    ===================================================================== */
 .searchBar {
   display: flex;
@@ -37,6 +40,8 @@
   position: relative;
   transition: all 0.2s ease;
   margin: 0 24px;
+  pointer-events: auto;
+  /* khÃ´i phá»¥c tÆ°Æ¡ng tÃ¡c cho search card */
 }
 
 .searchBar:hover {
@@ -315,7 +320,7 @@
 }
 
 /* =====================================================================
-   BELOW SEARCH (stats + pills) — nằm dưới search card với khoảng thở
+   BELOW SEARCH (stats + pills) â€” náº±m dÆ°á»›i search card vá»›i khoáº£ng thá»Ÿ
    ===================================================================== */
 .belowBanner {
   padding-top: 14px;
@@ -324,6 +329,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  pointer-events: auto;
+  /* khÃ´i phá»¥c tÆ°Æ¡ng tÃ¡c cho pills */
 }
 
 .quickStats {
@@ -464,4 +471,105 @@
     font-size: 11px;
     padding: 4px 12px;
   }
+}
+
+/* =====================================================================
+   SUGGESTIONS & HISTORY DROPDOWN
+   ===================================================================== */
+.suggestionsDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #f0ece6;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
+  z-index: 3000;
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.historyHeader {
+  font-size: 11px;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 8px 16px 4px;
+}
+
+.suggestionItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+  color: #333;
+}
+
+.suggestionItem:hover {
+  background: #fff8f2;
+}
+
+.historyItem {
+  position: relative;
+}
+
+.historyDeleteBtn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #bbb;
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-radius: 4px;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.historyDeleteBtn:hover {
+  color: #f87d14;
+}
+
+.suggestionText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestionTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestionCategory {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  color: #bbb;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.clearBtn:hover {
+  color: #f87d14;
 }

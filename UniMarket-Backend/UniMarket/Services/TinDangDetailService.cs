@@ -90,26 +90,70 @@ namespace UniMarket.Services
             {
                 if (string.IsNullOrEmpty(item.Key) || string.IsNullOrEmpty(item.Value)) continue;
 
-                // 1. Tạo Regex để tìm giá trị (Value) không phân biệt hoa thường
-                // Ví dụ: Tìm "Samsung" sẽ chấp nhận cả "samsung", "SAMSUNG"
-                var valuePattern = $"^{Regex.Escape(item.Value)}$";
-                var regexFilter = new BsonRegularExpression(valuePattern, "i");
+                // 1. DIỆN TÍCH TỐI THIỂU (Range Filter dùng JS trên MongoDB)
+                if (item.Key.Equals("dienTichMin", StringComparison.OrdinalIgnoreCase) || item.Key.Equals("DienTichMin", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (double.TryParse(item.Value, out double min))
+                    {
+                        var js = $"parseFloat(this.dienTich || this.DienTich || 0) >= {min}";
+                        filterDefinition &= new BsonDocument("$where", js);
+                    }
+                    continue;
+                }
 
-                // 2. Xử lý Key: Chuyển đổi sang camelCase (chữ cái đầu viết thường)
-                // Ví dụ: "Hang" -> "hang", "MauSac" -> "mauSac"
+                // 2. DIỆN TÍCH TỐI ĐA (Range Filter dùng JS trên MongoDB)
+                if (item.Key.Equals("dienTichMax", StringComparison.OrdinalIgnoreCase) || item.Key.Equals("DienTichMax", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (double.TryParse(item.Value, out double max))
+                    {
+                        var js = $"var v = parseFloat(this.dienTich || this.DienTich); !isNaN(v) && v <= {max}";
+                        filterDefinition &= new BsonDocument("$where", js);
+                    }
+                    continue;
+                }
+
+                // 3. TIỆN ÍCH (Lọc phần tử mảng phân cách bằng dấu phẩy - tất cả tiện ích đều phải có -> AND)
+                if (item.Key.Equals("tienIch", StringComparison.OrdinalIgnoreCase) || item.Key.Equals("TienIch", StringComparison.OrdinalIgnoreCase))
+                {
+                    var amens = item.Value.Split(',').Select(x => x.Trim()).ToList();
+                    foreach (var a in amens)
+                    {
+                        var regexFilter = new BsonRegularExpression($".*{Regex.Escape(a)}.*", "i");
+                        var condition = builder.Regex("tienIch", regexFilter) | builder.Regex("TienIch", regexFilter);
+                        filterDefinition &= condition; 
+                    }
+                    continue;
+                }
+
+                // 4. LOẠI PHÒNG (Nhiều loại phòng - 1 trong số đó là được -> OR)
+                if (item.Key.Equals("loaiPhong", StringComparison.OrdinalIgnoreCase) || item.Key.Equals("LoaiPhong", StringComparison.OrdinalIgnoreCase))
+                {
+                    var types = item.Value.Split(',').Select(x => x.Trim()).ToList();
+                    var orCondition = builder.Empty;
+                    bool hasOr = false;
+                    foreach (var t in types)
+                    {
+                        var regexFilter = new BsonRegularExpression($".*{Regex.Escape(t)}.*", "i");
+                        var condition = builder.Regex("loaiPhong", regexFilter) | builder.Regex("LoaiPhong", regexFilter);
+                        if (!hasOr) { orCondition = condition; hasOr = true; }
+                        else { orCondition |= condition; }
+                    }
+                    if (hasOr) filterDefinition &= orCondition;
+                    continue;
+                }
+
+                // 5. CÁC TRƯỜNG CÒN LẠI (Filter Exact Match thông thường)
+                var valuePattern = $"^{Regex.Escape(item.Value)}$";
+                var standardRegex = new BsonRegularExpression(valuePattern, "i");
+
                 string keyInput = item.Key;
                 string keyCamel = char.ToLower(keyInput[0]) + (keyInput.Length > 1 ? keyInput.Substring(1) : "");
-
-                // Để chắc chắn, tạo thêm biến thể PascalCase (viết hoa đầu) phòng hờ
                 string keyPascal = char.ToUpper(keyInput[0]) + (keyInput.Length > 1 ? keyInput.Substring(1) : "");
 
-                // 3. Tạo điều kiện OR: Tìm thẳng key gốc (KHÔNG CÓ ChiTiet.)
-                // Logic: (hang == value) OR (Hang == value)
-                var condition = builder.Regex(keyCamel, regexFilter) |
-                                builder.Regex(keyPascal, regexFilter);
+                var standardCondition = builder.Regex(keyCamel, standardRegex) |
+                                        builder.Regex(keyPascal, standardRegex);
 
-                // 4. Gộp vào bộ lọc chung (AND)
-                filterDefinition &= condition;
+                filterDefinition &= standardCondition;
             }
 
             try
