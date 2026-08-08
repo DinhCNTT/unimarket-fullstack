@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -101,7 +101,7 @@ namespace UniMarket.Controllers
             public DateTime CreatedAt { get; set; }
         }
 
-        public class UpdateProfileModel
+        public class UserProfileUpdateModel
         {
             public string FullName { get; set; }
             public string PhoneNumber { get; set; }
@@ -365,7 +365,7 @@ namespace UniMarket.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateUserProfile([FromBody] UpdateProfileModel model)
+        public async Task<IActionResult> UpdateUserProfile([FromBody] UserProfileUpdateModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
@@ -604,7 +604,8 @@ namespace UniMarket.Controllers
         }
 
         [HttpPost("upload-avatar")]
-        public async Task<IActionResult> UploadAvatar([FromForm] IFormFile avatar)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadAvatar(IFormFile avatar)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))

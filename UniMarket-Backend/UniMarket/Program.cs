@@ -177,6 +177,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "UniMarket API", Version = "v1" });
+    c.CustomSchemaIds(x => x.FullName);
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -221,6 +222,9 @@ builder.Services.AddHostedService<AITrainingWorker>();
 
 // Search Fallback Config
 builder.Services.Configure<SearchFallbackConfig>(builder.Configuration.GetSection("SearchFallback"));
+
+// Elasticsearch Service
+builder.Services.AddSingleton<UniMarket.Services.ElasticSearch.ElasticSearchService>();
 
 // Logic AI Recommendation
 builder.Services.AddScoped<UserBehaviorService>();
@@ -338,6 +342,10 @@ using (var scope = app.Services.CreateScope())
             Console.WriteLine("--> Database migration applied successfully.");
         }
         await InitializeRolesAndAdmin(services);
+
+        // Khởi tạo Elasticsearch Index (chỉ tạo khi chưa tồn tại)
+        var elasticSearchService = services.GetRequiredService<UniMarket.Services.ElasticSearch.ElasticSearchService>();
+        await elasticSearchService.InitializeIndexAsync();
     }
     catch (Exception ex)
     {

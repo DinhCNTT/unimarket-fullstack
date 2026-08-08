@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using static AuthController;
 using UniMarket.DataAccess;
 using UniMarket.Services;
+using UniMarket.Services.ElasticSearch;
+using UniMarket.Models.Elastic;
 using UniMarket.DTO;
 using CloudinaryDotNet.Actions;
-using Microsoft.Extensions.Caching.Memory; // Using cho Cache
-using System.Collections.Generic;        // Using cho List<>
-using System.IO;                       // Using cho Path, File, Directory
-using System;                         // Using cho DateTime, Guid, Exception
+using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Generic;
+using System.IO;
+using System;
 
 namespace UniMarket.Controllers
 {
@@ -28,18 +30,32 @@ namespace UniMarket.Controllers
         private readonly ApplicationDbContext _context;
         private readonly PhotoService _photoService;
         private readonly IMemoryCache _memoryCache; // Khai báo MemoryCache
+        private readonly ElasticSearchService _elasticSearchService;
+        private readonly TinDangDetailService _mongoService;
+        private readonly NhaTroDetailService _nhaTroService;
 
         // Định nghĩa cache key cố định
         private const string CategoryCacheKey = "categories-with-icon";
 
-        // Thêm IMemoryCache vào constructor
-        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context, PhotoService photoService, IMemoryCache memoryCache)
+        // Thêm các Service vào constructor
+        public AdminController(
+            UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager, 
+            ApplicationDbContext context, 
+            PhotoService photoService, 
+            IMemoryCache memoryCache,
+            ElasticSearchService elasticSearchService,
+            TinDangDetailService mongoService,
+            NhaTroDetailService nhaTroService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
             _photoService = photoService;
             _memoryCache = memoryCache; // Gán cache
+            _elasticSearchService = elasticSearchService;
+            _mongoService = mongoService;
+            _nhaTroService = nhaTroService;
         }
 
 
@@ -678,6 +694,85 @@ namespace UniMarket.Controllers
             _context.TinDangs.Update(post);
             await _context.SaveChangesAsync();
 
+            // Đồng bộ sang Elasticsearch
+            try
+            {
+                var fullPost = await _context.TinDangs
+                    .Include(p => p.NguoiBan)
+                    .Include(p => p.AnhTinDangs)
+                    .Include(p => p.TinhThanh)
+                    .Include(p => p.QuanHuyen)
+                    .Include(p => p.DanhMuc).ThenInclude(d => d.DanhMucCha)
+                    .FirstOrDefaultAsync(p => p.MaTinDang == id);
+
+                if (fullPost != null)
+                {
+                    Dictionary<string, object>? chiTietObj = null;
+                    bool isNhaTro = fullPost.DanhMuc?.DanhMucCha?.TenDanhMucCha?.ToLower().Contains("nhà trọ") == true;
+                    if (isNhaTro)
+                    {
+                        var nhaTroDetail = await _nhaTroService.GetByMaTinDangAsync(fullPost.MaTinDang);
+                        if (nhaTroDetail?.ChiTiet != null)
+                        {
+                            chiTietObj = new Dictionary<string, object>();
+                            foreach (var elem in nhaTroDetail.ChiTiet)
+                            {
+                                if (elem.Name == "_id") continue;
+                                chiTietObj[elem.Name] = MongoDB.Bson.BsonTypeMapper.MapToDotNetValue(elem.Value);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var mongoDetail = await _mongoService.GetByMaTinDangAsync(fullPost.MaTinDang);
+                        if (mongoDetail?.ChiTiet != null)
+                        {
+                            chiTietObj = new Dictionary<string, object>();
+                            foreach (var elem in mongoDetail.ChiTiet)
+                            {
+                                if (elem.Name == "_id") continue;
+                                chiTietObj[elem.Name] = MongoDB.Bson.BsonTypeMapper.MapToDotNetValue(elem.Value);
+                            }
+                        }
+                    }
+
+                    var model = new TinDangIndexModel
+                    {
+                        MaTinDang = fullPost.MaTinDang,
+                        MaNguoiBan = fullPost.MaNguoiBan,
+                        TenNguoiBan = fullPost.NguoiBan?.FullName ?? string.Empty,
+                        AvatarUrl = fullPost.NguoiBan?.AvatarUrl,
+                        MaDanhMuc = fullPost.MaDanhMuc,
+                        TenDanhMuc = fullPost.DanhMuc?.TenDanhMuc ?? string.Empty,
+                        TenDanhMucCha = fullPost.DanhMuc?.DanhMucCha?.TenDanhMucCha ?? string.Empty,
+                        TieuDe = fullPost.TieuDe,
+                        MoTa = fullPost.MoTa,
+                        Gia = fullPost.Gia,
+                        CoTheThoaThuan = fullPost.CoTheThoaThuan,
+                        TinhTrang = fullPost.TinhTrang,
+                        DiaChi = fullPost.DiaChi,
+                        MaTinhThanh = fullPost.MaTinhThanh,
+                        TenTinhThanh = fullPost.TinhThanh?.TenTinhThanh ?? string.Empty,
+                        MaQuanHuyen = fullPost.MaQuanHuyen,
+                        TenQuanHuyen = fullPost.QuanHuyen?.TenQuanHuyen ?? string.Empty,
+                        NgayDang = fullPost.NgayDang,
+                        NgayCapNhat = fullPost.NgayCapNhat,
+                        TrangThai = (int)fullPost.TrangThai,
+                        VideoUrl = fullPost.VideoUrl,
+                        SoLuotXem = fullPost.SoLuotXem,
+                        IsDeleted = fullPost.IsDeleted,
+                        AnhTinDangs = fullPost.AnhTinDangs?.Select(a => a.DuongDan).ToList() ?? new List<string>(),
+                        ChiTietObj = chiTietObj
+                    };
+
+                    await _elasticSearchService.IndexPostAsync(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("⚠️ Lỗi đồng bộ duyệt tin lên ES: " + ex.Message);
+            }
+
             return Ok(new { message = "Tin đăng đã được duyệt thành công!" });
         }
 
@@ -706,6 +801,16 @@ namespace UniMarket.Controllers
             _context.TinDangs.Update(post);
             await _context.SaveChangesAsync();
 
+            // Xóa khỏi Elasticsearch vì tin bị từ chối không được hiển thị
+            try
+            {
+                await _elasticSearchService.DeletePostAsync(id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("⚠️ Lỗi xóa tin bị từ chối khỏi ES: " + ex.Message);
+            }
+
             return Ok(new { message = "Tin đăng đã bị từ chối và sẽ được xóa media sau 3 ngày." });
         }
 
@@ -733,5 +838,132 @@ namespace UniMarket.Controllers
             public string Password { get; set; }
         }
 
+        [HttpPost("elasticsearch/reindex")]
+        public async Task<IActionResult> Reindex()
+        {
+            try
+            {
+                // 1. Tạo lại index (Xóa cũ nếu có)
+                await _elasticSearchService.RecreateIndexAsync();
+
+                // 2. Lấy toàn bộ tin đăng từ SQL Server
+                var posts = await _context.TinDangs
+                    .Include(p => p.NguoiBan)
+                    .Include(p => p.AnhTinDangs)
+                    .Include(p => p.TinhThanh)
+                    .Include(p => p.QuanHuyen)
+                    .Include(p => p.DanhMuc).ThenInclude(d => d.DanhMucCha)
+                    .ToListAsync();
+
+                var indexModels = new List<TinDangIndexModel>();
+
+                foreach (var p in posts)
+                {
+                    // Lấy chi tiết động từ MongoDB
+                    Dictionary<string, object>? chiTietObj = null;
+                    
+                    // Hỗ trợ cả Nhà trọ và Tin đăng thông thường
+                    bool isNhaTro = p.DanhMuc?.DanhMucCha?.TenDanhMucCha?.ToLower().Contains("nhà trọ") == true;
+                    if (isNhaTro)
+                    {
+                        var nhaTroDetail = await _nhaTroService.GetByMaTinDangAsync(p.MaTinDang);
+                        if (nhaTroDetail?.ChiTiet != null)
+                        {
+                            chiTietObj = new Dictionary<string, object>();
+                            foreach (var elem in nhaTroDetail.ChiTiet)
+                            {
+                                if (elem.Name == "_id") continue;
+                                var mapped = MapBsonValueToPrimitive(elem.Value);
+                                if (mapped != null) chiTietObj[elem.Name] = mapped;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var mongoDetail = await _mongoService.GetByMaTinDangAsync(p.MaTinDang);
+                        if (mongoDetail?.ChiTiet != null)
+                        {
+                            chiTietObj = new Dictionary<string, object>();
+                            foreach (var elem in mongoDetail.ChiTiet)
+                            {
+                                if (elem.Name == "_id") continue;
+                                var mapped = MapBsonValueToPrimitive(elem.Value);
+                                if (mapped != null) chiTietObj[elem.Name] = mapped;
+                            }
+                        }
+                    }
+
+                    var model = new TinDangIndexModel
+                    {
+                        MaTinDang = p.MaTinDang,
+                        MaNguoiBan = p.MaNguoiBan,
+                        TenNguoiBan = p.NguoiBan?.FullName ?? string.Empty,
+                        AvatarUrl = p.NguoiBan?.AvatarUrl,
+                        MaDanhMuc = p.MaDanhMuc,
+                        TenDanhMuc = p.DanhMuc?.TenDanhMuc ?? string.Empty,
+                        TenDanhMucCha = p.DanhMuc?.DanhMucCha?.TenDanhMucCha ?? string.Empty,
+                        TieuDe = p.TieuDe,
+                        MoTa = p.MoTa,
+                        Gia = p.Gia,
+                        CoTheThoaThuan = p.CoTheThoaThuan,
+                        TinhTrang = p.TinhTrang,
+                        DiaChi = p.DiaChi,
+                        MaTinhThanh = p.MaTinhThanh,
+                        TenTinhThanh = p.TinhThanh?.TenTinhThanh ?? string.Empty,
+                        MaQuanHuyen = p.MaQuanHuyen,
+                        TenQuanHuyen = p.QuanHuyen?.TenQuanHuyen ?? string.Empty,
+                        NgayDang = p.NgayDang,
+                        NgayCapNhat = p.NgayCapNhat,
+                        TrangThai = (int)p.TrangThai,
+                        VideoUrl = p.VideoUrl,
+                        SoLuotXem = p.SoLuotXem,
+                        IsDeleted = p.IsDeleted,
+                        AnhTinDangs = p.AnhTinDangs?.Select(a => a.DuongDan).ToList() ?? new List<string>(),
+                        ChiTietObj = chiTietObj
+                    };
+
+                    indexModels.Add(model);
+                }
+
+                // 3. Đẩy lên Elasticsearch
+                if (indexModels.Any())
+                {
+                    await _elasticSearchService.BulkIndexPostsAsync(indexModels);
+                }
+
+                return Ok(new { message = $"Đồng bộ thành công {indexModels.Count} bài đăng lên Elasticsearch." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Lỗi reindex: {ex.Message}");
+            }
+        }
+
+        [NonAction]
+        private static object? MapBsonValueToPrimitive(MongoDB.Bson.BsonValue? val)
+        {
+            if (val == null || val.IsBsonNull) return null;
+            if (val.IsString) return val.AsString;
+            if (val.IsInt32) return val.AsInt32;
+            if (val.IsInt64) return val.AsInt64;
+            if (val.IsDouble) return val.AsDouble;
+            if (val.IsBoolean) return val.AsBoolean;
+            if (val.IsBsonDocument)
+            {
+                var doc = val.AsBsonDocument;
+                var dict = new Dictionary<string, object?>();
+                foreach (var elem in doc)
+                {
+                    var mapped = MapBsonValueToPrimitive(elem.Value);
+                    if (mapped != null) dict[elem.Name] = mapped;
+                }
+                return dict;
+            }
+            if (val.IsBsonArray)
+            {
+                return val.AsBsonArray.Select(MapBsonValueToPrimitive).Where(x => x != null).ToList();
+            }
+            return val.ToString();
+        }
     }
 }

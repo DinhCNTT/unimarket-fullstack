@@ -47,6 +47,9 @@ namespace UniMarket.Controllers
         // --- 3. DEPENDENCY TỪ "CODE CỦA TUI" (Thêm vào) ---
         private readonly NhaTroDetailService _nhaTroService;            // Logic riêng cho Nhà trọ
 
+        // --- 4. ELASTICSEARCH SERVICE ---
+        private readonly UniMarket.Services.ElasticSearch.ElasticSearchService _elasticSearchService;
+
         public TinDangController(
             ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
@@ -59,7 +62,8 @@ namespace UniMarket.Controllers
             // Inject thêm các service riêng từ cả 2 phía vào Constructor:
             IHubContext<NotificationHub> notificationHub,
             IMongoDatabase mongoDatabase,
-            NhaTroDetailService nhaTroService)
+            NhaTroDetailService nhaTroService,
+            UniMarket.Services.ElasticSearch.ElasticSearchService elasticSearchService)
         {
             _context = context;
             _userManager = userManager;
@@ -74,6 +78,7 @@ namespace UniMarket.Controllers
             _notificationHub = notificationHub;  // Từ code bạn tui
             _mongoDatabase = mongoDatabase;      // Từ code bạn tui
             _nhaTroService = nhaTroService;      // Từ code của tui
+            _elasticSearchService = elasticSearchService;
         }
 
         [HttpGet("get-posts")]
@@ -91,10 +96,60 @@ namespace UniMarket.Controllers
                 if (isOldClient) request.Limit = 1000;
                 else if (request.Limit <= 0) request.Limit = 20;
 
-                // 2. Khởi tạo Query
+                try
+                {
+                    // Thử tìm kiếm bằng Elasticsearch
+                    var (esPosts, esTotal) = await _elasticSearchService.SearchPostsAsync(request);
+                    if (esPosts != null)
+                    {
+                        var resultList = esPosts.Select(p => new
+                        {
+                            p.MaTinDang,
+                            p.TieuDe,
+                            p.MoTa,
+                            p.Gia,
+                            p.CoTheThoaThuan,
+                            p.TinhTrang,
+                            p.DiaChi,
+                            p.MaTinhThanh,
+                            p.MaQuanHuyen,
+                            p.NgayDang,
+                            p.VideoUrl,
+                            ChiTietObj = FormatChiTietObj(p.ChiTietObj),
+                            Images = p.AnhTinDangs.Select(img => img.StartsWith("http") ? img : $"/images/Posts/{img}"),
+                            NguoiBan = p.TenNguoiBan,
+                            Avatar = p.AvatarUrl,
+                            TinhThanh = p.TenTinhThanh,
+                            QuanHuyen = p.TenQuanHuyen,
+                            DanhMuc = p.TenDanhMuc,
+                            DanhMucCha = p.TenDanhMucCha
+                        }).ToList();
+
+                        if (isOldClient)
+                        {
+                            return Ok(resultList);
+                        }
+                        else
+                        {
+                            var esTotalPages = (int)Math.Ceiling(esTotal / (double)request.Limit);
+                            return Ok(new
+                            {
+                                Data = resultList,
+                                Pagination = new { request.Page, request.Limit, TotalItems = esTotal, TotalPages = esTotalPages }
+                            });
+                        }
+                    }
+                }
+                catch (Exception esEx)
+                {
+                    // Ghi nhận lỗi và fallback xuống SQL Server
+                    Console.WriteLine($"⚠️ Elasticsearch Search failed: {esEx.Message}. Falling back to SQL Server query.");
+                }
+
+                // 2. FALLBACK: Khởi tạo Query SQL
                 var query = _context.TinDangs.AsNoTracking().Where(p => p.TrangThai == TrangThaiTinDang.DaDuyet);
 
-                // 3. Logic lọc nâng cao MongoDB
+                // Lọc nâng cao MongoDB (Fallback)
                 if (!string.IsNullOrEmpty(request.AdvancedFilters))
                 {
                     try
@@ -114,37 +169,29 @@ namespace UniMarket.Controllers
                     catch (Exception ex) { Console.WriteLine("Lỗi JSON Filter: " + ex.Message); }
                 }
 
-                // 4. Các bộ lọc SQL cơ bản
+                // Các bộ lọc SQL cơ bản
                 if (!string.IsNullOrEmpty(request.SearchTerm))
                 {
                     var keyword = request.SearchTerm.Trim().ToLower();
                     query = query.Where(p => p.TieuDe.ToLower().Contains(keyword));
                 }
 
-                // --- 👇 CÁC LOGIC LỌC DANH MỤC & VIDEO 👇 ---
-
-                // Lọc theo ID Danh mục (Nếu frontend gửi ID)
                 if (request.CategoryId.HasValue && request.CategoryId.Value > 0)
                 {
                     query = query.Where(p => p.MaDanhMuc == request.CategoryId.Value);
                 }
 
-                // 🔥 [MỚI] Lọc bài có Video (Dùng cho VideoCarousel)
-                // Nếu HasVideo = true, chỉ lấy bài nào có VideoUrl không rỗng
                 if (request.HasVideo == true)
                 {
                     query = query.Where(p => p.VideoUrl != null && p.VideoUrl != "");
                 }
 
-                // Lọc theo CategoryGroup (Danh mục cha: Đồ điện tử...)
                 if (!string.IsNullOrEmpty(request.CategoryGroup))
                 {
                     var group = request.CategoryGroup.Trim().ToLower();
                     query = query.Where(p => p.DanhMuc.DanhMucCha != null && p.DanhMuc.DanhMucCha.TenDanhMucCha.ToLower().Contains(group));
                 }
 
-                // Lọc theo SubCategory (Danh mục con: Điện thoại, Laptop...)
-                // Hỗ trợ truyền nhiều giá trị phân cách bằng dấu phẩy (VD: "Phòng trọ, Ký túc xá")
                 if (!string.IsNullOrEmpty(request.SubCategory))
                 {
                     var subCategories = request.SubCategory.Split(',').Select(s => s.Trim().ToLower()).ToList();
@@ -165,7 +212,6 @@ namespace UniMarket.Controllers
                     default: query = query.OrderByDescending(p => p.NgayDang); break;
                 }
 
-                // 5. Thực thi Query & Phân trang
                 var totalItems = await query.CountAsync();
                 var totalPages = (int)Math.Ceiling(totalItems / (double)request.Limit);
 
@@ -179,8 +225,7 @@ namespace UniMarket.Controllers
                     .Take(request.Limit)
                     .ToListAsync();
 
-                // 6. Map dữ liệu
-                var resultList = new List<object>();
+                var resultListSql = new List<object>();
                 foreach (var p in posts)
                 {
                     object? chiTietObj = null;
@@ -209,7 +254,7 @@ namespace UniMarket.Controllers
                     }
                     catch { }
 
-                    resultList.Add(new
+                    resultListSql.Add(new
                     {
                         p.MaTinDang,
                         p.TieuDe,
@@ -221,7 +266,7 @@ namespace UniMarket.Controllers
                         p.MaTinhThanh,
                         p.MaQuanHuyen,
                         p.NgayDang,
-                        p.VideoUrl, // Trường này quan trọng cho Video Carousel
+                        p.VideoUrl,
                         ChiTietObj = chiTietObj,
                         Images = p.AnhTinDangs.OrderBy(a => a.Order).Select(a => a.DuongDan.StartsWith("http") ? a.DuongDan : $"/images/Posts/{a.DuongDan}"),
                         NguoiBan = p.NguoiBan.FullName,
@@ -233,16 +278,15 @@ namespace UniMarket.Controllers
                     });
                 }
 
-                // 7. Trả về kết quả
                 if (isOldClient)
                 {
-                    return Ok(resultList);
+                    return Ok(resultListSql);
                 }
                 else
                 {
                     return Ok(new
                     {
-                        Data = resultList,
+                        Data = resultListSql,
                         Pagination = new { request.Page, request.Limit, TotalItems = totalItems, TotalPages = totalPages }
                     });
                 }
@@ -927,6 +971,16 @@ namespace UniMarket.Controllers
 
                     await transaction.CommitAsync();
 
+                    // Đồng bộ: Bài viết cập nhật thì quay lại chờ duyệt -> Xóa khỏi Elasticsearch (chỉ hiển thị tin đã duyệt)
+                    try
+                    {
+                        await _elasticSearchService.DeletePostAsync(id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("⚠️ Lỗi đồng bộ xóa bài viết chờ duyệt lại khỏi ES: " + ex.Message);
+                    }
+
                     return Ok(new
                     {
                         message = "Cập nhật thành công",
@@ -1017,6 +1071,7 @@ namespace UniMarket.Controllers
         // =========================================================================
         // 3. HÀM HỖ TRỢ: XÓA ẢNH CLOUDINARY
         // =========================================================================
+        [NonAction]
         public async Task<bool> DeleteCloudinaryPhotoByUrlAsync(string imageUrl)
         {
             if (string.IsNullOrEmpty(imageUrl)) return false;
@@ -1156,6 +1211,16 @@ namespace UniMarket.Controllers
 
                     // Commit Transaction
                     await transaction.CommitAsync();
+
+                    // Xóa khỏi Elasticsearch
+                    try
+                    {
+                        await _elasticSearchService.DeletePostAsync(id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("⚠️ Lỗi xóa tin đăng khỏi ES: " + ex.Message);
+                    }
 
                     return Ok(new { message = "Xóa tin đăng thành công (Đã xóa cả SQL và MongoDB)." });
                 }
@@ -1704,6 +1769,53 @@ namespace UniMarket.Controllers
             {
                 return StatusCode(500, new { message = ex.Message });
             }
+        }
+
+        [NonAction]
+        private static object? FormatChiTietObj(object? obj)
+        {
+            if (obj == null) return null;
+            if (obj is System.Text.Json.JsonElement elem)
+            {
+                switch (elem.ValueKind)
+                {
+                    case System.Text.Json.JsonValueKind.String:
+                        return elem.GetString();
+                    case System.Text.Json.JsonValueKind.Number:
+                        if (elem.TryGetInt64(out long l)) return l;
+                        if (elem.TryGetDouble(out double d)) return d;
+                        return elem.GetRawText();
+                    case System.Text.Json.JsonValueKind.True:
+                        return true;
+                    case System.Text.Json.JsonValueKind.False:
+                        return false;
+                    case System.Text.Json.JsonValueKind.Object:
+                        var dict = new Dictionary<string, object?>();
+                        foreach (var prop in elem.EnumerateObject())
+                        {
+                            var cleaned = FormatChiTietObj(prop.Value);
+                            if (cleaned != null) dict[prop.Name] = cleaned;
+                        }
+                        return dict.Any() ? dict : null;
+                    case System.Text.Json.JsonValueKind.Array:
+                        return elem.EnumerateArray().Select(x => FormatChiTietObj(x)).Where(x => x != null).ToList();
+                    case System.Text.Json.JsonValueKind.Null:
+                    case System.Text.Json.JsonValueKind.Undefined:
+                    default:
+                        return null;
+                }
+            }
+            if (obj is IDictionary<string, object> dictObj)
+            {
+                var cleanedDict = new Dictionary<string, object?>();
+                foreach (var kvp in dictObj)
+                {
+                    var val = FormatChiTietObj(kvp.Value);
+                    if (val != null) cleanedDict[kvp.Key] = val;
+                }
+                return cleanedDict.Any() ? cleanedDict : null;
+            }
+            return obj;
         }
     }
 

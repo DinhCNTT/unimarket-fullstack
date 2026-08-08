@@ -28,21 +28,25 @@
 }
 
 /* --- DÒNG (ROW) --- */
-.itemRow, .itemRowNoHover {
+.itemRow,
+.itemRowNoHover {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
-    border-bottom: 1px solid #f0f0f0; /* Đường kẻ siêu mờ */
+    border-bottom: 1px solid #f0f0f0;
+    /* Đường kẻ siêu mờ */
     background: transparent;
     transition: background-color 0.2s ease;
-    min-height: 55px; /* Chiều cao tối thiểu để không bị giật khi hiện Input */
+    min-height: 55px;
+    /* Chiều cao tối thiểu để không bị giật khi hiện Input */
 }
 
 /* Row có thể click (Số điện thoại, Đổi mật khẩu...) */
 .itemRow {
     cursor: pointer;
 }
+
 .itemRow:hover {
     background-color: #fafafa;
 }
@@ -57,7 +61,8 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    flex: 1; /* Chiếm hết khoảng trống còn lại */
+    flex: 1;
+    /* Chiếm hết khoảng trống còn lại */
     padding-right: 15px;
 }
 
@@ -73,9 +78,11 @@
     color: #757575;
     display: flex;
     align-items: center;
-    flex-wrap: wrap; /* Cho phép xuống dòng nếu màn hình bé */
-    gap: 8px; 
-    min-height: 24px; /* Giữ chiều cao dòng */
+    flex-wrap: wrap;
+    /* Cho phép xuống dòng nếu màn hình bé */
+    gap: 8px;
+    min-height: 24px;
+    /* Giữ chiều cao dòng */
 }
 
 /* --- CỘT PHẢI (Action) --- */
@@ -83,7 +90,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-shrink: 0; /* Không bị co lại */
+    flex-shrink: 0;
+    /* Không bị co lại */
 }
 
 .valueText {
@@ -95,7 +103,8 @@
 .linkText {
     font-size: 15px;
     font-weight: 500;
-    color: #1890ff; /* Màu xanh link */
+    color: #1890ff;
+    /* Màu xanh link */
 }
 
 .arrowIcon {
@@ -185,7 +194,8 @@
 .inlineInput {
     padding: 8px 12px;
     font-size: 15px;
-    border: 1px solid #1890ff; /* Border xanh khi đang sửa */
+    border: 1px solid #1890ff;
+    /* Border xanh khi đang sửa */
     border-radius: 6px;
     width: 260px;
     max-width: 100%;
@@ -206,6 +216,7 @@
     cursor: pointer;
     transition: background 0.2s;
 }
+
 .btnSave:hover {
     background: #40a9ff;
 }
@@ -220,6 +231,7 @@
     cursor: pointer;
     transition: background 0.2s;
 }
+
 .btnCancel:hover {
     background: #e6e6e6;
 }
@@ -229,13 +241,15 @@
    ================================================================= */
 
 .dangerRow {
-    border-bottom: none; /* Bỏ gạch chân dòng cuối */
+    border-bottom: none;
+    /* Bỏ gạch chân dòng cuối */
 }
 
 .dangerText {
     font-size: 15px;
     font-weight: 500;
-    color: #e51c23; /* Đỏ */
+    color: #e51c23;
+    /* Đỏ */
 }
 
 .arrowIconDanger {
@@ -258,13 +272,17 @@
 /* Lớp phủ đen mờ */
 .overlay {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    backdrop-filter: blur(2px); /* Hiệu ứng mờ nền phía sau */
+    backdrop-filter: blur(2px);
+    /* Hiệu ứng mờ nền phía sau */
 }
 
 /* Khung Popup */
@@ -274,7 +292,7 @@
     border-radius: 12px;
     width: 400px;
     max-width: 90vw;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.25s ease-out;
 }
 
@@ -296,7 +314,8 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 15px;
-    box-sizing: border-box; /* Quan trọng: để padding không làm vỡ khung */
+    box-sizing: border-box;
+    /* Quan trọng: để padding không làm vỡ khung */
     transition: border-color 0.2s;
 }
 
@@ -323,6 +342,7 @@
     font-weight: 500;
     cursor: pointer;
 }
+
 .button:hover {
     background: #40a9ff;
 }
@@ -337,12 +357,20 @@
     font-weight: 500;
     cursor: pointer;
 }
+
 .btnSecondary:hover {
     background: #e6e6e6;
 }
 
 /* Animation hiện popup */
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
